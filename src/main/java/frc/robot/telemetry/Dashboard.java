@@ -30,7 +30,7 @@ public class Dashboard {
     //Check each subsystems dashboard values and update them
     private static void updatePutFast() {
         Robot.swerve.dashboard();
-        //Robot.launcher.dashboard();
+        Robot.launcher.dashboard();
         //Robot.intake.dashboard();
         //Robot.indexer.dashboard();
         SmartDashboard.putBoolean("Pressure SW", Robot.compressor.getPressureSwitchValue());

@@ -7,10 +7,10 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
-import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.lib.drivers.LinearServo;
 import frc.lib.util.Logger;
 import frc.lib.util.SpectrumPreferences;
 import frc.robot.constants.Constants;
@@ -22,11 +22,11 @@ public class Launcher extends SubsystemBase {
   public static final String name = Log._launcher;
   public final WPI_TalonFX motorLeft;
   public final WPI_TalonFX motorRight;
-  public final Servo leftHood;
-  public final Servo rightHood;
+  public final LinearServo leftHood;
+  public final LinearServo rightHood;
   public final double closeShoot = 0;
-  public final double intitationLineShot = 0.6;
-  public final double farShot = 1.0;
+  public final double TarmacShot = 30;
+  public final double farShot = 50;
 
   private double kP, kI, kD, kF;
   private int iZone;
@@ -70,17 +70,17 @@ public class Launcher extends SubsystemBase {
     SpectrumPreferences.getNumber("Launcher Setpoint", 1000);
 
 
-    leftHood = new Servo(PWMPorts.kHoodServoLeft);
-    rightHood = new Servo(PWMPorts.kHoodServoRight);
-    leftHood.setBounds(2.0, 1.8, 1.5, 1.2, 1.0);
-    rightHood.setBounds(2.0, 1.8, 1.5, 1.2, 1.0);
-    this.setHood(intitationLineShot);
+    leftHood = new LinearServo(PWMPorts.kHoodServoLeft,50, 25);
+    rightHood = new LinearServo(PWMPorts.kHoodServoRight, 50 , 25);
+    this.setHood(TarmacShot);
 
     this.setDefaultCommand(new RunCommand(() -> stop() , this));
   }
 
   public void periodic() {
     // This method will be called once per scheduler run
+    leftHood.updateCurPos();
+    rightHood.updateCurPos();
   }
 
   public void setManualOutput(double speed){
@@ -116,16 +116,17 @@ public class Launcher extends SubsystemBase {
     setManualOutput(1.0);
   }
 
-  public void setHood(double value){
-    leftHood.set(value);
-    rightHood.set(value);
+  public void setHood(double position){
+    leftHood.setPosition(position);
+    rightHood.setPosition(position);
   }
+
   public void hoodFullFwd(){
-    setHood(1.0);
+    setHood(50);
   }
 
   public void hoodFullRear(){
-    setHood(-1.0);
+    setHood(0);
   }
 
   public void stop(){
@@ -137,6 +138,8 @@ public class Launcher extends SubsystemBase {
   SmartDashboard.putNumber("Launcher/WheelRPM", getWheelRPM());
   SmartDashboard.putNumber("Launcher/OutputPercentage", motorLeft.getMotorOutputPercent());
   SmartDashboard.putNumber("Launcher/LeftCurrent", motorLeft.getSupplyCurrent());
+  SmartDashboard.putNumber("Launcher/LeftHood", leftHood.get());
+  SmartDashboard.putNumber("Launcher/RightHood", rightHood.getSpeed());
   }
 
   public static void printDebug(String msg){

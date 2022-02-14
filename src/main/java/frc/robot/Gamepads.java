@@ -116,10 +116,10 @@ public class Gamepads {
 				.whileHeld(BallPath.setLauncherRPM(4500));
 
 		// Hood
-		operator.Dpad.Up.whenPressed(BallPath.setHood(1.0));
+		operator.Dpad.Up.whenPressed(BallPath.setHood(50));
 		operator.Dpad.Down.whenPressed(BallPath.setHood(0));
-		operator.Dpad.Left.whenPressed(BallPath.setHood(0.33));
-		operator.Dpad.Right.whenPressed(BallPath.setHood(0.66));
+		operator.Dpad.Left.whenPressed(BallPath.setHood(18));
+		operator.Dpad.Right.whenPressed(BallPath.setHood(36));
 
 		// Unjam all the things
 		operator.leftBumper.whileHeld(BallPath.unJamAll());
@@ -137,6 +137,18 @@ public class Gamepads {
 
 	public static double getClimberJoystick(){
 		return operator.leftStick.getY();
+	}
+
+	public static double getDriveY(){
+		return driver.leftStick.getY();
+	}
+
+	public static double getDriveX(){
+		return driver.leftStick.getX();
+	}
+
+	public static double getDriveR(){
+		return driver.triggers.getTwist() * -0.75;
 	}
 
 	public static void printDebug(String msg) {

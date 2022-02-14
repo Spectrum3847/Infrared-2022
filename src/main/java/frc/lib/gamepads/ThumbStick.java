@@ -41,7 +41,7 @@ public class ThumbStick {
 	public double getY() {
 		double value = 0;
 		if (this.controller.isConnected()){
-			value = this.controller.getRawAxis(yAxis.value) * -1;
+			value = this.controller.getRawAxis(yAxis.value);
 			value = expYCurve.calculateMappedVal(value);
 		}
 		return  value;

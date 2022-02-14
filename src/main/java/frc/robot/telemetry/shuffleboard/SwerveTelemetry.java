@@ -42,8 +42,8 @@ public class SwerveTelemetry {
         driveLayout().withPosition(0, 0);
         moduleLayout("Mod 0", 0, m_tab).withPosition(1, 0);
         moduleLayout("Mod 1", 1, m_tab).withPosition(2, 0);
-        moduleLayout("Mod 2", 1, m_tab).withPosition(3, 0);
-        moduleLayout("Mod 4", 1, m_tab).withPosition(4, 0);
+        moduleLayout("Mod 2", 2, m_tab).withPosition(3, 0);
+        moduleLayout("Mod 4", 3, m_tab).withPosition(4, 0);
         
         driveMod0 = new FalconConfigLayout("Drive Mod 0", m_tab, Robot.swerve.mSwerveMods[0].mDriveMotor, 5, 0);
         driveMod0.initialize();
