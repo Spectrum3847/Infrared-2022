@@ -14,18 +14,17 @@ import frc.robot.constants.Constants;
 import frc.robot.constants.Constants.CanIDs;
 import frc.robot.telemetry.Log;
 
-public class Indexer extends SubsystemBase {
-  public static final String name = Log._indexer;
-  public final double feedSpeed = 0.4;
-  public final double intakeSpeed = 1;
+public class Feeder extends SubsystemBase {
+  public static final String name = Log._feeder;
+  public final double feedSpeed = 0.5;
   public final WPI_TalonFX motor;
 
-  /** Creates a new Indexer. */
-  public Indexer() {  
+  /** Creates a new Feeder. */
+  public Feeder() {  
     setName(name);
-    motor = new WPI_TalonFX(CanIDs.kIndexerMotor, Constants.Canivorename);
+    motor = new WPI_TalonFX(CanIDs.kFeederMotor, Constants.Canivorename);
     motor.configFactoryDefault();
-    motor.setInverted(false);
+    motor.setInverted(true);
     SupplyCurrentLimitConfiguration supplyCurrentLimit = new SupplyCurrentLimitConfiguration(true, 40, 45, 0.5);
     motor.configSupplyCurrentLimit(supplyCurrentLimit);
     motor.setNeutralMode(NeutralMode.Coast);
@@ -54,8 +53,8 @@ public class Indexer extends SubsystemBase {
   }
 
   public void dashboard() {
-    SmartDashboard.putNumber("Indexer/Output", motor.getMotorOutputPercent());
-    SmartDashboard.putNumber("Indexer/Current", motor.getSupplyCurrent());
+    SmartDashboard.putNumber("Feeder/Output", motor.getMotorOutputPercent());
+    SmartDashboard.putNumber("Feeder/Current", motor.getSupplyCurrent());
   }
 
   public static void printDebug(String msg){

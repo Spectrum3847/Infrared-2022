@@ -1,6 +1,7 @@
 package frc.robot.subsystems;
 
 import frc.robot.Gamepads;
+import frc.robot.constants.Constants;
 import frc.robot.constants.Constants.CanIDs;
 import frc.robot.telemetry.Log;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -17,7 +18,7 @@ public class Climber extends SubsystemBase{
 
     public Climber(){
         setName(name);
-        motor = new WPI_TalonFX(CanIDs.kClimberMotor);
+        motor = new WPI_TalonFX(CanIDs.kClimberMotor1, Constants.Canivorename);
         TalonFXSetup.defaultSetup(motor, false, 40);
         
         

@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.lib.util.Logger;
 import frc.lib.util.SpectrumPreferences;
+import frc.robot.constants.Constants;
 import frc.robot.constants.Constants.CanIDs;
 import frc.robot.constants.Constants.PWMPorts;
 import frc.robot.telemetry.Log;
@@ -44,7 +45,8 @@ public class Launcher extends SubsystemBase {
     iZone = (int) SpectrumPreferences.getNumber("Launcher I-Zone", 150);
 
     
-    motorLeft = new WPI_TalonFX(CanIDs.kLauncherMotorLeft);
+    motorLeft = new WPI_TalonFX(CanIDs.kLauncherMotorLeft, Constants.Canivorename);
+    motorLeft.configFactoryDefault();
     motorLeft.setInverted(true);
     SupplyCurrentLimitConfiguration supplyCurrentLimit = new SupplyCurrentLimitConfiguration(true, 40, 45, 0.5);
     motorLeft.configSupplyCurrentLimit(supplyCurrentLimit);
@@ -55,11 +57,11 @@ public class Launcher extends SubsystemBase {
     motorLeft.config_kD(0, kD);  
     motorLeft.config_kF(0, kF);  
     motorLeft.config_IntegralZone(0, iZone);
-    //motorLeft.setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 10);
 
     motorLeft.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
 
-    motorRight = new WPI_TalonFX(CanIDs.kFollowerMotorRight);
+    motorRight = new WPI_TalonFX(CanIDs.kFollowerMotorRight, Constants.Canivorename);
+    motorRight.configFactoryDefault();
     motorRight.setInverted(false);   //should be inverse of motorLeft
     motorRight.configSupplyCurrentLimit(supplyCurrentLimit);
     motorRight.follow(motorLeft);

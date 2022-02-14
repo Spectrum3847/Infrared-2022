@@ -107,16 +107,13 @@ public class Gamepads {
 		// Indexer
 		operator.selectButton.whileHeld(BallPath.feed());
 
-		// Tower
-		operator.startButton.whileHeld(BallPath.runTower(0.5));
-
 		// Trench
 		new AndButton(operator.rightTriggerButton, operator.bButton)
-				.whileHeld(BallPath.setRPMs(5000, 1700));
+				.whileHeld(BallPath.setLauncherRPM(5000));
 
 		// Intiantion line
 		new AndButton(operator.rightTriggerButton, operator.xButton)
-				.whileHeld(BallPath.setRPMs(4500, 1700));
+				.whileHeld(BallPath.setLauncherRPM(4500));
 
 		// Hood
 		operator.Dpad.Up.whenPressed(BallPath.setHood(1.0));

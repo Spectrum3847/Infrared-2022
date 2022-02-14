@@ -17,6 +17,7 @@ public class Log extends Logger{
   public static final String _auton = "AUTON";
   public static final String _drive = "DRIVE";
   public static final String _indexer = "INDEXER";
+  public static final String _feeder = "FEEDER";
   public static final String _intake = "INTAKE";
   public static final String _launcher = "LAUNCHER";
   public static final String _tower = "TOWER";

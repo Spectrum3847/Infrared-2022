@@ -4,6 +4,7 @@ package frc.robot.constants;
 public final class Constants {
     public static int CANconfigTimeOut = 0;
     public static final int minBatteryVoltage = 12;
+    public static String Canivorename = "3847";
 
     public static final class CanIDs{
 
@@ -20,17 +21,18 @@ public final class Constants {
 
         public static final int kIntakeMotor = 40;
         public static final int kIndexerMotor = 41;
-        public static final int kTowerMotorFront = 42;
-        public static final int kTowerMotorRear = 43;
+        public static final int kFeederMotor = 42;
         
         public static final int kLauncherMotorLeft = 50;
         public static final int kFollowerMotorRight = 51;
 
-        public static final int kClimberMotor = 60;
+        public static final int kClimberMotor1 = 60;
+        public static final int kClimberMotor2 = 61;
     }
 
     public static final class SolenoidPorts{
-        public static final int kIntakeDown = 7;
+        public static final int kIntakeDown = 4;
+        public static final int kclimberUp = 0;
     }
 
     public static final class PWMPorts{   

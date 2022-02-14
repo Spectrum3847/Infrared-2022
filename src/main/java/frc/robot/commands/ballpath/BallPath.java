@@ -7,11 +7,12 @@ import frc.robot.Robot;
 public class BallPath {
     
     public static Command feed(){
-        return new FeedBalls().alongWith(runIntake(0.3));
+        return new FeedBalls();
     }
 
     public static Command intakeBalls(){
-        return runIntake(Robot.intake.intakeSpeed).alongWith(intakeDown());
+        return runIntake(Robot.intake.intakeSpeed).alongWith(intakeDown()
+            .alongWith(runIndexer(Robot.indexer.feedSpeed).alongWith(runFeeder(0.1))));
     }
 
     //Deploy Intake
@@ -29,29 +30,19 @@ public class BallPath {
         return new RunCommand(() -> Robot.indexer.setMotorOutput(speed), Robot.indexer);
     }
 
+    //Run feeder
+    public static Command runFeeder(double speed){
+        return new RunCommand(() -> Robot.feeder.setMotorOutput(speed), Robot.feeder);
+    }
+
     //Run launcher motor
     public static Command runLauncher(double speed){
         return new RunCommand(() -> Robot.launcher.setManualOutput(speed), Robot.launcher);
     }
 
-    //Run tower motor
-    public static Command runTower(double speed){
-        return new RunCommand(() -> Robot.tower.setManualOutput(speed), Robot.tower);
-    }
-
     //Set Launcher RPM
     public static Command setLauncherRPM(double speed){
         return new RunCommand(() -> Robot.launcher.setRPM(speed), Robot.launcher);
-    }
-
-    //Set Tower RPM
-    public static Command setTowerRPM(double speed){
-        return new RunCommand(() -> Robot.tower.setRPM(speed), Robot.tower);
-    }
-
-    //Set Both launcher and tower RPMs
-    public static Command setRPMs(double launcherRPM, double towerRPM){
-        return setLauncherRPM(launcherRPM).alongWith(setTowerRPM(towerRPM));
     }
 
     public static Command setHood(double position){
@@ -60,7 +51,6 @@ public class BallPath {
 
     public static Command unJamAll(){
         return runIntake(-0.5).alongWith(runIndexer(-Robot.indexer.feedSpeed))
-            .alongWith(runTower(-0.3)).alongWith(runLauncher(-0.5)
-            .alongWith(intakeDown()));
+            .alongWith(runFeeder(-Robot.indexer.feedSpeed)).alongWith(runLauncher(-0.2));
     }
 }

@@ -13,14 +13,13 @@ public class ShooterVel extends CommandBase {
   public ShooterVel(double rpm) {
     // Use addRequirements() here to declare subsystem dependencies.
     _rpm = rpm;
-    addRequirements(Robot.launcher, Robot.tower);
+    addRequirements(Robot.launcher);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
     Robot.launcher.setRPM(_rpm);
-    Robot.tower.setRPM(Robot.tower.towerRPM);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -32,7 +31,6 @@ public class ShooterVel extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     Robot.launcher.stop();
-    Robot.tower.stop();
   }
 
   // Returns true when the command should end.

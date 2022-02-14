@@ -15,7 +15,7 @@ public class Dashboard {
 	
 	public static final boolean ENABLE_DASHBOARD = true;
 	
-	static final double FAST_DELAY = .02;
+	static final double FAST_DELAY = .04;
     static final double SLOW_DELAY = .5;
 
     //Put values that you want to use as use inputs here and set their default state
@@ -30,10 +30,9 @@ public class Dashboard {
     //Check each subsystems dashboard values and update them
     private static void updatePutFast() {
         Robot.swerve.dashboard();
-        Robot.launcher.dashboard();
-        Robot.tower.dashboard();
-        Robot.intake.dashboard();
-        Robot.indexer.dashboard();
+        //Robot.launcher.dashboard();
+        //Robot.intake.dashboard();
+        //Robot.indexer.dashboard();
         SmartDashboard.putBoolean("Pressure SW", Robot.compressor.getPressureSwitchValue());
     }
 
@@ -51,13 +50,23 @@ public class Dashboard {
     private static class dashboardFastThread implements Runnable {    
 		@Override
 		public void run() {
-			updatePutFast();
+            try {
+                Thread.sleep(50);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            updatePutFast();
 		}
 	}
 
     private static class dashboardSlowThread implements Runnable {    
 		@Override
 		public void run() {
+            try {
+                Thread.sleep(50);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
 			updatePutSlow();
 		}
 	}

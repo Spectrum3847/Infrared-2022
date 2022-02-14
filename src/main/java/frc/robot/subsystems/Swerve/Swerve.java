@@ -5,6 +5,7 @@
 
 package frc.robot.subsystems.Swerve;
 
+import com.ctre.phoenix.sensors.Pigeon2;
 import com.ctre.phoenix.sensors.PigeonIMU;
 
 import frc.lib.util.Logger;
@@ -31,7 +32,7 @@ public class Swerve extends SubsystemBase {
     public static final String name = Log._drive;
     public SwerveDriveOdometry swerveOdometry;
     public SwerveModule[] mSwerveMods;
-    public PigeonIMU gyro;
+    public Pigeon2 gyro;
     public double pidTurn = 0;
     public boolean limelightAim = false;
     public double drive_x = 0;
@@ -46,7 +47,7 @@ public class Swerve extends SubsystemBase {
 
     public Swerve() {
         setName(name);
-        gyro = new PigeonIMU(CanIDs.pigeonID);
+        gyro = new Pigeon2(CanIDs.pigeonID);
         gyro.configFactoryDefault();
         zeroGyro();
         

@@ -4,10 +4,12 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.lib.drivers.SpectrumSolenoid;
 import frc.lib.util.TalonFXSetup;
+import frc.robot.constants.Constants;
 import frc.robot.constants.Constants.CanIDs;
 import frc.robot.constants.Constants.SolenoidPorts;
 import frc.robot.telemetry.Log;
@@ -24,7 +26,7 @@ public class Intake extends SubsystemBase{
   /** Creates a new Intake. */
   public Intake() {  
     setName(name);
-    motor = new WPI_TalonFX(CanIDs.kIntakeMotor);
+    motor = new WPI_TalonFX(CanIDs.kIntakeMotor , Constants.Canivorename);
     TalonFXSetup.defaultSetup(motor, false, 40);
     sol = new solenoid();
 
@@ -72,7 +74,7 @@ public class Intake extends SubsystemBase{
 
     public solenoid(){
       setName(name + " solenoid");
-      solDown = new SpectrumSolenoid(SolenoidPorts.kIntakeDown);
+      solDown = new SpectrumSolenoid(PneumaticsModuleType.REVPH, SolenoidPorts.kIntakeDown);
 
       this.setDefaultCommand(new RunCommand(() -> up(), this));
     }
