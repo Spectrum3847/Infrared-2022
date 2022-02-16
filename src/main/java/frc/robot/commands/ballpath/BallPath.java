@@ -12,7 +12,7 @@ public class BallPath {
 
     public static Command intakeBalls(){
         return runIntake(Robot.intake.intakeSpeed).alongWith(intakeDown()
-            .alongWith(runIndexer(Robot.indexer.feedSpeed).alongWith(runFeeder(0.1))));
+            .alongWith(runIndexer(Robot.indexer.feedSpeed)));
     }
 
     //Deploy Intake
@@ -49,6 +49,10 @@ public class BallPath {
         return new RunCommand(() -> Robot.launcher.setHood(position));
     }
 
+    public static Command eject(){
+        return runIntake(1.0).alongWith(runIndexer(-1.0).alongWith(runFeeder(-1.0).alongWith(intakeDown())));
+    }
+    
     public static Command unJamAll(){
         return runIntake(-0.5).alongWith(runIndexer(-Robot.indexer.feedSpeed))
             .alongWith(runFeeder(-Robot.indexer.feedSpeed)).alongWith(runLauncher(-0.2));

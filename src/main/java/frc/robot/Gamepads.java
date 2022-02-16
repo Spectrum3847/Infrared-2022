@@ -109,7 +109,7 @@ public class Gamepads {
 
 		// Trench
 		new AndButton(operator.rightTriggerButton, operator.bButton)
-				.whileHeld(BallPath.setLauncherRPM(5000));
+				.whileHeld(BallPath.setLauncherRPM(3500));
 
 		// Intiantion line
 		new AndButton(operator.rightTriggerButton, operator.xButton)
@@ -121,6 +121,8 @@ public class Gamepads {
 		operator.Dpad.Left.whenPressed(BallPath.setHood(18));
 		operator.Dpad.Right.whenPressed(BallPath.setHood(36));
 
+		//Eject
+		operator.aButton.whileHeld(BallPath.eject());
 		// Unjam all the things
 		operator.leftBumper.whileHeld(BallPath.unJamAll());
 	}
@@ -140,11 +142,11 @@ public class Gamepads {
 	}
 
 	public static double getDriveY(){
-		return driver.leftStick.getY();
+		return driver.leftStick.getY() * -1;
 	}
 
 	public static double getDriveX(){
-		return driver.leftStick.getX();
+		return driver.leftStick.getX() *  -1;
 	}
 
 	public static double getDriveR(){

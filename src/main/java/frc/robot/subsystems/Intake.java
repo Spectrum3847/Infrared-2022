@@ -17,7 +17,7 @@ import frc.robot.telemetry.Log;
 public class Intake extends SubsystemBase{
   public static final String name = Log._intake;
 
-  public final double intakeSpeed = 0.75;
+  public final double intakeSpeed = 1.0;
 
   public final WPI_TalonFX motor;
   public final solenoid sol;
