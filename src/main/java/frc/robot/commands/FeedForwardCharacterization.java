@@ -13,7 +13,7 @@ import java.util.function.Supplier;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.Subsystem;
-import frc.robot.util.PolynomialRegression;
+import frc.lib.util.PolynomialRegression;
 
 public class FeedForwardCharacterization extends CommandBase {
   private static final double startDelaySecs = 2.0;

@@ -1,7 +1,7 @@
-package frc.robot.util;
+package frc.lib.util;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.Constants;
+import frc.robot.constants.Constants;
 
 /**
  * Class for a tunable number. Gets value from dashboard in tuning mode, returns default if not or

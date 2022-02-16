@@ -1,7 +1,63 @@
 //Created by Spectrum3847
 package frc.robot.constants;
 
+import java.util.Map;
+
+import edu.wpi.first.wpilibj.RobotBase;
+import frc.lib.util.Alert;
+import frc.lib.util.Alert.AlertType;
+
 public final class Constants {
+    private static final RobotType robot = RobotType.ROBOT_2022C;
+    public static final boolean tuningMode = false;
+    
+    public static final double loopPeriodSecs = 0.02;
+
+    private static final Alert invalidRobotAlert =
+    new Alert("Invalid robot selected, using competition robot as default.",
+        AlertType.ERROR);
+        
+    public static final Map<RobotType, String> logFolders =
+    Map.of(RobotType.ROBOT_2022C, "/media/sda2/", RobotType.ROBOT_2022P,
+        "/media/sda1/");
+
+    public static enum RobotType {
+    ROBOT_2022C, ROBOT_2022P, ROBOT_SIMBOT, ROBOT_ROMI
+    }
+
+    public static enum Mode {
+    REAL, REPLAY, SIM
+    }
+
+    public static RobotType getRobot() {
+        if (RobotBase.isReal()) {
+          if (robot == RobotType.ROBOT_SIMBOT || robot == RobotType.ROBOT_ROMI) { // Invalid robot
+                                                                                  // selected
+            invalidRobotAlert.set(true);
+            return RobotType.ROBOT_2022C;
+          } else {
+            return robot;
+          }
+        } else {
+          return robot;
+        }
+      }
+    
+      public static Mode getMode() {
+        switch (getRobot()) {
+          case ROBOT_2022C:
+          case ROBOT_2022P:
+            return RobotBase.isReal() ? Mode.REAL : Mode.REPLAY;
+    
+          case ROBOT_SIMBOT:
+          case ROBOT_ROMI:
+            return Mode.SIM;
+    
+          default:
+            return Mode.REAL;
+        }
+      }
+
     public static int CANconfigTimeOut = 0;
     public static final int minBatteryVoltage = 12;
     public static String Canivorename = "3847";
