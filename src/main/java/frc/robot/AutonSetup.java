@@ -1,7 +1,8 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.commands.auto.TestPathPlanner;
+import frc.robot.commands.FeedForwardCharacterization;
+import frc.robot.commands.FeedForwardCharacterization.FeedForwardCharacterizationData;
 
 public class AutonSetup {
 
@@ -12,6 +13,12 @@ public class AutonSetup {
    */
   public static Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return new TestPathPlanner();
+    FeedForwardCharacterizationData launcherData =
+        new FeedForwardCharacterizationData("Launcher");
+
+
+      return new FeedForwardCharacterization(Robot.launcher, true, launcherData,
+                volts -> Robot.launcher.setVoltage(volts),
+                Robot.launcher::getCharacterizationVelocity);
   }
 }

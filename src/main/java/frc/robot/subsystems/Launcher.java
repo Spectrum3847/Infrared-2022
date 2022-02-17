@@ -91,6 +91,13 @@ public class Launcher extends SubsystemBase {
     motorLeft.set(ControlMode.Velocity, velocity);
   }
 
+  public void setVoltage(double voltage){
+    motorLeft.setVoltage(voltage);
+  }
+
+  public double getCharacterizationVelocity(){
+    return (((motorLeft.getSelectedSensorVelocity()) / 2048) * 10) * 2 * Math.PI;
+  }
   public void DashboardVelocity(){
     //4096 sensor units per rev
     //velocity is in sensor units per 100ms (0.1 secs)
@@ -110,7 +117,7 @@ public class Launcher extends SubsystemBase {
   }
 
   public double getWheelRPM() {
-    return (motorLeft.getSelectedSensorVelocity() * 1.75) / 2048 * 600;
+    return (motorLeft.getSelectedSensorVelocity()) / 2048 * 600;
   }
   public void full(){
     setManualOutput(1.0);

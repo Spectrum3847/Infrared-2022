@@ -71,8 +71,8 @@ public class Robot extends TimedRobot {
     @Override
     public void robotInit() {
         printNormal("Start robotInit()");
-        Dashboard.intializeDashboard();
-        shuffleboardTabs.initialize();
+        //Dashboard.intializeDashboard();
+        //shuffleboardTabs.initialize();
         Gamepads.resetConfig(); // Reset Gamepad Configs
         Log.initLog(); // Config the Debugger based on FMS state
         compressor.enableDigital();
