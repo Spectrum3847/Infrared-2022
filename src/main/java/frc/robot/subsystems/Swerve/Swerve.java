@@ -8,6 +8,7 @@ package frc.robot.subsystems.Swerve;
 import com.ctre.phoenix.sensors.Pigeon2;
 import com.ctre.phoenix.sensors.PigeonIMU;
 
+import frc.lib.math.Conversions;
 import frc.lib.util.Logger;
 import frc.lib.util.SpectrumPreferences;
 import frc.robot.commands.swerve.TeleopSwerve;
@@ -178,6 +179,34 @@ public class Swerve extends SubsystemBase {
         SmartDashboard.putNumber("Swerve/Drive pX", this.getPose().getX());
 
         SmartDashboard.putData("Field", m_field);
+    }
+
+    //Characterization methods
+    public double getLeftPositionMeters(){
+        return Conversions.FalconToMeters(mSwerveMods[0].mDriveMotor.getSelectedSensorPosition(),
+                SwerveConstants.wheelCircumference, SwerveConstants.driveGearRatio);
+    }
+
+    public double getRightPositionMeters(){
+        return Conversions.FalconToMeters(mSwerveMods[1].mDriveMotor.getSelectedSensorPosition(),
+                SwerveConstants.wheelCircumference, SwerveConstants.driveGearRatio);
+    }
+
+    public double getLeftMetersPerSec(){
+        return Conversions.falconToMPS(mSwerveMods[0].mDriveMotor.getSelectedSensorVelocity()
+        , SwerveConstants.wheelCircumference, SwerveConstants.driveGearRatio);
+    }
+
+    public double getRightMetersPerSec(){
+        return Conversions.falconToMPS(mSwerveMods[1].mDriveMotor.getSelectedSensorVelocity()
+        , SwerveConstants.wheelCircumference, SwerveConstants.driveGearRatio);
+    }
+
+    public void tankDriveVolts(double leftVolts, double rightVolts){
+        mSwerveMods[0].mDriveMotor.setVoltage(leftVolts);
+        mSwerveMods[2].mDriveMotor.setVoltage(leftVolts);
+        mSwerveMods[1].mDriveMotor.setVoltage(rightVolts);
+        mSwerveMods[3].mDriveMotor.setVoltage(rightVolts);
     }
 
     public static void printDebug(String msg){

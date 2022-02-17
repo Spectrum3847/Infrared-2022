@@ -1,4 +1,4 @@
-package frc;
+package frc.lib.sysid;
 
 import java.util.ArrayList;
 

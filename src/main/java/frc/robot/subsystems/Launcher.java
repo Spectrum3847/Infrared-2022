@@ -95,9 +95,16 @@ public class Launcher extends SubsystemBase {
     motorLeft.setVoltage(voltage);
   }
 
+  //Return Radians per sec velocity
   public double getCharacterizationVelocity(){
     return (((motorLeft.getSelectedSensorVelocity()) / 2048) * 10) * 2 * Math.PI;
   }
+
+  //Return Rotations per sec velocity
+  public double getRotationPerSec(){
+    return (motorLeft.getSelectedSensorVelocity() / 2048) * 10;
+  }
+
   public void DashboardVelocity(){
     //4096 sensor units per rev
     //velocity is in sensor units per 100ms (0.1 secs)

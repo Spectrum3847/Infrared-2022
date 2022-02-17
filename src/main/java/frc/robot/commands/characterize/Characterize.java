@@ -1,20 +1,20 @@
-package frc4061.robot.commands;
+package frc.robot.commands.characterize;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc4061.robot.subsystems.Drivebase;
-import frc.SysIdDrivetrainLogger;
+import frc.lib.sysid.SysIdDrivetrainLogger;
+import frc.robot.subsystems.Swerve.Swerve;
 
 public class Characterize extends CommandBase {
-    private final Drivebase m_drivebase;
+    private final Swerve m_swerve;
     private SysIdDrivetrainLogger m_logger;   
     private Double m_prevAngle = 0.0;
     private Double m_prevTime = 0.0;
     private boolean m_resetComplete;
-    public Characterize(Drivebase subsystem) {
+    public Characterize(Swerve subsystem) {
 
-        m_drivebase = subsystem;
-        addRequirements(m_drivebase);   
+        m_swerve = subsystem;
+        addRequirements(m_swerve);   
     }
 
     // Called when the command is initially scheduled.
@@ -22,10 +22,10 @@ public class Characterize extends CommandBase {
     public void initialize() {
         // reset gyro and encoders
         // set timeperiod to .005
-        m_drivebase.m_drive.setDeadband(0.0);
+        //m_swerve.m_drive.setDeadband(0.0);
         // The following is called for the side-effect of resetting the 
         // drivebase odometers.
-        m_drivebase.resetOdometry(m_drivebase.m_odometry.getPoseMeters()); 
+        m_swerve.resetOdometry(m_swerve.getPose()); 
         m_logger = new SysIdDrivetrainLogger();
         m_logger.updateThreadPriority();
         m_logger.initLogging();
@@ -35,11 +35,11 @@ public class Characterize extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        double leftPosition = m_drivebase.getLeftEncoderMeters();
-        double leftRate = m_drivebase.getLeftEncoderMetersPerSec();
-        double rightPosition = m_drivebase.getRightEncoderMeters();
-        double rightRate = m_drivebase.getRightEncoderMetersPerSec();
-        double angularPosition = -Math.toRadians(m_drivebase.m_navX.getAngle());
+        double leftPosition = m_swerve.getLeftPositionMeters();
+        double leftRate = m_swerve.getLeftMetersPerSec();
+        double rightPosition = m_swerve.getRightPositionMeters();
+        double rightRate = m_swerve.getRightMetersPerSec();
+        double angularPosition = m_swerve.getRadians();
         double deltaAngle = angularPosition - m_prevAngle;
         double now = Timer.getFPGATimestamp();
         double deltaTime = now - m_prevTime;
@@ -55,7 +55,7 @@ public class Characterize extends CommandBase {
         }
         m_logger.log(leftPosition, rightPosition, leftRate, 
                    rightRate, angularPosition, angularRate);
-        m_drivebase.tankDriveVolts(m_logger.getLeftMotorVoltage(), 
+        m_swerve.tankDriveVolts(m_logger.getLeftMotorVoltage(), 
                                m_logger.getRightMotorVoltage());
     }
 
@@ -63,7 +63,7 @@ public class Characterize extends CommandBase {
     @Override
     public void end(boolean interrupted) {
         System.out.println("Characterization done; disabled");
-        m_drivebase.tankDrive(0, 0);
+        m_swerve.tankDriveVolts(0, 0);
         m_logger.sendData();
     }
 

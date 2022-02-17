@@ -1,4 +1,4 @@
-package frc;
+package frc.lib.sysid;
 
 public class SysIdGeneralMechanismLogger extends SysIdLogger{
     public double m_primaryMotorVoltage;

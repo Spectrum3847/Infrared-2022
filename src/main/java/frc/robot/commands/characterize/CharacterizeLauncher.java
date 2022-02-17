@@ -1,21 +1,16 @@
-package frc4061.robot.commands;
+package frc.robot.commands.characterize;
 
-import edu.wpi.first.math.Pair;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc4061.robot.subsystems.Shooter;
-import frc.SysIdGeneralMechanismLogger;
+import frc.lib.sysid.SysIdGeneralMechanismLogger;
+import frc.robot.subsystems.Launcher;
 
-public class CharacterizeShooter extends CommandBase {
-    private final Shooter m_shooter;
+public class CharacterizeLauncher extends CommandBase {
+    private final Launcher m_launcher;
     private SysIdGeneralMechanismLogger m_logger;
-    public enum Side { kLEFT, kRIGHT };
-    private final Side m_side;
      
-    public CharacterizeShooter(Shooter shooter, Side side) {
-
-        m_shooter = shooter;
-        m_side = side;
-        addRequirements(m_shooter);
+    public CharacterizeLauncher(Launcher launcher) {
+        m_launcher = launcher;
+        addRequirements(m_launcher);
     }
 
     // Called when the command is initially scheduled.
@@ -29,21 +24,16 @@ public class CharacterizeShooter extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        Pair<Double,Double> speeds = m_shooter.getSpeeds();
-        if (m_side==Side.kLEFT) {
-            m_logger.log(0.0, speeds.getFirst());
-            m_shooter.setMotorOutputs(m_logger.getMotorVoltage(), 0.0);
-        } else {
-            m_logger.log(0.0, speeds.getSecond());
-            m_shooter.setMotorOutputs(0.0, m_logger.getMotorVoltage());
-        }
+        double speeds = m_launcher.getRotationPerSec();
+            m_logger.log(0.0, speeds);
+            m_launcher.setVoltage(m_logger.getMotorVoltage());
     }
 
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        System.out.println("Shooter characterization done; disabled");
-        m_shooter.stopShooter();
+        System.out.println("Launcher characterization done; disabled");
+        m_launcher.stop();
         m_logger.sendData();
     }
 
