@@ -6,6 +6,7 @@ package frc.lib.util;
 
 import frc.robot.constants.Constants;
 
+//Based on FRC#6328 software
 /** Ramps up and down to setpoint for velocity closed loop control */
 public class VelocityProfiler {
   private double currentSetpoint = 0;

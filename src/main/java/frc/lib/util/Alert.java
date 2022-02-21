@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+//Based on FRC#6328 software
 /** Class for managing persistent alerts to be sent over NetworkTables. */
 public class Alert {
   private static Map<String, SendableAlerts> groups =
