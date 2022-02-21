@@ -1,8 +1,6 @@
 //Created by Spectrum3847
 package frc.robot;
 
-import edu.wpi.first.wpilibj.Compressor;
-import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
@@ -16,6 +14,7 @@ import frc.robot.subsystems.Feeder;
 import frc.robot.subsystems.Indexer;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Launcher;
+import frc.robot.subsystems.Pneumatics;
 import frc.robot.subsystems.VisionLL;
 import frc.robot.subsystems.Swerve.Swerve;
 import frc.robot.telemetry.Dashboard;
@@ -37,9 +36,9 @@ public class Robot extends TimedRobot {
     public static final Indexer indexer = new Indexer();
     public static final Feeder feeder = new Feeder();
     public static final Launcher launcher = new Launcher();
-    //public static final Climber climber = new Climber();
+    public static final Climber climber = new Climber();
     public static final VisionLL visionLL = new VisionLL();
-    public static final Compressor compressor = new Compressor(PneumaticsModuleType.REVPH);
+    public static final Pneumatics pneumatics = new Pneumatics();
     public static PowerDistribution pdp = new PowerDistribution(1, ModuleType.kRev);
     public static SpectrumPreferences prefs = SpectrumPreferences.getInstance();
     public static final ShuffleboardTabs shuffleboardTabs = new ShuffleboardTabs();
@@ -71,12 +70,11 @@ public class Robot extends TimedRobot {
     @Override
     public void robotInit() {
         printNormal("Start robotInit()");
-        //Dashboard.intializeDashboard();
-        //shuffleboardTabs.initialize();
+        Dashboard.intializeDashboard();
+        shuffleboardTabs.initialize();
         Gamepads.resetConfig(); // Reset Gamepad Configs
         Log.initLog(); // Config the Debugger based on FMS state
-        compressor.enableDigital();
-        //visionLL.forwardLimeLightPorts();
+        visionLL.forwardLimeLightPorts();
         printNormal("End robotInit()");
     }
 

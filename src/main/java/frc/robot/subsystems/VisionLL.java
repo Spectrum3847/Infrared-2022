@@ -30,13 +30,13 @@ public class VisionLL extends SubsystemBase {
         setName(name);
         limelight = new LimeLight();
         limeLightLEDOn();
+        forwardLimeLightPorts();
     }
 
     public void forwardLimeLightPorts() {
         // Forward the Limelight Ports
         PortForwarder.add(5800, "10.85.15.22", 5800);
         PortForwarder.add(5801, "10.85.15.22", 5801);
-
     }
 
     @Override
@@ -47,7 +47,7 @@ public class VisionLL extends SubsystemBase {
         if (Robot.s_robot_state == RobotState.DISABLED && !SmartDashboard.getBoolean("Limelight-LED Toggle", false)
                 && !DriverStation.isFMSAttached()) {
             if (LEDState == true) {
-                // limeLightLEDOff();
+                limeLightLEDOff();
                 LEDState = false;
             }
         } else {
@@ -59,8 +59,6 @@ public class VisionLL extends SubsystemBase {
 
         TargetAngle = limelight.getdegVerticalToTarget();
         Distance = ((TargetHeight - LLHeight) / Math.tan(Math.toRadians(LLAngle + TargetAngle)));
-        SmartDashboard.putNumber("LL/LLDistance", Distance);
-        SmartDashboard.putNumber("LL/Distance", getActualDistance());
     }
 
     public double getLLDistance() {
@@ -114,6 +112,11 @@ public class VisionLL extends SubsystemBase {
 
     public void setLimeLightPipeline(int i) {
         setLimeLightPipeline(i);
+    }
+
+    public void dashboard() {
+        SmartDashboard.putNumber("LL/LLDistance", Distance);
+        SmartDashboard.putNumber("LL/Distance", getActualDistance());
     }
 
     public static void printDebug(String msg) {
