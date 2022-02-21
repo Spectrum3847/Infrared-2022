@@ -32,12 +32,16 @@ public class TeleopSwerve extends CommandBase {
 
     @Override
     public void execute() {
-        double yAxis = Gamepads.getDriveY();
-        double xAxis = Gamepads.getDriveX();
-        double rAxis = Gamepads.getDriveR();
-        
-        translation = new Translation2d(yAxis, xAxis).times(SwerveConstants.maxSpeed);
-        rotation = rAxis * SwerveConstants.maxAngularVelocity;
-        s_Swerve.drive(translation, rotation, fieldRelative, openLoop);
+        if (Gamepads.driverConfigured){
+            double yAxis = Gamepads.getDriveY();
+            double xAxis = Gamepads.getDriveX();
+            double rAxis = Gamepads.getDriveR();
+            
+            translation = new Translation2d(yAxis, xAxis).times(SwerveConstants.maxSpeed);
+            rotation = rAxis * SwerveConstants.maxAngularVelocity;
+            s_Swerve.drive(translation, rotation, fieldRelative, openLoop);
+        } else {
+            s_Swerve.stop();
+        }
     }
 }

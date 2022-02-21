@@ -104,22 +104,24 @@ public class Gamepads {
 		// Intake
 		operator.leftTriggerButton.whileHeld(BallPath.intakeBalls());
 
-		// Indexer
+		//Feeder
 		operator.selectButton.whileHeld(BallPath.feed());
 
-		// Trench
+		// Tarmac
 		new AndButton(operator.rightTriggerButton, operator.bButton)
-				.whileHeld(BallPath.setLauncherRPM(3500));
+				.whileHeld(BallPath.setLauncherRPM(2000));
 
-		// Intiantion line
+		// Fender
 		new AndButton(operator.rightTriggerButton, operator.xButton)
-				.whileHeld(BallPath.setLauncherRPM(4500));
+				.whileHeld(BallPath.setLauncherRPM(3000));
+
+		operator.yButton.whileHeld(BallPath.runLauncherVoltage(6.0));
 
 		// Hood
 		operator.Dpad.Up.whenPressed(BallPath.setHood(50));
 		operator.Dpad.Down.whenPressed(BallPath.setHood(0));
-		operator.Dpad.Left.whenPressed(BallPath.setHood(18));
-		operator.Dpad.Right.whenPressed(BallPath.setHood(36));
+		//operator.Dpad.Left.whenPressed(BallPath.setHood(18));
+		//operator.Dpad.Right.whenPressed(BallPath.setHood(36));
 
 		//Eject
 		operator.aButton.whileHeld(BallPath.eject());
