@@ -22,8 +22,7 @@ public class Launcher extends SubsystemBase {
   public static final String name = Log._launcher;
   public final WPI_TalonFX motorLeft;
   public final WPI_TalonFX motorRight;
-  public final LinearServo leftHood;
-  public final LinearServo rightHood;
+  public final ServoHood hood;
   public final double closeShoot = 0;
   public final double TarmacShot = 30;
   public final double farShot = 50;
@@ -41,7 +40,7 @@ public class Launcher extends SubsystemBase {
     kP = SpectrumPreferences.getNumber("Launcher kP", 0.0465);
     kI = SpectrumPreferences.getNumber("Launcher kI", 0.0005);
     kD = SpectrumPreferences.getNumber("Launcher kD", 0.0);
-    kF = SpectrumPreferences.getNumber("Launcher kF", 0.048);
+    kF = SpectrumPreferences.getNumber("Launcher kF", 0.051); //0.048
     iZone = (int) SpectrumPreferences.getNumber("Launcher I-Zone", 150);
 
     
@@ -69,25 +68,16 @@ public class Launcher extends SubsystemBase {
 
     SpectrumPreferences.getNumber("Launcher Setpoint", 1000);
 
-
-    leftHood = new LinearServo(PWMPorts.kHoodServoLeft,50, 25);
-    rightHood = new LinearServo(PWMPorts.kHoodServoRight, 50 , 25);
-    this.setHood(TarmacShot);
+    hood = new ServoHood();
 
     this.setDefaultCommand(new RunCommand(() -> stop() , this));
-  }
-
-  public void periodic() {
-    // This method will be called once per scheduler run
-    leftHood.updateCurPos();
-    rightHood.updateCurPos();
   }
 
   public void setManualOutput(double speed){
     motorLeft.set(ControlMode.PercentOutput, speed);
   }
 
-  public void setVelocity( double velocity){
+  public void setVelocity(double velocity){
     motorLeft.set(ControlMode.Velocity, velocity);
   }
 
@@ -112,35 +102,19 @@ public class Launcher extends SubsystemBase {
     //60000 milisecs in 1 min
     //RPM to U/100ms is rotations*4096 / 60000ms
     double wheelRpm = SpectrumPreferences.getNumber("Launcher Setpoint", 1000);
-    double motorVelocity = (wheelRpm / 600 * 2048) / 1.75;
+    double motorVelocity = ((wheelRpm / 600) * 2048);
     motorLeft.set(ControlMode.Velocity, motorVelocity);
   }
 
   public void setRPM(double wheelRPM){
-    //Sensor Velocity in ticks per 100ms / Sensor Ticks per Rev * 600 (ms to min) * 1.5 gear ratio to shooter
-    //Motor Velocity in RPM / 600 (ms to min) * Sensor ticks per rev / Gear Ratio 42to24
-    double motorVelocity = (wheelRPM / 600 * 2048) / 1.75;
+    //Sensor Velocity in ticks per 100ms / Sensor Ticks per Rev * 600 (ms to min) * 1 gear ratio to shooter
+    //Motor Velocity in RPM / 600 (ms to min) * Sensor ticks per rev / Gear Ratio 1 to 1
+    double motorVelocity = ((wheelRPM / 600) * 2048);
     setVelocity(motorVelocity);
   }
 
   public double getWheelRPM() {
     return (motorLeft.getSelectedSensorVelocity()) / 2048 * 600;
-  }
-  public void full(){
-    setManualOutput(1.0);
-  }
-
-  public void setHood(double position){
-    leftHood.setPosition(position);
-    rightHood.setPosition(position);
-  }
-
-  public void hoodFullFwd(){
-    setHood(50);
-  }
-
-  public void hoodFullRear(){
-    setHood(0);
   }
 
   public void stop(){
@@ -152,8 +126,8 @@ public class Launcher extends SubsystemBase {
   SmartDashboard.putNumber("Launcher/WheelRPM", getWheelRPM());
   SmartDashboard.putNumber("Launcher/OutputPercentage", motorLeft.getMotorOutputPercent());
   SmartDashboard.putNumber("Launcher/LeftCurrent", motorLeft.getSupplyCurrent());
-  SmartDashboard.putNumber("Launcher/LeftHood", leftHood.get());
-  SmartDashboard.putNumber("Launcher/RightHood", rightHood.getSpeed());
+  SmartDashboard.putNumber("Launcher/LeftHood", hood.leftHood.get());
+  SmartDashboard.putNumber("Launcher/RightHood", hood.rightHood.getSpeed());
   }
 
   public static void printDebug(String msg){
@@ -170,5 +144,35 @@ public class Launcher extends SubsystemBase {
 
   public static void printError(String msg) {
     Logger.println(msg, name, Logger.critical4);
+  }
+
+  public class ServoHood extends SubsystemBase{    
+    public final LinearServo leftHood;
+    public final LinearServo rightHood;
+
+    public ServoHood(){
+      leftHood = new LinearServo(PWMPorts.kHoodServoLeft,50, 25);
+      rightHood = new LinearServo(PWMPorts.kHoodServoRight, 50 , 25);
+      this.setHood(TarmacShot);
+    }
+
+    public void periodic() {
+      // This method will be called once per scheduler run
+      leftHood.updateCurPos();
+      rightHood.updateCurPos();
+    }
+
+    public void setHood(double position){
+      leftHood.setPosition(position);
+      rightHood.setPosition(position);
+    }
+  
+    public void hoodFullFwd(){
+      setHood(50);
+    }
+  
+    public void hoodFullRear(){
+      setHood(0);
+    }
   }
 }

@@ -40,13 +40,18 @@ public class BallPath {
         return new RunCommand(() -> Robot.launcher.setManualOutput(speed), Robot.launcher);
     }
 
+    //Run launcher motor
+    public static Command runLauncherVoltage(double voltage){
+        return new RunCommand(() -> Robot.launcher.setVoltage(voltage), Robot.launcher);
+
+    }
     //Set Launcher RPM
     public static Command setLauncherRPM(double speed){
         return new RunCommand(() -> Robot.launcher.setRPM(speed), Robot.launcher);
     }
 
     public static Command setHood(double position){
-        return new RunCommand(() -> Robot.launcher.setHood(position));
+        return new RunCommand(() -> Robot.launcher.hood.setHood(position), Robot.launcher.hood);
     }
 
     public static Command eject(){

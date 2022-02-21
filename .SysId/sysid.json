@@ -1,6 +1,7 @@
 {
   "SysId": {
     "Analysis Type": "General Mechanism",
-    "mode": "Disabled"
+    "mode": "Client",
+    "serverTeam": "3847"
   }
 }

@@ -209,6 +209,13 @@ public class Swerve extends SubsystemBase {
         mSwerveMods[3].mDriveMotor.setVoltage(rightVolts);
     }
 
+    public void stop(){
+        for(SwerveModule mod : mSwerveMods){
+            mod.mDriveMotor.stopMotor();
+            mod.mAngleMotor.stopMotor();
+        }
+    }
+    
     public static void printDebug(String msg){
         Logger.println(msg, name, Logger.low1);
       }

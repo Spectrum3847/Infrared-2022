@@ -20,7 +20,7 @@ public class ThreeBall extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new ParallelCommandGroup(
-        new RunCommand(() -> Robot.launcher.setHood(Robot.launcher.TarmacShot)),
+        new RunCommand(() -> Robot.launcher.hood.setHood(Robot.launcher.TarmacShot)),
         new ShooterVel(4500),  //Shooter spinup
         new SequentialCommandGroup(
           new WaitCommand(1),
