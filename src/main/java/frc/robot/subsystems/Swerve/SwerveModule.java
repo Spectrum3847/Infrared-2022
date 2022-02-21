@@ -10,11 +10,13 @@ import edu.wpi.first.math.kinematics.SwerveModuleState;
 import frc.lib.math.Conversions;
 import frc.lib.swerve.CTREModuleState;
 import frc.lib.swerve.SwerveModuleConstants;
+import frc.lib.util.TalonFXSetup;
 import frc.robot.constants.SwerveConstants;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.DemandType;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import com.ctre.phoenix.sensors.CANCoderStatusFrame;
 import com.ctre.phoenix.sensors.WPI_CANCoder;
 
 public class SwerveModule {
@@ -71,6 +73,8 @@ public class SwerveModule {
     private void configAngleEncoder(){        
         angleEncoder.configFactoryDefault();
         angleEncoder.configAllSettings(SwerveCTREConfigs.swerveCanCoderConfig);
+        angleEncoder.setStatusFramePeriod(CANCoderStatusFrame.VbatAndFaults, 200);
+        //fastCANcoderSatusFrames();
     }
 
     private void configAngleMotor(){
@@ -79,6 +83,7 @@ public class SwerveModule {
         mAngleMotor.setInverted(SwerveConstants.angleMotorInvert);
         mAngleMotor.setNeutralMode(SwerveConstants.angleNeutralMode);
         resetToAbsolute();
+        //TalonFXSetup.pidStatusFrames(mAngleMotor);
     }
 
     private void configDriveMotor(){        
@@ -87,11 +92,24 @@ public class SwerveModule {
         mDriveMotor.setInverted(SwerveConstants.driveMotorInvert);
         mDriveMotor.setNeutralMode(SwerveConstants.driveNeutralMode);
         mDriveMotor.setSelectedSensorPosition(0);
+        //TalonFXSetup.pidStatusFrames(mDriveMotor);
     }
 
     public Rotation2d getCanCoder(){
-        return Rotation2d.fromDegrees(angleEncoder.getAbsolutePosition());
+        //fastCANcoderSatusFrames();
+        Rotation2d position = Rotation2d.fromDegrees(angleEncoder.getAbsolutePosition());
+        //slowCANcoderStatusFrames();
+        return position;
     }
+
+    public void slowCANcoderStatusFrames(){
+        angleEncoder.setStatusFramePeriod(CANCoderStatusFrame.SensorData, 200);
+    }
+
+    public void fastCANcoderSatusFrames(){
+        angleEncoder.setStatusFramePeriod(CANCoderStatusFrame.SensorData, 10);
+    }
+    
 
     public SwerveModuleState getState(){
         double velocity = Conversions.falconToMPS(mDriveMotor.getSelectedSensorVelocity(), SwerveConstants.wheelCircumference, SwerveConstants.driveGearRatio);

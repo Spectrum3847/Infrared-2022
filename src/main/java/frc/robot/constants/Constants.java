@@ -11,7 +11,7 @@ import frc.robot.Robot;
 import frc.robot.Robot.RobotState;
 
 public final class Constants {
-    private static final RobotType robot = RobotType.ROBOT_2022C;
+    private static final RobotType robot = RobotType.ROBOT_2022P;
     private static final boolean fakeFMS = false;
     public static final boolean tuningMode = true;
     public static final boolean ENABLE_DASHBOARD = true;

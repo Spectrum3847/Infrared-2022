@@ -1,0 +1,15 @@
+{
+  "NetworkTables": {
+    "SmartDashboard": {
+      "open": true
+    },
+    "types": {
+      "/FMSInfo": "FMSInfo",
+      "/SmartDashboard/Field": "Field2d"
+    }
+  },
+  "NetworkTables Settings": {
+    "mode": "Client",
+    "serverTeam": "3847"
+  }
+}

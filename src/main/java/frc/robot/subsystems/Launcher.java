@@ -24,7 +24,7 @@ public class Launcher extends SubsystemBase {
   public final WPI_TalonFX motorRight;
   public final ServoHood hood;
   public final double closeShoot = 0;
-  public final double TarmacShot = 30;
+  public final double TarmacShot = 28;
   public final double farShot = 50;
 
   private double kP, kI, kD, kF;

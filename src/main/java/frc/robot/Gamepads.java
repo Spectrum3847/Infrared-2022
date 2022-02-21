@@ -109,19 +109,19 @@ public class Gamepads {
 
 		// Tarmac
 		new AndButton(operator.rightTriggerButton, operator.bButton)
-				.whileHeld(BallPath.setLauncherRPM(2000));
+				.whileHeld(BallPath.setLauncherRPM(2600));
 
 		// Fender
 		new AndButton(operator.rightTriggerButton, operator.xButton)
-				.whileHeld(BallPath.setLauncherRPM(3000));
+				.whileHeld(BallPath.setLauncherRPM(2750));
 
 		operator.yButton.whileHeld(BallPath.runLauncherVoltage(6.0));
 
 		// Hood
 		operator.Dpad.Up.whenPressed(BallPath.setHood(50));
 		operator.Dpad.Down.whenPressed(BallPath.setHood(0));
-		//operator.Dpad.Left.whenPressed(BallPath.setHood(18));
-		//operator.Dpad.Right.whenPressed(BallPath.setHood(36));
+		operator.Dpad.Left.whenPressed(BallPath.setHood(Robot.launcher.TarmacShot));
+		operator.Dpad.Right.whenPressed(BallPath.setHood(36));
 
 		//Eject
 		operator.aButton.whileHeld(BallPath.eject());

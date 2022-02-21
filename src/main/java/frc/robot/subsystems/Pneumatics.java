@@ -5,6 +5,8 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.constants.Constants;
 
@@ -12,6 +14,8 @@ public class Pneumatics extends SubsystemBase {
   private Compressor compressor;
   /** Creates a new Pneumatics. */
   public Pneumatics() {
+    compressor = new Compressor(PneumaticsModuleType.REVPH);
+
     switch (Constants.getRobot()){
       case ROBOT_2022C:
         compressor.enableAnalog(90, 120);
@@ -31,5 +35,14 @@ public class Pneumatics extends SubsystemBase {
 
   public boolean isCompressorEnabled(){
     return compressor.enabled();
+  }
+
+  public double getPressure(){
+    return compressor.getPressure();
+  }
+
+  public void dashboard(){
+    SmartDashboard.putBoolean("Compressor On?", this.isCompressorEnabled());
+    SmartDashboard.putNumber("Pressure", getPressure());
   }
 }

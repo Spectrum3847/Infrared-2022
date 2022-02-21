@@ -11,7 +11,7 @@ import frc.robot.telemetry.Log;
 
 public class LLAim extends PIDCommand {
 
-  public static double kP = 0.2;
+  public static double kP = 0.8;
   public static double kI = 0;
   public static double kD = 0;
 

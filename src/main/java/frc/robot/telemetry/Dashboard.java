@@ -40,7 +40,7 @@ public class Dashboard {
     //Things that don't need to be sent out each cycle
     static boolean b = true;
     private static void updatePutSlow(){
-    	SmartDashboard.putBoolean("Compressor On?", Robot.pneumatics.isCompressorEnabled());
+        Robot.pneumatics.dashboard();
 		
 		//Can change to show a different message than "Yes" and "No"
         SmartDashboard.putBoolean("Change Battery", Util.changeBattery());

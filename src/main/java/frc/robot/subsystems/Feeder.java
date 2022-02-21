@@ -16,7 +16,7 @@ import frc.robot.telemetry.Log;
 
 public class Feeder extends SubsystemBase {
   public static final String name = Log._feeder;
-  public final double feedSpeed = 0.5;
+  public final double feedSpeed = 0.3;
   public final WPI_TalonFX motor;
 
   /** Creates a new Feeder. */
