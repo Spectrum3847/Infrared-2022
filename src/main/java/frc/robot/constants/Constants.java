@@ -3,13 +3,18 @@ package frc.robot.constants;
 
 import java.util.Map;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.RobotBase;
 import frc.lib.util.Alert;
 import frc.lib.util.Alert.AlertType;
+import frc.robot.Robot;
+import frc.robot.Robot.RobotState;
 
 public final class Constants {
     private static final RobotType robot = RobotType.ROBOT_2022C;
-    public static final boolean tuningMode = false;
+    private static final boolean fakeFMS = false;
+    public static final boolean tuningMode = true;
+    public static final boolean ENABLE_DASHBOARD = true;
     
     public static final double loopPeriodSecs = 0.02;
 
@@ -27,6 +32,11 @@ public final class Constants {
 
     public static enum Mode {
     REAL, REPLAY, SIM
+    }
+
+    //Check if we are FMSattached (or faking it) and we are not disabled
+    public static boolean isFMSEnabled (){
+      return ((DriverStation.isFMSAttached() || fakeFMS) && !(Robot.s_robot_state == RobotState.DISABLED));
     }
 
     public static RobotType getRobot() {

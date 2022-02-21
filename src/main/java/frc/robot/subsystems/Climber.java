@@ -22,6 +22,17 @@ public class Climber extends SubsystemBase{
     public final WPI_TalonFX motorFollow;
     public final Solenoid solenoid;
 
+    public static final int fullExtend = 8000;
+    public static final int fullRetract = 0;
+
+    private static double cruiseVel = 0;
+    private static double acceleration = 0;
+    private static double kP = 0;
+    private static double kI = 0;
+    private static double kD = 0;
+    private static double kF = 0;
+
+
     public Climber(){
         setName(name);
         motorLead = new WPI_TalonFX(CanIDs.kClimberMotor1, Constants.Canivorename);
@@ -30,6 +41,7 @@ public class Climber extends SubsystemBase{
         TalonFXSetup.defaultSetup(motorFollow, true, 40);
         
         motorFollow.follow(motorLead);
+        zeroEncoder();
 
         solenoid = new Solenoid();
         
@@ -40,8 +52,16 @@ public class Climber extends SubsystemBase{
         motorLead.stopMotor();
     }
 
+    public void zeroEncoder(){
+      motorLead.setSelectedSensorPosition(0);
+    }
+
     public void setManualOutput(double speed){
         motorLead.set(ControlMode.PercentOutput,speed);
+    }
+
+    public void goToPosition(double position){
+      motorLead.set(ControlMode.MotionMagic, position);
     }
 
     public double getCurrent(){

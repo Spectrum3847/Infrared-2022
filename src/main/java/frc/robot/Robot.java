@@ -74,7 +74,6 @@ public class Robot extends TimedRobot {
         shuffleboardTabs.initialize();
         Gamepads.resetConfig(); // Reset Gamepad Configs
         Log.initLog(); // Config the Debugger based on FMS state
-        visionLL.forwardLimeLightPorts();
         printNormal("End robotInit()");
     }
 
