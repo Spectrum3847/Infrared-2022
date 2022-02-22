@@ -3,8 +3,10 @@
 package frc.robot.telemetry.shuffleboard;
 
 import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import edu.wpi.first.wpilibj.shuffleboard.SimpleWidget;
 import frc.lib.gamepads.XboxGamepad;
 import frc.lib.telemetry.CustomLayout;
 import frc.lib.util.Logger;
@@ -16,7 +18,6 @@ public class GamepadsTelemetry {
     //---------------------//
     // NetworkTableEntries //
     //---------------------//
-    public static NetworkTableEntry yDriveDeadzoneEntry;
 
     //----------------//
     // Tab & Layouts  //
@@ -24,10 +25,12 @@ public class GamepadsTelemetry {
     private gamepadLayout driver;
     private gamepadLayout operator;
 
+    
+    public static SimpleWidget m_EnableWidget;
+
     //--------------//
     // Constructor  //
     public GamepadsTelemetry() {
-        printLow("Constructing IntakeTab...");
         m_tab = Shuffleboard.getTab("Gamepads");
     }
 
@@ -39,26 +42,17 @@ public class GamepadsTelemetry {
         operator = new gamepadLayout("Operator 1", m_tab, Gamepads.operator);
         driver.initialize();
         operator.initialize();
+        m_EnableWidget = m_tab.add("Update Enable", false).withWidget(BuiltInWidgets.kToggleButton);
     }
 
 
     //--------//
     // Update //
-    public void update() {     // This will be called in the robotPeriodic
-        driver.update();
-        operator.update();
-    }
-
-    public static void printLow(String msg) {
-        Logger.println(msg, Log._telemetry, Logger.low1);
-    }
-
-    public static void printNormal(String msg) {
-        Logger.println(msg, Log._telemetry, Logger.normal2);
-    }
-
-    public static void printHigh(String msg) {
-        Logger.println(msg, Log._telemetry, Logger.high3);
+    public void update() {
+        if (m_EnableWidget.getEntry().getBoolean(false)) {
+            driver.update();
+            operator.update();
+        }
     }
 
     private class gamepadLayout extends CustomLayout{

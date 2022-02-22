@@ -1,4 +1,29 @@
 {
+  "HALProvider": {
+    "PWM Outputs": {
+      "window": {
+        "visible": true
+      }
+    },
+    "PowerDistributions": {
+      "1": {
+        "PowerDistribution[1]": {
+          "open": true
+        }
+      },
+      "window": {
+        "visible": true
+      }
+    },
+    "RoboRIO": {
+      "RoboRIO Input": {
+        "open": true
+      },
+      "window": {
+        "visible": true
+      }
+    }
+  },
   "NTProvider": {
     "types": {
       "/FMSInfo": "FMSInfo",
@@ -13,7 +38,19 @@
     }
   },
   "NetworkTables": {
+    "Preferences": {
+      "open": true
+    },
+    "Shuffleboard": {
+      "open": true
+    },
     "SmartDashboard": {
+      "Alerts": {
+        "open": true
+      },
+      "Gamepads": {
+        "open": true
+      },
       "open": true
     }
   }

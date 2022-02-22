@@ -1,36 +1,29 @@
 //Created by Spectrum3847
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
-import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj2.command.RunCommand;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.lib.drivers.SpectrumSolenoid;
+import frc.lib.subsystems.SolenoidSubsystem;
 import frc.lib.util.TalonFXSetup;
 import frc.robot.constants.Constants;
+import frc.robot.constants.IntakeConstants;
 import frc.robot.constants.Constants.CanIDs;
 import frc.robot.constants.Constants.SolenoidPorts;
-import frc.robot.telemetry.Log;
 
-public class Intake extends SubsystemBase{
-  public static final String name = Log._intake;
-
-  public final double intakeSpeed = 1.0;
-
-  public final WPI_TalonFX motor;
-  public final solenoid sol;
+public class Intake extends frc.lib.subsystems.RollerSubsystem{
+  public final SolenoidSubsystem pneumatic;
   
 
   /** Creates a new Intake. */
   public Intake() {  
-    setName(name);
-    motor = new WPI_TalonFX(CanIDs.kIntakeMotor , Constants.Canivorename);
-    TalonFXSetup.defaultSetup(motor, false, 40);
-    sol = new solenoid();
+    setName(IntakeConstants.name);
+    motorLeader = new WPI_TalonFX(CanIDs.kIntakeMotor , Constants.Canivorename);
+    TalonFXSetup.configAllSetup(motorLeader, IntakeConstants.config);
+    
+    pneumatic = new SolenoidSubsystem(IntakeConstants.name + "Solenoid", SolenoidPorts.kIntakeDown);
 
-    setDefaultCommand(new RunCommand(() -> stopMotor(), this));
+    setDefaultCommand(new RunCommand(() -> stop(), this));
   }
 
   @Override
@@ -38,53 +31,18 @@ public class Intake extends SubsystemBase{
     // This method will be called once per scheduler run
   }
 
-  public void setManualOutput(double speed){
-    motor.set(ControlMode.PercentOutput,speed);
-  }
-
   public void intakeOn(){
-    setManualOutput(intakeSpeed);
-  }
-
-  public void stopMotor(){
-    motor.stopMotor();
+    setManualOutput(IntakeConstants.intakeSpeed);
   }
 
   public void dashboard() {
   }
 
-  public static void printLow(String msg){
-    Log.println(msg, name, Log.low1);
-  }
-  
-  public static void printInfo(String msg){
-    Log.println(msg, name, Log.normal2);
-  }
-  
-  public static void printHigh(String msg) {
-    Log.println(msg, name, Log.high3);
+  public void down(){
+    pneumatic.on();
   }
 
-  public static void printCritical(String msg) {
-    Log.println(msg, name, Log.critical4);
-  }
-
-  public class solenoid extends SubsystemBase{
-    public final SpectrumSolenoid solDown;
-
-    public solenoid(){
-      setName(name + " solenoid");
-      solDown = new SpectrumSolenoid(PneumaticsModuleType.REVPH, SolenoidPorts.kIntakeDown);
-
-      this.setDefaultCommand(new RunCommand(() -> up(), this));
-    }
-
-    public void up(){
-      solDown.set(false);
-    }
-  
-    public void down(){
-      solDown.set(true);
-    }
+  public void up(){
+    pneumatic.off();
   }
 }

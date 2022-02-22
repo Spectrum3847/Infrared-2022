@@ -20,7 +20,6 @@ public class Log extends Logger{
   public static final String _feeder = "FEEDER";
   public static final String _intake = "INTAKE";
   public static final String _launcher = "LAUNCHER";
-  public static final String _tower = "TOWER";
   public static final String _climber = "CLIMBER";
   public static final String _visionLL = "LIMELIGHT";
 
@@ -37,7 +36,6 @@ public class Log extends Logger{
     flagOn(_indexer);
     flagOn(_intake);
     flagOn(_launcher);
-    flagOn(_tower);
     flagOn(_climber);
     flagOn(_visionLL);
   }

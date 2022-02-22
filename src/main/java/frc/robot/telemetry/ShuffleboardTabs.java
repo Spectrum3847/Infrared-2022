@@ -30,17 +30,17 @@ public class ShuffleboardTabs {
 
         m_mainTelemetry = new MainTelemetry();
         m_swerveTelemetry = new SwerveTelemetry();
-        //m_IntakeTelemetry = new IntakeTelemetry(); 
-        //m_GamepadsTelemetry = new GamepadsTelemetry();
+        m_IntakeTelemetry = new IntakeTelemetry(); 
+        m_GamepadsTelemetry = new GamepadsTelemetry();
     }
 
     public void initialize() {
         printLow("Initializing ShuffleboardTabs...");
 
         m_swerveTelemetry.initialize();
-        //m_IntakeTelemetry.initialize();
+        m_IntakeTelemetry.initialize();
         m_mainTelemetry.initialize();
-        //m_GamepadsTelemetry.initialize();
+        m_GamepadsTelemetry.initialize();
         
         _heartBeat.startPeriodic(_heartBeatPeriod);
     }
@@ -50,8 +50,8 @@ public class ShuffleboardTabs {
     private void update() {
             m_mainTelemetry.update();
             m_swerveTelemetry.update();
-            //m_IntakeTelemetry.update();
-            //m_GamepadsTelemetry.update();
+            m_IntakeTelemetry.update();
+            m_GamepadsTelemetry.update();
     }
 
     public static void printLow(String msg) {
@@ -70,7 +70,7 @@ public class ShuffleboardTabs {
     class PeriodicRunnable implements java.lang.Runnable {
 	    public void run() {
             try {
-                Thread.sleep(50);
+                Thread.sleep(100);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

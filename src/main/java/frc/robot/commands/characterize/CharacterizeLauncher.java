@@ -26,7 +26,7 @@ public class CharacterizeLauncher extends CommandBase {
     public void execute() {
         double speeds = m_launcher.getRotationPerSec();
             m_logger.log(0.0, speeds);
-            m_launcher.setVoltage(m_logger.getMotorVoltage());
+            m_launcher.setVoltageOutput(m_logger.getMotorVoltage());
     }
 
     // Called once the command ends or is interrupted.

@@ -5,22 +5,21 @@ package frc.robot;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.lib.gamepads.AndButton;
 import frc.lib.gamepads.XboxGamepad;
-import frc.lib.util.Logger;
+import frc.lib.util.Alert;
 import frc.robot.Robot.RobotState;
+import frc.robot.commands.ClimberCommands;
 import frc.robot.commands.ResetGyro;
-import frc.robot.commands.ballpath.BallPath;
-import frc.robot.commands.swerve.ClimberSwerve;
+import frc.robot.commands.ballpath.BallPathCommands;
 import frc.robot.commands.swerve.LLAim;
-import frc.robot.commands.swerve.TurnToAngle;
-import frc.robot.telemetry.Log;
 
 public class Gamepads {
 	// Create Joysticks first so they can be used in defaultCommands
-	public static XboxGamepad driver = new XboxGamepad(0, .15, .15);
+	public static XboxGamepad driver = new XboxGamepad(0, .1, .1);
 	public static XboxGamepad operator = new XboxGamepad(1, .06, .05);
 	public static boolean driverConfigured = false;
 	public static boolean operatorConfigured = false;
-	public static String name = Log._controls;
+	public static Alert noDriverAlert = new Alert("Alerts", "No Driver Controller Found", Alert.AlertType.WARNING);
+	public static Alert noOperatorAlert= new Alert("Alerts", "No Operator Controller Found", Alert.AlertType.WARNING);;
 
 	// Configure all the controllers
 	public static void configure() {
@@ -32,15 +31,7 @@ public class Gamepads {
 		CommandScheduler.getInstance().clearButtons();
 		driverConfigured = false;
 		operatorConfigured = false;
-		configureDriver();
-		configureOperator();
-		if (!driverConfigured) {
-			Logger.println("##### Driver Controller Not Connected #####");
-		}
-
-		if (!operatorConfigured) {
-			Logger.println("***** Operator Controller Not Connected *****");
-		}
+		configure();
 	}
 
 	// Configure the driver controller
@@ -48,8 +39,10 @@ public class Gamepads {
 		// Detect whether the xbox controller has been plugged in after start-up
 		if (!driverConfigured) {
 			boolean isConnected = driver.isConnected();
-			if (!isConnected)
+			if (!isConnected) {
+				noDriverAlert.set(true);
 				return;
+			}
 
 			// Configure button bindings
 			if (Robot.getState() == RobotState.TEST) {
@@ -58,6 +51,8 @@ public class Gamepads {
 				driverBindings();
 			}
 			driverConfigured = true;
+			
+			noDriverAlert.set(false);
 		}
 	}
 
@@ -66,8 +61,10 @@ public class Gamepads {
 		// Detect whether the xbox controller has been plugged in after start-up
 		if (!operatorConfigured) {
 			boolean isConnected = operator.isConnected();
-			if (!isConnected)
+			if (!isConnected){
+				noOperatorAlert.set(true);
 				return;
+			}
 
 			// Configure button bindings
 			if (Robot.getState() == RobotState.TEST) {
@@ -76,6 +73,9 @@ public class Gamepads {
 				operatorBindings();
 			}
 			operatorConfigured = true;
+
+			
+			noOperatorAlert.set(false);
 		}
 	}
 
@@ -87,46 +87,43 @@ public class Gamepads {
 		new AndButton(driver.leftBumper, driver.aButton).whileHeld(new ResetGyro(180));
 		new AndButton(driver.leftBumper, driver.bButton).whileHeld(new ResetGyro(270));
 
-		// turn the robot to a cardinal direction
-		driver.yButton.whileHeld(new TurnToAngle(0));
-		driver.xButton.whileHeld(new TurnToAngle(90));
-		driver.aButton.whileHeld(new TurnToAngle(180));
-		driver.bButton.whileHeld(new TurnToAngle(270));
-
-		// Climber mode to disable field relative
-		driver.startButton.whileHeld(new ClimberSwerve());
+		driver.aButton.whileHeld(BallPathCommands.intakeBalls());
+		driver.yButton.whileHeld(BallPathCommands.eject());
 
 		// Aim with limelight
 		driver.rightBumper.whileHeld(new LLAim());
 	}
 
 	public static void operatorBindings() {
-		// Intake
-		operator.leftTriggerButton.whileHeld(BallPath.intakeBalls());
-
-		//Feeder
-		operator.selectButton.whileHeld(BallPath.feed());
-
-		// Tarmac
-		new AndButton(operator.rightTriggerButton, operator.bButton)
-				.whileHeld(BallPath.setLauncherRPM(2600));
-
-		// Fender
-		new AndButton(operator.rightTriggerButton, operator.xButton)
-				.whileHeld(BallPath.setLauncherRPM(2750));
-
-		operator.yButton.whileHeld(BallPath.runLauncherVoltage(6.0));
-
-		// Hood
-		operator.Dpad.Up.whenPressed(BallPath.setHood(50));
-		operator.Dpad.Down.whenPressed(BallPath.setHood(0));
-		operator.Dpad.Left.whenPressed(BallPath.setHood(Robot.launcher.TarmacShot));
-		operator.Dpad.Right.whenPressed(BallPath.setHood(36));
+		//Intake
+		operator.aButton.whileHeld(BallPathCommands.intakeBalls());
 
 		//Eject
-		operator.aButton.whileHeld(BallPath.eject());
-		// Unjam all the things
-		operator.leftBumper.whileHeld(BallPath.unJamAll());
+		operator.yButton.whileHeld(BallPathCommands.eject());
+
+		//Feeder
+		operator.xButton.whileHeld(BallPathCommands.feed());
+
+		//Unjam
+		operator.bButton.whileHeld(BallPathCommands.unJamAll());
+
+		// Fender
+		operator.leftTriggerButton.whileHeld(BallPathCommands.fenderShot());
+
+		// Tarmac
+		operator.rightTriggerButton.whileHeld(BallPathCommands.tarmacShot());
+
+		// Far Shot
+		operator.rightBumper.whileHeld(BallPathCommands.farShot());
+
+		// Climber Controls
+		operator.Dpad.Up.whenPressed(ClimberCommands.fullUp());
+		operator.Dpad.Down.whenPressed(ClimberCommands.climb());
+		operator.Dpad.Left.whenPressed(ClimberCommands.extendNextRung());
+		operator.Dpad.Right.whenPressed(ClimberCommands.nextRungUp());
+
+		//Manual climb tilt control
+		operator.leftTriggerButton.whileHeld(ClimberCommands.tiltUp());
 	}
 
 	// Configure the button bindings for the driver control in Test Mode
@@ -148,26 +145,10 @@ public class Gamepads {
 	}
 
 	public static double getDriveX(){
-		return driver.leftStick.getX() *  -1;
+		return driver.leftStick.getX() * -1;
 	}
 
 	public static double getDriveR(){
 		return driver.triggers.getTwist() * -0.75;
-	}
-
-	public static void printDebug(String msg) {
-		Logger.println(msg, name, Logger.low1);
-	}
-
-	public static void printInfo(String msg) {
-		Logger.println(msg, name, Logger.normal2);
-	}
-
-	public static void printWarning(String msg) {
-		Logger.println(msg, name, Logger.high3);
-	}
-
-	public static void printError(String msg) {
-		Logger.println(msg, name, Logger.critical4);
 	}
 }

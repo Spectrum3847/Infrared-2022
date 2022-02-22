@@ -11,9 +11,9 @@ import frc.robot.Robot;
 import frc.robot.Robot.RobotState;
 
 public final class Constants {
-    private static final RobotType robot = RobotType.ROBOT_2022P;
-    private static final boolean fakeFMS = false;
-    public static final boolean tuningMode = true;
+    private static final RobotType ROBOT = RobotType.ROBOT_2022P;
+    private static final boolean FAKE_FMS = false;
+    public static final boolean TUNING_MODE = true;
     public static final boolean ENABLE_DASHBOARD = true;
     
     public static final double loopPeriodSecs = 0.02;
@@ -36,20 +36,20 @@ public final class Constants {
 
     //Check if we are FMSattached (or faking it) and we are not disabled
     public static boolean isFMSEnabled (){
-      return ((DriverStation.isFMSAttached() || fakeFMS) && !(Robot.s_robot_state == RobotState.DISABLED));
+      return ((DriverStation.isFMSAttached() || FAKE_FMS) && !(Robot.s_robot_state == RobotState.DISABLED));
     }
 
     public static RobotType getRobot() {
         if (RobotBase.isReal()) {
-          if (robot == RobotType.ROBOT_SIMBOT || robot == RobotType.ROBOT_ROMI) { // Invalid robot
+          if (ROBOT == RobotType.ROBOT_SIMBOT || ROBOT == RobotType.ROBOT_ROMI) { // Invalid robot
                                                                                   // selected
             invalidRobotAlert.set(true);
             return RobotType.ROBOT_2022C;
           } else {
-            return robot;
+            return ROBOT;
           }
         } else {
-          return robot;
+          return ROBOT;
         }
       }
     

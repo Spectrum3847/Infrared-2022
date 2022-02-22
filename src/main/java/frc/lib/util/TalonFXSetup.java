@@ -6,6 +6,7 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.StatusFrame;
 import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
+import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 
 public class TalonFXSetup {
 
@@ -16,6 +17,18 @@ public class TalonFXSetup {
         motor.enableVoltageCompensation(true);  //enable voltage compensation
         simpleCurrentLimit(motor, currentLimit);
         motor.setInverted(isInverted);
+        defaultStatusFrames(motor);
+    }
+
+    public static void configAllSetup(TalonFX motor, TalonFXConfiguration config){
+        motor.configFactoryDefault();
+        motor.configAllSettings(config);
+        pidStatusFrames(motor);
+    }
+
+    public static void configFollowerSetup(TalonFX motor, TalonFXConfiguration config){
+        motor.configFactoryDefault();
+        motor.configAllSettings(config);
         defaultStatusFrames(motor);
     }
 

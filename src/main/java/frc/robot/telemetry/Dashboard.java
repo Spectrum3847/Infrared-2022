@@ -3,7 +3,6 @@ package frc.robot.telemetry;
 
 import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.lib.util.Util;
 import frc.robot.Robot;
 import frc.robot.constants.Constants;
 
@@ -41,9 +40,6 @@ public class Dashboard {
     static boolean b = true;
     private static void updatePutSlow(){
         Robot.pneumatics.dashboard();
-		
-		//Can change to show a different message than "Yes" and "No"
-        SmartDashboard.putBoolean("Change Battery", Util.changeBattery());
         b = !b;
         SmartDashboard.putBoolean("Disabled Toggle", b);
     }

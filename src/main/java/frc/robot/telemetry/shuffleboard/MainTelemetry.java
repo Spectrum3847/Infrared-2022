@@ -9,9 +9,6 @@ import edu.wpi.first.wpilibj.Timer;
 
 import java.util.Map;
 
-import frc.robot.telemetry.Log;
-import frc.lib.util.Logger;
-
 // The Shuffleboard Main tab.
 public class MainTelemetry {
 
@@ -38,7 +35,6 @@ public class MainTelemetry {
     // Constructor  //
     //--------------//
     public MainTelemetry() {
-        printLow("Constructing MainTab...");
         m_tab = Shuffleboard.getTab("Main");
     }
 
@@ -79,17 +75,4 @@ public class MainTelemetry {
         b = !b;
         flashEntry.setBoolean(b);
     }
-
-    public static void printLow(String msg) {
-        Logger.println(msg, Log._telemetry, Logger.low1);
-    }
-
-    public static void printNormal(String msg) {
-        Logger.println(msg, Log._telemetry, Logger.normal2);
-    }
-
-    public static void printHigh(String msg) {
-        Logger.println(msg, Log._telemetry, Logger.high3);
-    }
-
 }

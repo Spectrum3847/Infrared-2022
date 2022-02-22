@@ -7,7 +7,9 @@ import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.lib.util.Alert;
 import frc.lib.util.SpectrumPreferences;
+import frc.lib.util.Alert.AlertType;
 import frc.lib.sim.PhysicsSim;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Feeder;
@@ -39,7 +41,7 @@ public class Robot extends TimedRobot {
     public static final Climber climber = new Climber();
     public static final VisionLL visionLL = new VisionLL();
     public static final Pneumatics pneumatics = new Pneumatics();
-    public static PowerDistribution pdp = new PowerDistribution(1, ModuleType.kRev);
+    public static PowerDistribution pdh = new PowerDistribution(1, ModuleType.kRev);
     public static SpectrumPreferences prefs = SpectrumPreferences.getInstance();
     public static final ShuffleboardTabs shuffleboardTabs = new ShuffleboardTabs();
 
@@ -62,6 +64,9 @@ public class Robot extends TimedRobot {
     public static void setState(final RobotState state) {
         s_robot_state = state;
     }
+
+    //Alerts
+    public static Alert batteryAlert = new Alert("Low Battery", AlertType.WARNING);
 
     /**
      * This function is run when the robot is first started up and should be used
@@ -117,6 +122,7 @@ public class Robot extends TimedRobot {
 
     @Override
     public void disabledPeriodic() {
+        batteryAlert.set(checkBattery());
     }
 
     /**
@@ -185,6 +191,14 @@ public class Robot extends TimedRobot {
 
     public void simulationPeriodic() {
         PhysicsSim.getInstance().run();
+    }
+
+    public boolean checkBattery(){
+        if (pdh.getVoltage() < 12.0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     // ---------------//
