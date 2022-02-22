@@ -27,8 +27,6 @@ public class Indexer extends frc.lib.subsystems.RollerSubsystem {
   }
 
   public void dashboard() {
-    SmartDashboard.putNumber("Indexer/Output", motorLeader.getMotorOutputPercent());
-    SmartDashboard.putNumber("Indexer/Current", motorLeader.getSupplyCurrent());
   }
 
 }

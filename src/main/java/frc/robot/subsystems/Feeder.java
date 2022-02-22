@@ -28,7 +28,5 @@ public class Feeder extends RollerSubsystem {
   }
 
   public void dashboard() {
-    SmartDashboard.putNumber("Feeder/Output", motorLeader.getMotorOutputPercent());
-    SmartDashboard.putNumber("Feeder/Current", motorLeader.getSupplyCurrent());
   }
 }

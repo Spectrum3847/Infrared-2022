@@ -42,13 +42,16 @@
       "open": true
     },
     "Shuffleboard": {
+      "Main": {
+        "open": true
+      },
       "open": true
     },
     "SmartDashboard": {
-      "Alerts": {
+      "Gamepads": {
         "open": true
       },
-      "Gamepads": {
+      "Main": {
         "open": true
       },
       "open": true

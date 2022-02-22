@@ -42,7 +42,7 @@ public class Pneumatics extends SubsystemBase {
   }
 
   public void dashboard(){
-    SmartDashboard.putBoolean("Compressor On?", this.isCompressorEnabled());
-    SmartDashboard.putNumber("Pressure", getPressure());
+    //SmartDashboard.putBoolean("Compressor On?", this.isCompressorEnabled());
+    //SmartDashboard.putNumber("Pressure", getPressure());
   }
 }

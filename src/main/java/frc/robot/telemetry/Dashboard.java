@@ -18,7 +18,6 @@ public class Dashboard {
     //Put values that you want to use as use inputs here and set their default state
     public static void intializeDashboard() {
     	if(Constants.ENABLE_DASHBOARD){
-            SmartDashboard.putBoolean("Limelight-LED Toggle", false);
             dashFastThread.startPeriodic(FAST_DELAY);
             dashSlowThread.startPeriodic(SLOW_DELAY);
         }

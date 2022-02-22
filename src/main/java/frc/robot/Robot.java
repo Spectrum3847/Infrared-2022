@@ -11,6 +11,7 @@ import frc.lib.util.Alert;
 import frc.lib.util.SpectrumPreferences;
 import frc.lib.util.Alert.AlertType;
 import frc.lib.sim.PhysicsSim;
+import frc.robot.constants.Constants;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Feeder;
 import frc.robot.subsystems.Indexer;
@@ -33,18 +34,58 @@ import frc.robot.telemetry.ShuffleboardTabs;
 public class Robot extends TimedRobot {
 
     // subsystems and hardware are defined here
-    public static final Swerve swerve = new Swerve();
-    public static final Intake intake = new Intake();
-    public static final Indexer indexer = new Indexer();
-    public static final Feeder feeder = new Feeder();
-    public static final Launcher launcher = new Launcher();
-    public static final Climber climber = new Climber();
-    public static final VisionLL visionLL = new VisionLL();
-    public static final Pneumatics pneumatics = new Pneumatics();
-    public static PowerDistribution pdh = new PowerDistribution(1, ModuleType.kRev);
-    public static SpectrumPreferences prefs = SpectrumPreferences.getInstance();
-    public static final ShuffleboardTabs shuffleboardTabs = new ShuffleboardTabs();
+    public static Swerve swerve;
+    public static Intake intake;
+    public static Indexer indexer;
+    public static Feeder feeder;
+    public static Launcher launcher;
+    public static Climber climber;
+    public static VisionLL visionLL;
+    public static Pneumatics pneumatics;
+    public static PowerDistribution pdh;
+    public static SpectrumPreferences prefs;
+    public static ShuffleboardTabs shuffleboardTabs;
 
+    private void intializeSubsystems(){
+        switch (Constants.getRobot()) {
+            case ROBOT_2022C:
+            swerve = new Swerve();
+            intake = new Intake();
+            indexer = new Indexer();
+            feeder = new Feeder();
+            launcher = new Launcher();
+            climber = new Climber();
+            visionLL = new VisionLL();
+            pneumatics = new Pneumatics();
+            break;
+
+            case ROBOT_2022P:
+            swerve = new Swerve();
+            intake = new Intake();
+            indexer = new Indexer();
+            feeder = new Feeder();
+            launcher = new Launcher();
+            climber = new Climber();
+            visionLL = new VisionLL();
+            pneumatics = new Pneumatics();
+            break;
+
+            default:
+            swerve = new Swerve();
+            intake = new Intake();
+            indexer = new Indexer();
+            feeder = new Feeder();
+            launcher = new Launcher();
+            climber = new Climber();
+            visionLL = new VisionLL();
+            pneumatics = new Pneumatics();
+            break;
+        }
+
+        pdh = new PowerDistribution(1, ModuleType.kRev);
+        prefs = SpectrumPreferences.getInstance();
+        shuffleboardTabs = new ShuffleboardTabs();
+    }
     // AutonCommand
     private Command m_autonomousCommand;
 
@@ -75,6 +116,7 @@ public class Robot extends TimedRobot {
     @Override
     public void robotInit() {
         printNormal("Start robotInit()");
+        intializeSubsystems();
         Dashboard.intializeDashboard();
         shuffleboardTabs.initialize();
         Gamepads.resetConfig(); // Reset Gamepad Configs

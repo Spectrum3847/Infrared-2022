@@ -9,9 +9,7 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.shuffleboard.SimpleWidget;
 import frc.lib.gamepads.XboxGamepad;
 import frc.lib.telemetry.CustomLayout;
-import frc.lib.util.Logger;
 import frc.robot.Gamepads;
-import frc.robot.telemetry.Log;
 
 public class GamepadsTelemetry {
 
@@ -42,7 +40,7 @@ public class GamepadsTelemetry {
         operator = new gamepadLayout("Operator 1", m_tab, Gamepads.operator);
         driver.initialize();
         operator.initialize();
-        m_EnableWidget = m_tab.add("Update Enable", false).withWidget(BuiltInWidgets.kToggleButton);
+        m_EnableWidget = m_tab.add("Update Enable", false).withWidget(BuiltInWidgets.kToggleButton).withPosition(5, 0);
     }
 
 

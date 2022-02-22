@@ -83,7 +83,7 @@ public class Alert {
     this.text = text;
   }
 
-  private static class SendableAlerts implements Sendable {
+  public static class SendableAlerts implements Sendable {
     public final List<Alert> alerts = new ArrayList<>();
 
     public String[] getStrings(AlertType type) {

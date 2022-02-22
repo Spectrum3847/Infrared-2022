@@ -6,7 +6,6 @@
 package frc.robot.subsystems.Swerve;
 
 import com.ctre.phoenix.sensors.Pigeon2;
-import com.ctre.phoenix.sensors.PigeonIMU;
 
 import frc.lib.math.Conversions;
 import frc.lib.util.Logger;
@@ -175,8 +174,8 @@ public class Swerve extends SubsystemBase {
     }
 
     public void dashboard(){
-        SmartDashboard.putNumber("Swerve/Drive pY", this.getPose().getY());
-        SmartDashboard.putNumber("Swerve/Drive pX", this.getPose().getX());
+        //SmartDashboard.putNumber("Swerve/Drive pY", this.getPose().getY());
+        //SmartDashboard.putNumber("Swerve/Drive pX", this.getPose().getX());
 
         SmartDashboard.putData("Field", m_field);
     }

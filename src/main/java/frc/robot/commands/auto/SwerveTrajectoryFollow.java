@@ -6,8 +6,6 @@ import java.util.function.Supplier;
 import com.pathplanner.lib.PathPlannerTrajectory;
 
 import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.trajectory.Trajectory;
-import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 import frc.robot.Robot;
 import frc.robot.constants.SwerveConstants;
 import frc.robot.subsystems.Swerve.Swerve;

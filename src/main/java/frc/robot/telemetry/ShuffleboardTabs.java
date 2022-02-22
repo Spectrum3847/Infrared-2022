@@ -3,8 +3,11 @@
 package frc.robot.telemetry;
 
 import edu.wpi.first.wpilibj.Notifier;
+import frc.robot.telemetry.shuffleboard.BallPathTelemtry;
+import frc.robot.telemetry.shuffleboard.ClimberTelemetry;
 import frc.robot.telemetry.shuffleboard.GamepadsTelemetry;
 import frc.robot.telemetry.shuffleboard.IntakeTelemetry;
+import frc.robot.telemetry.shuffleboard.LauncherTelemetry;
 import frc.robot.telemetry.shuffleboard.MainTelemetry;
 import frc.robot.telemetry.shuffleboard.SwerveTelemetry;
 
@@ -23,6 +26,9 @@ public class ShuffleboardTabs {
     private MainTelemetry m_mainTelemetry;
     private SwerveTelemetry m_swerveTelemetry;
     public IntakeTelemetry m_IntakeTelemetry;
+    public BallPathTelemtry m_BallPathTelemetry;
+    public LauncherTelemetry m_LauncherTelemetry;
+    public ClimberTelemetry m_ClimberTelemetry;
     public GamepadsTelemetry m_GamepadsTelemetry;
 
     public ShuffleboardTabs() {
@@ -31,15 +37,21 @@ public class ShuffleboardTabs {
         m_mainTelemetry = new MainTelemetry();
         m_swerveTelemetry = new SwerveTelemetry();
         m_IntakeTelemetry = new IntakeTelemetry(); 
+        m_BallPathTelemetry = new BallPathTelemtry();
+        m_LauncherTelemetry = new LauncherTelemetry();
+        m_ClimberTelemetry = new ClimberTelemetry();
         m_GamepadsTelemetry = new GamepadsTelemetry();
     }
 
     public void initialize() {
         printLow("Initializing ShuffleboardTabs...");
 
+        m_mainTelemetry.initialize();
         m_swerveTelemetry.initialize();
         m_IntakeTelemetry.initialize();
-        m_mainTelemetry.initialize();
+        m_BallPathTelemetry.initialize();
+        m_LauncherTelemetry.initialize();
+        m_ClimberTelemetry.initialize();
         m_GamepadsTelemetry.initialize();
         
         _heartBeat.startPeriodic(_heartBeatPeriod);
@@ -51,6 +63,9 @@ public class ShuffleboardTabs {
             m_mainTelemetry.update();
             m_swerveTelemetry.update();
             m_IntakeTelemetry.update();
+            m_BallPathTelemetry.update();
+            m_LauncherTelemetry.update();
+            m_ClimberTelemetry.update();
             m_GamepadsTelemetry.update();
     }
 

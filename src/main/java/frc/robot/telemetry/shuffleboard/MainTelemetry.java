@@ -3,7 +3,11 @@
 package frc.robot.telemetry.shuffleboard;
 
 import edu.wpi.first.wpilibj.shuffleboard.*;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.lib.util.Alert;
+import frc.robot.Robot;
 import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 
@@ -30,6 +34,7 @@ public class MainTelemetry {
     // Widgets //
     //---------//
     public static SimpleWidget m_flashWidget;
+    public static SimpleWidget m_limelightLEDenable;
 
     //--------------//
     // Constructor  //
@@ -45,9 +50,13 @@ public class MainTelemetry {
     public void initialize() {
         matchTimeWidget().withPosition(0, 1);
         flashWidget().withPosition(0, 0);
+        m_tab.addBoolean("Compressor on?", ()-> Robot.pneumatics.isCompressorEnabled()).withPosition(1,1);
+        m_tab.addNumber("Pressure", ()-> Robot.pneumatics.getPressure()).withPosition(1, 0);
         m_tab.addNumber("FPGA timestamp", () -> Timer.getFPGATimestamp()).withPosition(0, 4);
-
-    }
+        m_limelightLEDenable = m_tab.add("Limelight LED Enable", true).withWidget(BuiltInWidgets.kToggleButton).withPosition(2, 0);
+        m_tab.addNumber("LL-Distance", ()->Robot.visionLL.getLLDistance()).withPosition(2, 1);
+        m_tab.addNumber("Target Distance", ()->Robot.visionLL.getActualDistance()).withPosition(2, 2);
+   }
 
     // Match Time
     public SuppliedValueWidget<Double> matchTimeWidget(){
@@ -74,5 +83,9 @@ public class MainTelemetry {
     public void update() {     // This will be called at a rate setup in ShufflbeboardTabs
         b = !b;
         flashEntry.setBoolean(b);
+    }
+
+    public static boolean getLimeLightToggle(){
+        return m_limelightLEDenable.getEntry().getBoolean(true);
     }
 }

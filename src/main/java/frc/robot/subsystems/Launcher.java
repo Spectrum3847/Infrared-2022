@@ -53,10 +53,6 @@ public class Launcher extends RollerSubsystem {
   }
 
   public void dashboard() {
-    SmartDashboard.putNumber("Launcher/Velocity", motorLeader.getSelectedSensorVelocity());
-    SmartDashboard.putNumber("Launcher/WheelRPM", getWheelRPM());
-    SmartDashboard.putNumber("Launcher/LeftHood", hood.leftHood.get());
-    SmartDashboard.putNumber("Launcher/RightHood", hood.rightHood.getSpeed());
   }
 
   public class ServoHood extends SubsystemBase {

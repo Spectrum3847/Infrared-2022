@@ -3,13 +3,13 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.util.net.PortForwarder;
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.lib.drivers.LimeLight;
 import frc.lib.drivers.LimeLightControlModes.LedMode;
 import frc.robot.Robot;
 import frc.robot.Robot.RobotState;
 import frc.robot.telemetry.Log;
+import frc.robot.telemetry.shuffleboard.MainTelemetry;
 
 public class VisionLL extends SubsystemBase {
     public static final String name = Log._visionLL;
@@ -44,7 +44,7 @@ public class VisionLL extends SubsystemBase {
         // This method will be called once per scheduler run
         // If disabled and LED-Toggle is false, than leave lights off, else they should
         // be on
-        if (Robot.s_robot_state == RobotState.DISABLED && !SmartDashboard.getBoolean("Limelight-LED Toggle", false)
+        if (Robot.s_robot_state == RobotState.DISABLED && !MainTelemetry.getLimeLightToggle()
                 && !DriverStation.isFMSAttached()) {
             if (LEDState == true) {
                 limeLightLEDOff();
@@ -115,8 +115,6 @@ public class VisionLL extends SubsystemBase {
     }
 
     public void dashboard() {
-        SmartDashboard.putNumber("LL/LLDistance", Distance);
-        SmartDashboard.putNumber("LL/Distance", getActualDistance());
     }
 
     public static void printDebug(String msg) {

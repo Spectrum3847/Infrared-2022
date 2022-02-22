@@ -10,7 +10,6 @@ import edu.wpi.first.math.kinematics.SwerveModuleState;
 import frc.lib.math.Conversions;
 import frc.lib.swerve.CTREModuleState;
 import frc.lib.swerve.SwerveModuleConstants;
-import frc.lib.util.TalonFXSetup;
 import frc.robot.constants.SwerveConstants;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
