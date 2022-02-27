@@ -1,6 +1,8 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.commands.auto.PathPlannerFollowCommand;
+import frc.robot.commands.auto.TestPathPlanner;
 import frc.robot.commands.characterize.CharacterizeLauncher;
 
 public class AutonSetup {
@@ -11,6 +13,7 @@ public class AutonSetup {
    * @return the command to run in autonomous
    */
   public static Command getAutonomousCommand() {
-      return new CharacterizeLauncher(Robot.launcher);
+      //return new CharacterizeLauncher(Robot.launcher);
+      return new TestPathPlanner();
   }
 }

@@ -21,7 +21,7 @@ public final class ClimberConstants{
     public static final double pulleyDiameterInches = 2;
     public static final double pulleyDiameterMeters = pulleyDiameterInches * 0.0254;
 
-    public static final double gearRatio = 1;
+    public static final double gearRatio = 72/10;
 
     public static final double pulleyCircumferenceMeters = pulleyDiameterMeters * Math.PI;
     public static final double pulleyCircumferenceInches = pulleyDiameterInches * Math.PI;

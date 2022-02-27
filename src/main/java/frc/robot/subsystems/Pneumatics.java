@@ -18,7 +18,7 @@ public class Pneumatics extends SubsystemBase {
 
     switch (Constants.getRobot()){
       case ROBOT_2022C:
-        compressor.enableAnalog(90, 120);
+        compressor.enableAnalog(90, 105);
       break;
       case ROBOT_2022P:
         compressor.enableDigital();

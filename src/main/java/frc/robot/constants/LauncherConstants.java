@@ -17,9 +17,9 @@ public final class LauncherConstants{
     public final static double closeShotAngle = 80;
     public final static double tarmacShotAngle = 68;
     public final static double farShotAngle = 50;
-    public final static double closeShotSpeed = 2500;
-    public final static double tarmacShotSpeed = 2700;
-    public final static double farShotSpeed = 3000;
+    public final static double closeShotSpeed = 2200;
+    public final static double tarmacShotSpeed = 2400;
+    public final static double farShotSpeed = 2800;
 
     //Physical Constants
     public static final double diameterInches = 4;
@@ -51,7 +51,7 @@ public final class LauncherConstants{
     public static final double kP = 0.0465;
     public static final double kI = 0.0005;
     public static final double kD = 0;
-    public static final double kF = 0.051;
+    public static final double kF = 0.061;
     public static final double kIz = 150;
     public static final double motionCruiseVelocity = 0;
     public static final double motionAcceleration = 0;

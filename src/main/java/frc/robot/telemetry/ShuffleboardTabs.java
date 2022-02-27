@@ -47,6 +47,11 @@ public class ShuffleboardTabs {
         printLow("Initializing ShuffleboardTabs...");
 
         m_mainTelemetry.initialize();
+        m_swerveTelemetry.initialize();
+        m_IntakeTelemetry.initialize();
+        m_BallPathTelemetry.initialize();
+        m_LauncherTelemetry.initialize();
+        m_ClimberTelemetry.initialize();
         //m_GamepadsTelemetry.initialize();
         
         _heartBeat.startPeriodic(_heartBeatPeriod);
@@ -55,22 +60,12 @@ public class ShuffleboardTabs {
     //Update values from Shuffleboard, this is run at the _heartbeatperiod
     //We don't need to assign values every program cycle
     private void update() {
-            m_mainTelemetry.update();
-            if (MainTelemetry.m_enableTabsWidget.getEntry().getBoolean(false) == true){
-                if (initialized == false){        
-                    m_swerveTelemetry.initialize();
-                    m_IntakeTelemetry.initialize();
-                    m_BallPathTelemetry.initialize();
-                    m_LauncherTelemetry.initialize();
-                    m_ClimberTelemetry.initialize();
-                    initialized = true;
-                }
-                m_swerveTelemetry.update();
-                m_IntakeTelemetry.update();
-                m_BallPathTelemetry.update();
-                m_LauncherTelemetry.update();
-                m_ClimberTelemetry.update();
-            }
+        m_mainTelemetry.update();     
+        m_swerveTelemetry.update();
+        m_IntakeTelemetry.update();
+        m_BallPathTelemetry.update();
+        m_LauncherTelemetry.update();
+        m_ClimberTelemetry.update();
             //m_GamepadsTelemetry.update();
     }
 

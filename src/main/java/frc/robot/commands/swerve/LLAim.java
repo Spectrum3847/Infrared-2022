@@ -35,9 +35,9 @@ public class LLAim extends PIDCommand {
 
   @Override
   public void initialize() {
-    kP = SpectrumPreferences.getNumber("LL-AIM kP", 0.01)/100;
-    kI = SpectrumPreferences.getNumber("LL-AIM kI", 0.0)/100;
-    kD = SpectrumPreferences.getNumber("LL-AIM kD", 0.0)/100;
+    kP = SpectrumPreferences.getNumber("LL-AIM kP", kP)/100;
+    kI = SpectrumPreferences.getNumber("LL-AIM kI", kI)/100;
+    kD = SpectrumPreferences.getNumber("LL-AIM kD", kD)/100;
     double tolerance = SpectrumPreferences.getNumber("LL-AIM Tolerance", 1.0);
     this.getController().setPID(kP, kI, kD);
     getController().setTolerance(tolerance);

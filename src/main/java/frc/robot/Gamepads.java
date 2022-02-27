@@ -14,8 +14,8 @@ import frc.robot.commands.swerve.LLAim;
 
 public class Gamepads {
 	// Create Joysticks first so they can be used in defaultCommands
-	public static XboxGamepad driver = new XboxGamepad(0, .12, .12);
-	public static XboxGamepad operator = new XboxGamepad(1, .06, .05);
+	public static XboxGamepad driver = new XboxGamepad(0, .15, .15);
+	public static XboxGamepad operator = new XboxGamepad(1, .1, .1);
 	public static boolean driverConfigured = false;
 	public static boolean operatorConfigured = false;
 	public static Alert noDriverAlert = new Alert("Alerts", "No Driver Controller Found", Alert.AlertType.WARNING);
@@ -137,7 +137,11 @@ public class Gamepads {
 	}
 
 	public static double getClimberJoystick(){
-		return operator.leftStick.getY() * -1;
+		double value = operator.leftStick.getY() * -1;
+		if (value > 0){
+			return value * 0.4;
+		}
+		return value;
 	}
 
 	public static double getDriveY(){
@@ -149,6 +153,10 @@ public class Gamepads {
 	}
 
 	public static double getDriveR(){
-		return driver.triggers.getTwist() * -0.75;
+		double value = driver.triggers.getTwist() * -0.75;
+		if (Math.abs(value) < 0.1){
+			return 0;
+		}
+		return value;
 	}
 }
