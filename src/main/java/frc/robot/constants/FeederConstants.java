@@ -35,7 +35,7 @@ public final class FeederConstants {
     public static TalonFXConfiguration config = new TalonFXConfiguration();
 
     /* Inverted */
-    public static final boolean kInverted = false;
+    public static final boolean kInverted = true;
     public static final boolean kFollowerInverted = true;
 
     /* Neutral Modes */

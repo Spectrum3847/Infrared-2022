@@ -48,9 +48,6 @@ public class Launcher extends RollerSubsystem {
     return (motorLeader.getSelectedSensorVelocity()) / 2048 * 600;
   }
 
-  public void stop() {
-    motorLeader.set(ControlMode.PercentOutput, 0);
-  }
 
   public void dashboard() {
   }

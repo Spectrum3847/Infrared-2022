@@ -2,6 +2,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.PowerDistribution;
+import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -236,7 +237,7 @@ public class Robot extends TimedRobot {
     }
 
     public boolean checkBattery(){
-        if (pdh.getVoltage() < 12.0) {
+        if (RobotController.getBatteryVoltage() < 12.0) {
             return true;
         } else {
             return false;

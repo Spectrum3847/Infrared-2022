@@ -12,23 +12,24 @@ public class BallPathCommands {
     
     //fender shot
     public static Command fenderShot(){
-        return setHood(LauncherConstants.closeShotAngle).alongWith(runLauncher(LauncherConstants.closeShotSpeed));
+        return setHood(LauncherConstants.closeShotAngle).alongWith(runLauncherRPM(LauncherConstants.closeShotSpeed));
     }
 
     //tarmac shot
     public static Command tarmacShot(){
-        return setHood(LauncherConstants.tarmacShotAngle).alongWith(runLauncher(LauncherConstants.tarmacShotSpeed));
+        return setHood(LauncherConstants.tarmacShotAngle).alongWith(runLauncherRPM(LauncherConstants.tarmacShotSpeed));
     }
 
     //far shot
     public static Command farShot(){
-        return setHood(LauncherConstants.farShotAngle).alongWith(runLauncher(LauncherConstants.farShotSpeed));
+        return setHood(LauncherConstants.farShotAngle).alongWith(runLauncherRPM(LauncherConstants.farShotSpeed));
     }
 
     //Feed
     public static Command feed(){
         return runFeeder(FeederConstants.feedSpeed).alongWith(runIndexer(IndexerConstants.feedSpeed));
     }
+
 
     //Intake
     public static Command intakeBalls(){
@@ -67,7 +68,7 @@ public class BallPathCommands {
 
     }
     //Set Launcher RPM
-    public static Command setLauncherRPM(double speed){
+    public static Command runLauncherRPM(double speed){
         return new RunCommand(() -> Robot.launcher.setRPM(speed), Robot.launcher);
     }
 

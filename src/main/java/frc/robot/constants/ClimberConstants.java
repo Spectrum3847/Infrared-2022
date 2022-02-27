@@ -13,9 +13,9 @@ import frc.lib.util.TalonFXSetup;
 public final class ClimberConstants{
     public static final String name = "Climber";
 
-    public static final int fullExtend = 8000;
+    public static final int fullExtend = 100000;
     public static final int nextRungExtend = 6000;
-    public static final int fullRetract = 0;
+    public static final int fullRetract = -2000;
 
     //Physical Constants
     public static final double pulleyDiameterInches = 2;
@@ -35,8 +35,8 @@ public final class ClimberConstants{
     public static TalonFXConfiguration config = new TalonFXConfiguration();
 
     /* Inverted */
-    public static final boolean kInverted = false;
-    public static final boolean kFollowerInverted = true;
+    public static final boolean kInverted = true;
+    public static final boolean kFollowerInverted = !kInverted;
 
     /* Neutral Modes */
     public static final NeutralMode kNeutralMode = NeutralMode.Brake;

@@ -16,7 +16,7 @@ public class Indexer extends frc.lib.subsystems.RollerSubsystem {
   public Indexer() {  
     setName(IndexerConstants.name);
     motorLeader = new WPI_TalonFX(CanIDs.kIndexerMotor, Constants.Canivorename);
-    TalonFXSetup.configAllSetup(motorLeader, IndexerConstants.config);
+    IndexerConstants.setupRollerFalconLeader(motorLeader);
 
     this.setDefaultCommand(new RunCommand(() -> stop(), this));
   }

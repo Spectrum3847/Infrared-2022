@@ -8,6 +8,7 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.util.Units;
 import frc.lib.swerve.SwerveModuleConstants;
 import frc.robot.constants.Constants.CanIDs;
+import frc.robot.constants.Constants.RobotType;
 
 public final class SwerveConstants {
     public static final boolean invertGyro = false; // Always ensure Gyro is CCW+ CW-
@@ -79,7 +80,9 @@ public final class SwerveConstants {
         public static final int driveMotorID = CanIDs.driveMotor0;
         public static final int angleMotorID = CanIDs.angleMotor0;
         public static final int canCoderID = 3;
-        public static final double angleOffset = 190;
+        public static final double angleOffsetP = 190;
+        public static final double angleOffsetC = 321.855;
+        public static final double angleOffset = (Constants.getRobot() == RobotType.ROBOT_2022C) ? angleOffsetC: angleOffsetP; 
         public static final SwerveModuleConstants constants = 
             new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
     }
@@ -89,7 +92,9 @@ public final class SwerveConstants {
         public static final int driveMotorID = CanIDs.driveMotor1;
         public static final int angleMotorID = CanIDs.angleMotor1;
         public static final int canCoderID = 13;
-        public static final double angleOffset = 167;
+        public static final double angleOffsetP = 167;
+        public static final double angleOffsetC = 126.826;
+        public static final double angleOffset = (Constants.getRobot() == RobotType.ROBOT_2022C) ? angleOffsetC: angleOffsetP; 
         public static final SwerveModuleConstants constants = 
             new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
     }
@@ -99,7 +104,9 @@ public final class SwerveConstants {
         public static final int driveMotorID = CanIDs.driveMotor2;
         public static final int angleMotorID = CanIDs.angleMotor2;
         public static final int canCoderID = 23;
-        public static final double angleOffset = 255;
+        public static final double angleOffsetP = 255;
+        public static final double angleOffsetC = 140.712;
+        public static final double angleOffset = (Constants.getRobot() == RobotType.ROBOT_2022C) ? angleOffsetC: angleOffsetP; 
         public static final SwerveModuleConstants constants = 
             new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
     }
@@ -109,7 +116,9 @@ public final class SwerveConstants {
         public static final int driveMotorID = CanIDs.driveMotor3;
         public static final int angleMotorID = CanIDs.angleMotor3;
         public static final int canCoderID = 33;
-        public static final double angleOffset = 308;
+        public static final double angleOffsetP = 308;
+        public static final double angleOffsetC = 71.718;
+        public static final double angleOffset = (Constants.getRobot() == RobotType.ROBOT_2022C) ? angleOffsetC: angleOffsetP; 
         public static final SwerveModuleConstants constants = 
             new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
     }

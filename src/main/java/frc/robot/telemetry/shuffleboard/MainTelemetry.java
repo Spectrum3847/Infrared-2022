@@ -35,6 +35,7 @@ public class MainTelemetry {
     //---------//
     public static SimpleWidget m_flashWidget;
     public static SimpleWidget m_limelightLEDenable;
+    public static SimpleWidget m_enableTabsWidget;
 
     //--------------//
     // Constructor  //
@@ -56,6 +57,8 @@ public class MainTelemetry {
         m_limelightLEDenable = m_tab.add("Limelight LED Enable", true).withWidget(BuiltInWidgets.kToggleButton).withPosition(2, 0);
         m_tab.addNumber("LL-Distance", ()->Robot.visionLL.getLLDistance()).withPosition(2, 1);
         m_tab.addNumber("Target Distance", ()->Robot.visionLL.getActualDistance()).withPosition(2, 2);
+        m_enableTabsWidget = m_tab.add("Update Enable", false).withWidget(BuiltInWidgets.kToggleButton).withPosition(3, 0);
+
    }
 
     // Match Time

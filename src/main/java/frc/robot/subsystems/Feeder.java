@@ -17,7 +17,7 @@ public class Feeder extends RollerSubsystem {
   public Feeder() {  
     setName(FeederConstants.name);
     motorLeader = new WPI_TalonFX(CanIDs.kFeederMotor, Constants.Canivorename);
-    TalonFXSetup.configAllSetup(motorLeader, FeederConstants.config);
+    FeederConstants.setupRollerFalconLeader(motorLeader);
 
     this.setDefaultCommand(new RunCommand(() -> stop(), this));
   }

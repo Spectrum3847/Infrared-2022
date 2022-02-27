@@ -11,7 +11,7 @@ import frc.robot.Robot;
 import frc.robot.Robot.RobotState;
 
 public final class Constants {
-    private static final RobotType ROBOT = RobotType.ROBOT_2022P;
+    public static final RobotType ROBOT = RobotType.ROBOT_2022C;
     private static final boolean FAKE_FMS = false;
     public static final boolean TUNING_MODE = true;
     public static final boolean ENABLE_DASHBOARD = true;
@@ -98,11 +98,11 @@ public final class Constants {
 
     public static final class SolenoidPorts{
         public static final int kIntakeDown = 4;
-        public static final int kclimberUp = 0;
+        public static final int kclimberUp = 3;
     }
 
     public static final class PWMPorts{   
-        public static final int kHoodServoLeft = 0;
-        public static final int kHoodServoRight = 1;
+        public static final int kHoodServoLeft = 8;
+        public static final int kHoodServoRight = 9;
     }
 }

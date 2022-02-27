@@ -14,7 +14,7 @@ import frc.robot.commands.swerve.LLAim;
 
 public class Gamepads {
 	// Create Joysticks first so they can be used in defaultCommands
-	public static XboxGamepad driver = new XboxGamepad(0, .1, .1);
+	public static XboxGamepad driver = new XboxGamepad(0, .12, .12);
 	public static XboxGamepad operator = new XboxGamepad(1, .06, .05);
 	public static boolean driverConfigured = false;
 	public static boolean operatorConfigured = false;
@@ -123,7 +123,7 @@ public class Gamepads {
 		operator.Dpad.Right.whenPressed(ClimberCommands.nextRungUp());
 
 		//Manual climb tilt control
-		operator.leftTriggerButton.whileHeld(ClimberCommands.tiltUp());
+		operator.leftBumper.whileHeld(ClimberCommands.tiltUp());
 	}
 
 	// Configure the button bindings for the driver control in Test Mode
@@ -137,7 +137,7 @@ public class Gamepads {
 	}
 
 	public static double getClimberJoystick(){
-		return operator.leftStick.getY();
+		return operator.leftStick.getY() * -1;
 	}
 
 	public static double getDriveY(){

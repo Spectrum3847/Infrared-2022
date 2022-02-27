@@ -21,7 +21,7 @@ import frc.robot.telemetry.shuffleboard.SwerveTelemetry;
 public class ShuffleboardTabs {
 
     private double _heartBeatPeriod = 1;     //How fast we should run the update methods, most values are set by suppliers so they update quickly
-
+    private boolean initialized = false;
     // Tabs
     private MainTelemetry m_mainTelemetry;
     private SwerveTelemetry m_swerveTelemetry;
@@ -40,19 +40,14 @@ public class ShuffleboardTabs {
         m_BallPathTelemetry = new BallPathTelemtry();
         m_LauncherTelemetry = new LauncherTelemetry();
         m_ClimberTelemetry = new ClimberTelemetry();
-        m_GamepadsTelemetry = new GamepadsTelemetry();
+        //m_GamepadsTelemetry = new GamepadsTelemetry();
     }
 
     public void initialize() {
         printLow("Initializing ShuffleboardTabs...");
 
         m_mainTelemetry.initialize();
-        m_swerveTelemetry.initialize();
-        m_IntakeTelemetry.initialize();
-        m_BallPathTelemetry.initialize();
-        m_LauncherTelemetry.initialize();
-        m_ClimberTelemetry.initialize();
-        m_GamepadsTelemetry.initialize();
+        //m_GamepadsTelemetry.initialize();
         
         _heartBeat.startPeriodic(_heartBeatPeriod);
     }
@@ -61,12 +56,22 @@ public class ShuffleboardTabs {
     //We don't need to assign values every program cycle
     private void update() {
             m_mainTelemetry.update();
-            m_swerveTelemetry.update();
-            m_IntakeTelemetry.update();
-            m_BallPathTelemetry.update();
-            m_LauncherTelemetry.update();
-            m_ClimberTelemetry.update();
-            m_GamepadsTelemetry.update();
+            if (MainTelemetry.m_enableTabsWidget.getEntry().getBoolean(false) == true){
+                if (initialized == false){        
+                    m_swerveTelemetry.initialize();
+                    m_IntakeTelemetry.initialize();
+                    m_BallPathTelemetry.initialize();
+                    m_LauncherTelemetry.initialize();
+                    m_ClimberTelemetry.initialize();
+                    initialized = true;
+                }
+                m_swerveTelemetry.update();
+                m_IntakeTelemetry.update();
+                m_BallPathTelemetry.update();
+                m_LauncherTelemetry.update();
+                m_ClimberTelemetry.update();
+            }
+            //m_GamepadsTelemetry.update();
     }
 
     public static void printLow(String msg) {
@@ -92,5 +97,7 @@ public class ShuffleboardTabs {
                 update();
         }
     }
+
+
     Notifier _heartBeat = new Notifier(new PeriodicRunnable());
 }
