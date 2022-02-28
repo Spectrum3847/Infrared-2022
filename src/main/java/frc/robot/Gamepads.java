@@ -4,6 +4,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.lib.gamepads.AndButton;
+import frc.lib.gamepads.AndNotButton;
 import frc.lib.gamepads.XboxGamepad;
 import frc.lib.util.Alert;
 import frc.robot.Robot.RobotState;
@@ -87,8 +88,8 @@ public class Gamepads {
 		new AndButton(driver.leftBumper, driver.aButton).whileHeld(new ResetGyro(180));
 		new AndButton(driver.leftBumper, driver.bButton).whileHeld(new ResetGyro(270));
 
-		driver.aButton.whileHeld(BallPathCommands.intakeBalls());
-		driver.yButton.whileHeld(BallPathCommands.eject());
+		new AndNotButton(driver.aButton, driver.leftBumper).whileHeld(BallPathCommands.intakeBalls());
+		new AndNotButton(driver.yButton, driver.leftBumper).whileHeld(BallPathCommands.eject());
 
 		// Aim with limelight
 		driver.rightBumper.whileHeld(new LLAim());
@@ -154,7 +155,7 @@ public class Gamepads {
 
 	public static double getDriveR(){
 		double value = driver.triggers.getTwist();
-		if (Math.abs(value) < 0.1){
+		if (Math.abs(value) < 0.06){
 			return 0.0;
 		}
 		return value * -0.75;

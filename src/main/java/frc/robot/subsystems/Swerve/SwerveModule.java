@@ -64,7 +64,7 @@ public class SwerveModule {
         lastAngle = angle;
     }
 
-    private void resetToAbsolute(){
+    public void resetToAbsolute(){
         double absolutePosition = Conversions.degreesToFalcon(getCanCoder().getDegrees() - angleOffset, SwerveConstants.angleGearRatio);
         mAngleMotor.setSelectedSensorPosition(absolutePosition);
     }
@@ -73,7 +73,6 @@ public class SwerveModule {
         angleEncoder.configFactoryDefault();
         angleEncoder.configAllSettings(SwerveCTREConfigs.swerveCanCoderConfig);
         angleEncoder.setStatusFramePeriod(CANCoderStatusFrame.VbatAndFaults, 200);
-        //fastCANcoderSatusFrames();
     }
 
     private void configAngleMotor(){
@@ -82,7 +81,6 @@ public class SwerveModule {
         mAngleMotor.setInverted(SwerveConstants.angleMotorInvert);
         mAngleMotor.setNeutralMode(SwerveConstants.angleNeutralMode);
         resetToAbsolute();
-        //TalonFXSetup.pidStatusFrames(mAngleMotor);
     }
 
     private void configDriveMotor(){        
@@ -91,13 +89,10 @@ public class SwerveModule {
         mDriveMotor.setInverted(SwerveConstants.driveMotorInvert);
         mDriveMotor.setNeutralMode(SwerveConstants.driveNeutralMode);
         mDriveMotor.setSelectedSensorPosition(0);
-        //TalonFXSetup.pidStatusFrames(mDriveMotor);
     }
 
     public Rotation2d getCanCoder(){
-        //fastCANcoderSatusFrames();
         Rotation2d position = Rotation2d.fromDegrees(angleEncoder.getAbsolutePosition());
-        //slowCANcoderStatusFrames();
         return position;
     }
 

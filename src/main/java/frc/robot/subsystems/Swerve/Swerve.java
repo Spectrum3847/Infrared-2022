@@ -8,10 +8,8 @@ package frc.robot.subsystems.Swerve;
 import com.ctre.phoenix.sensors.Pigeon2;
 
 import frc.lib.math.Conversions;
-import frc.lib.util.Logger;
-import frc.lib.util.SpectrumPreferences;
 import frc.robot.commands.swerve.TeleopSwerve;
-import frc.robot.constants.AutoConstants;
+import frc.robot.constants.AutonConstants;
 import frc.robot.constants.SwerveConstants;
 import frc.robot.constants.Constants.CanIDs;
 import frc.robot.telemetry.Log;
@@ -34,15 +32,14 @@ public class Swerve extends SubsystemBase {
     public SwerveModule[] mSwerveMods;
     public Pigeon2 gyro;
     public double pidTurn = 0;
-    public boolean limelightAim = false;
     public double drive_x = 0;
     public double drive_y = 0;
     public double drive_rotation = 0;
     private final Field2d m_field = new Field2d();
-    public ProfiledPIDController thetaController = new ProfiledPIDController(AutoConstants.kPThetaController, 0, 0,
-                                                            AutoConstants.kThetaControllerConstraints);;
-    public PIDController xController = new PIDController(AutoConstants.kPXController, 0, 0);
-    public PIDController yController = new PIDController(AutoConstants.kPYController, 0, 0);
+    public ProfiledPIDController thetaController = new ProfiledPIDController(AutonConstants.kPThetaController, 0, 0,
+                                                            AutonConstants.kThetaControllerConstraints);;
+    public PIDController xController = new PIDController(AutonConstants.kPXController, 0, 0);
+    public PIDController yController = new PIDController(AutonConstants.kPYController, 0, 0);
 
 
     public Swerve() {
@@ -63,24 +60,15 @@ public class Swerve extends SubsystemBase {
         //Setup thetaController used for auton and automatic turns
         thetaController.enableContinuousInput(-Math.PI, Math.PI);
 
+        xController.setPID(AutonConstants.kPXController/100, 0, AutonConstants.kDXController/100);
+        yController.setPID(AutonConstants.kPYController/100, 0, AutonConstants.kDYController/100);
+        thetaController.setPID(AutonConstants.kPThetaController/100, 0, AutonConstants.kDThetaController/100);
         setDefaultCommand(new TeleopSwerve(this, true, false));
     }    
 
     @Override
     public void periodic(){
         swerveOdometry.update(getYaw(), getStates());   
-
-        //------ Update PD values -------//
-        double xkP = SpectrumPreferences.getNumber("Swerve: X kP", AutoConstants.kPXController)/100;
-        double xkD = SpectrumPreferences.getNumber("Swerve: X kD", AutoConstants.kDXController)/100;
-        double ykP = SpectrumPreferences.getNumber("Swerve: Y kP", AutoConstants.kPYController)/100;
-        double ykD = SpectrumPreferences.getNumber("Swerve: Y kD", AutoConstants.kDYController)/100;
-        double thetakP = SpectrumPreferences.getNumber("Swerve: Theta kP", AutoConstants.kPThetaController)/100;
-        double thetakD = SpectrumPreferences.getNumber("Swerve: Theta kD", AutoConstants.kDThetaController)/100;        
-        xController.setPID(xkP, 0, xkD);
-        yController.setPID(ykP, 0, ykD);
-        thetaController.setPID(thetakP, 0, thetakD);
-
         m_field.setRobotPose(swerveOdometry.getPoseMeters()); //Field is used for simulation and testing
     }
 
@@ -125,7 +113,14 @@ public class Swerve extends SubsystemBase {
         pidTurn = rotationalVelocity;
     }
 
-    /* Used by SwerveControllerCommand in Auto */
+    //Reset AngleMotors to Absolute
+    public void resetSteeringToAbsolute() {
+        for (SwerveModule mod : mSwerveMods) {
+            mod.resetToAbsolute();
+        }
+    }
+
+    /* Used by SwerveFollowCommand in Auto */
     public void setModuleStates(SwerveModuleState[] desiredStates) {
         SwerveDriveKinematics.desaturateWheelSpeeds(desiredStates, SwerveConstants.maxSpeed);
         
@@ -174,9 +169,6 @@ public class Swerve extends SubsystemBase {
     }
 
     public void dashboard(){
-        //SmartDashboard.putNumber("Swerve/Drive pY", this.getPose().getY());
-        //SmartDashboard.putNumber("Swerve/Drive pX", this.getPose().getX());
-
         SmartDashboard.putData("Field", m_field);
     }
 
@@ -214,20 +206,4 @@ public class Swerve extends SubsystemBase {
             mod.mAngleMotor.stopMotor();
         }
     }
-    
-    public static void printDebug(String msg){
-        Logger.println(msg, name, Logger.low1);
-      }
-      
-      public static void printInfo(String msg){
-        Logger.println(msg, name, Logger.normal2);
-      }
-      
-      public static void printWarning(String msg) {
-        Logger.println(msg, name, Logger.high3);
-      }
-
-      public static void printError(String msg) {
-        Logger.println(msg, name, Logger.critical4);
-      }
 }

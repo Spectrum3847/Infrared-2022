@@ -16,7 +16,7 @@ public class TestPathPlanner extends SequentialCommandGroup {
     PathPlannerTrajectory exampleTrajectory = PathPlanner.loadPath("New New New Path", 3, 3);
 
     addCommands(
-        new SwerveTrajectoryFollow(exampleTrajectory, this::finalRotation));
+        new SwerveFollowCommand(exampleTrajectory));
   }
 
   Rotation2d finalRotation() {
