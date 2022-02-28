@@ -48,7 +48,7 @@ public abstract class RollerSubsystem extends SubsystemBase {
   }
 
   public void stop() {
-    motorLeader.set(0);
+    motorLeader.stopMotor();
   }
 
   // Return Radians per sec velocity

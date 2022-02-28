@@ -40,12 +40,12 @@ public class LauncherTelemetry {
         m_tab.addNumber("Hood Current Angle", ()-> Robot.launcher.hood.getCurrentAngle()).withPosition(1, 2);
 
         LauncherLeader = new FalconConfigLayout("Launcher Config", m_tab, Robot.launcher.motorLeader, 3, 0);
-        LauncherLeader.initialize();
+        //LauncherLeader.initialize();
     }
 
     // --------//
     // Update //
     public void update() { // This will be called in the robotPeriodic
-        LauncherLeader.update();
+        //LauncherLeader.update();
     }
 }

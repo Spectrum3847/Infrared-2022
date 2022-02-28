@@ -8,6 +8,7 @@ public final class Constants {
     private static final boolean FAKE_FMS = false;
     public static final boolean TUNING_MODE = true;
     public static final boolean ENABLE_DASHBOARD = true;
+    public static final String MAC_ADDRESS = "00:80:2F:24:6D:7C";
     
     public static final double loopPeriodSecs = 0.02;
 
@@ -44,8 +45,8 @@ public final class Constants {
         public static final int kLauncherMotorLeft = 50;
         public static final int kFollowerMotorRight = 51;
 
-        public static final int kClimberMotor1 = 60;
-        public static final int kClimberMotor2 = 61;
+        public static final int kClimberMotorLeft = 60;
+        public static final int kClimberMotorRight = 61;
     }
 
     public static final class SolenoidPorts{

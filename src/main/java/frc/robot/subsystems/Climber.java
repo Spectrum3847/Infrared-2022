@@ -18,10 +18,10 @@ public class Climber extends PositionSubsystem{
 
     public Climber(){
         setName(ClimberConstants.name);
-        motorLeader = new WPI_TalonFX(CanIDs.kClimberMotor1, Constants.Canivorename);
+        motorLeader = new WPI_TalonFX(CanIDs.kClimberMotorLeft, Constants.Canivorename);
         ClimberConstants.setupFalconLeader(motorLeader);
 
-        motorFollower = new WPI_TalonFX(CanIDs.kClimberMotor2, Constants.Canivorename);
+        motorFollower = new WPI_TalonFX(CanIDs.kClimberMotorRight, Constants.Canivorename);
         ClimberConstants.setupFalconFollower(motorFollower, motorLeader);
         
         resetEncoder();
@@ -31,6 +31,9 @@ public class Climber extends PositionSubsystem{
         setDefaultCommand(new RunCommand(() -> setManualOutput(Gamepads.getClimberJoystick()), this));
     }
 
+    public void follow(){
+        motorFollower.follow(motorLeader);
+    }
     public void tiltUp(){
         pneumatic.on();
     }

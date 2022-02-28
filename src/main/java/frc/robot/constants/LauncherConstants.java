@@ -19,13 +19,13 @@ public final class LauncherConstants{
     public final static double farShotAngle = 50;
     public final static double closeShotSpeed = 2200;
     public final static double tarmacShotSpeed = 2400;
-    public final static double farShotSpeed = 2800;
+    public final static double farShotSpeed = 2600;
 
     //Physical Constants
     public static final double diameterInches = 4;
     public static final double diameterMeters = diameterInches * 0.0254;
 
-    public static final double gearRatio = 27/17;
+    public static final double hoodGearRatio = 27/17;
 
     public static final double wheelCircumferenceMeters = diameterMeters * Math.PI;
     public static final double wheelCircumferenceInches = diameterInches * Math.PI;
@@ -100,12 +100,14 @@ public final class LauncherConstants{
         TalonFXSetup.configAllSetup(motor, config);
         motor.setInverted(kInverted);
         motor.setNeutralMode(kNeutralMode);
+        motor.enableVoltageCompensation(true);
     }
 
     public static void setupFalconFollower(TalonFX motorFollower, TalonFX motorLeader){
         TalonFXSetup.configFollowerSetup(motorFollower, config);
         motorFollower.setInverted(kFollowerInverted);
         motorFollower.setNeutralMode(kNeutralMode);
+        motorFollower.enableVoltageCompensation(true);
         motorFollower.follow(motorLeader);
     }
 }

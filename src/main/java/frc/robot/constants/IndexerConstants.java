@@ -96,12 +96,14 @@ public final class IndexerConstants {
         TalonFXSetup.configAllSetup(motor, config);
         motor.setInverted(kInverted);
         motor.setNeutralMode(kNeutralMode);
+        motor.enableVoltageCompensation(true);
     }
 
     public static void setupRollerFalconFollower(TalonFX motorFollower, TalonFX motorLeader) {
         TalonFXSetup.configFollowerSetup(motorFollower, config);
         motorFollower.setInverted(kFollowerInverted);
         motorFollower.setNeutralMode(kNeutralMode);
+        motorFollower.enableVoltageCompensation(true);
         motorFollower.follow(motorLeader);
     }
 }

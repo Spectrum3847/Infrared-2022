@@ -2,6 +2,7 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.lib.drivers.LinearServo;
@@ -29,9 +30,14 @@ public class Launcher extends RollerSubsystem {
 
     hood = new ServoHood();
 
-    this.setDefaultCommand(new RunCommand(() -> stop(), this));
+    this.setDefaultCommand(new RunCommand(() -> reset(), this));
   }
 
+  public void reset(){
+    motorFollower.follow(motorLeader);
+    stop();
+  }
+  
   public void setRPM(double wheelRPM) {
     // Sensor Velocity in ticks per 100ms / Sensor Ticks per Rev * 600 (ms to min) *
     // 1 gear ratio to shooter
