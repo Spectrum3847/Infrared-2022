@@ -64,7 +64,7 @@ public class FalconConfigLayout extends CustomLayout{
     }
 
     public void updatePersistent(){
-        if (persistentEntry.getBoolean(true)){
+        if (persistentEntry.getBoolean(false)){
             kPEntry.setPersistent();
             kDEntry.setPersistent();
             kFEntry.setPersistent();

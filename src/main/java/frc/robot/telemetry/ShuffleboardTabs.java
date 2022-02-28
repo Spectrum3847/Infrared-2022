@@ -21,7 +21,7 @@ import frc.robot.telemetry.shuffleboard.SwerveTelemetry;
 public class ShuffleboardTabs {
 
     private double _heartBeatPeriod = 1;     //How fast we should run the update methods, most values are set by suppliers so they update quickly
-    private boolean initialized = false;
+
     // Tabs
     private MainTelemetry m_mainTelemetry;
     private SwerveTelemetry m_swerveTelemetry;
@@ -29,7 +29,7 @@ public class ShuffleboardTabs {
     public BallPathTelemtry m_BallPathTelemetry;
     public LauncherTelemetry m_LauncherTelemetry;
     public ClimberTelemetry m_ClimberTelemetry;
-    public GamepadsTelemetry m_GamepadsTelemetry;
+    //public GamepadsTelemetry m_GamepadsTelemetry;
 
     public ShuffleboardTabs() {
         printLow("Constructing ShuffleboardTabs...");
@@ -66,7 +66,7 @@ public class ShuffleboardTabs {
         m_BallPathTelemetry.update();
         m_LauncherTelemetry.update();
         m_ClimberTelemetry.update();
-            //m_GamepadsTelemetry.update();
+        //m_GamepadsTelemetry.update();
     }
 
     public static void printLow(String msg) {

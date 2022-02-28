@@ -14,7 +14,7 @@ import frc.robot.commands.swerve.LLAim;
 
 public class Gamepads {
 	// Create Joysticks first so they can be used in defaultCommands
-	public static XboxGamepad driver = new XboxGamepad(0, .15, .15);
+	public static XboxGamepad driver = new XboxGamepad(0, .16, .16);
 	public static XboxGamepad operator = new XboxGamepad(1, .1, .1);
 	public static boolean driverConfigured = false;
 	public static boolean operatorConfigured = false;
@@ -44,7 +44,7 @@ public class Gamepads {
 				return;
 			}
 
-			// Configure button bindings
+			// Configure button bindings once the driver controller is connected
 			if (Robot.getState() == RobotState.TEST) {
 				driverTestBindings();
 			} else {
@@ -66,7 +66,7 @@ public class Gamepads {
 				return;
 			}
 
-			// Configure button bindings
+			// Configure button bindings once operatorIsConnected is true
 			if (Robot.getState() == RobotState.TEST) {
 				operatorTestBindings();
 			} else {
@@ -153,10 +153,10 @@ public class Gamepads {
 	}
 
 	public static double getDriveR(){
-		double value = driver.triggers.getTwist() * -0.75;
+		double value = driver.triggers.getTwist();
 		if (Math.abs(value) < 0.1){
-			return 0;
+			return 0.0;
 		}
-		return value;
+		return value * -0.75;
 	}
 }

@@ -1,6 +1,12 @@
 //Created by Spectrum3847
 package frc.robot;
 
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
+import java.net.UnknownHostException;
+
+import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -13,6 +19,7 @@ import frc.lib.util.SpectrumPreferences;
 import frc.lib.util.Alert.AlertType;
 import frc.lib.sim.PhysicsSim;
 import frc.robot.constants.Constants;
+import frc.robot.constants.PracticeConstants;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Feeder;
 import frc.robot.subsystems.Indexer;
@@ -47,46 +54,20 @@ public class Robot extends TimedRobot {
     public static SpectrumPreferences prefs;
     public static ShuffleboardTabs shuffleboardTabs;
 
-    private void intializeSubsystems(){
-        switch (Constants.getRobot()) {
-            case ROBOT_2022C:
-            swerve = new Swerve();
-            intake = new Intake();
-            indexer = new Indexer();
-            feeder = new Feeder();
-            launcher = new Launcher();
-            climber = new Climber();
-            visionLL = new VisionLL();
-            pneumatics = new Pneumatics();
-            break;
-
-            case ROBOT_2022P:
-            swerve = new Swerve();
-            intake = new Intake();
-            indexer = new Indexer();
-            feeder = new Feeder();
-            launcher = new Launcher();
-            climber = new Climber();
-            visionLL = new VisionLL();
-            pneumatics = new Pneumatics();
-            break;
-
-            default:
-            swerve = new Swerve();
-            intake = new Intake();
-            indexer = new Indexer();
-            feeder = new Feeder();
-            launcher = new Launcher();
-            climber = new Climber();
-            visionLL = new VisionLL();
-            pneumatics = new Pneumatics();
-            break;
-        }
-
+    private void intializeSubsystems() {
+        swerve = new Swerve();
+        intake = new Intake();
+        indexer = new Indexer();
+        feeder = new Feeder();
+        launcher = new Launcher();
+        climber = new Climber();
+        visionLL = new VisionLL();
+        pneumatics = new Pneumatics();
         pdh = new PowerDistribution(1, ModuleType.kRev);
         prefs = SpectrumPreferences.getInstance();
         shuffleboardTabs = new ShuffleboardTabs();
     }
+
     // AutonCommand
     private Command m_autonomousCommand;
 
@@ -107,8 +88,13 @@ public class Robot extends TimedRobot {
         s_robot_state = state;
     }
 
-    //Alerts
+    public static String MAC = "";
+    public static boolean isPractice = false;
+
+    // Alerts
     public static Alert batteryAlert = new Alert("Low Battery", AlertType.WARNING);
+    public static Alert practiceRobotAlert = new Alert("Practice robot selected", Alert.AlertType.WARNING);
+    public static Alert FMSConnectedAlert = new Alert("FMS Connected", Alert.AlertType.WARNING);
 
     /**
      * This function is run when the robot is first started up and should be used
@@ -117,6 +103,8 @@ public class Robot extends TimedRobot {
     @Override
     public void robotInit() {
         printNormal("Start robotInit()");
+        DataLogManager.start();
+        checkIfPracticeRobot();
         intializeSubsystems();
         Dashboard.intializeDashboard();
         shuffleboardTabs.initialize();
@@ -153,7 +141,8 @@ public class Robot extends TimedRobot {
     @Override
     public void disabledInit() {
         setState(RobotState.DISABLED);
-        printNormal("Start disabledInit()");
+        printNormal("Start disabledInit(), MAC Address:" + MAC);
+        checkFMS();
         Log.initLog(); // Config the Debugger based on FMS state
         Gamepads.resetConfig();
         ; // Reset Gamepad Configs
@@ -236,12 +225,54 @@ public class Robot extends TimedRobot {
         PhysicsSim.getInstance().run();
     }
 
-    public boolean checkBattery(){
+    public boolean checkFMS() {
+        if (Constants.isFMSEnabled()) {
+            FMSConnectedAlert.set(true);
+            return true;
+        } else {
+            FMSConnectedAlert.set(false);
+            return false;
+        }
+    }
+
+    public boolean checkBattery() {
         if (RobotController.getBatteryVoltage() < 12.0) {
             return true;
         } else {
             return false;
         }
+    }
+
+    private static boolean checkIfPracticeRobot() {
+        if (MAC.equals("")) {
+            getMACaddress();
+        }
+        if (MAC.equals(PracticeConstants.MAC_ADDRESS)) {
+            isPractice = true;
+            practiceRobotAlert.set(true);
+            PracticeConstants.practiceBotConstantsOverride();
+        }
+        return isPractice;
+    }
+
+    private static String getMACaddress() {
+        InetAddress localHost;
+        NetworkInterface ni;
+        byte[] hardwareAddress;
+        try {
+            localHost = InetAddress.getLocalHost();
+            ni = NetworkInterface.getByInetAddress(localHost);
+            hardwareAddress = ni.getHardwareAddress();
+            String[] hexadecimal = new String[hardwareAddress.length];
+            for (int i = 0; i < hardwareAddress.length; i++) {
+                hexadecimal[i] = String.format("%02X", hardwareAddress[i]);
+            }
+            MAC = String.join(":", hexadecimal);
+            return MAC;
+        } catch (UnknownHostException | SocketException e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 
     // ---------------//

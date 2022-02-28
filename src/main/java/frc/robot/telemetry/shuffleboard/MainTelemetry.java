@@ -3,11 +3,9 @@
 package frc.robot.telemetry.shuffleboard;
 
 import edu.wpi.first.wpilibj.shuffleboard.*;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.lib.util.Alert;
+import frc.robot.AutonSetup;
 import frc.robot.Robot;
 import edu.wpi.first.networktables.NetworkTableEntry;
-import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 
@@ -16,61 +14,68 @@ import java.util.Map;
 // The Shuffleboard Main tab.
 public class MainTelemetry {
 
-     //----------------//
+    // ----------------//
     // Default Values //
-    //----------------//
+    // ----------------//
 
-    //---------------------//
+    // ---------------------//
     // NetworkTableEntries //
-    //---------------------//
+    // ---------------------//
     public static NetworkTableEntry flashEntry;
 
-    //----------------//
-    // Tab & Layouts  //
-    //----------------//
+    // ----------------//
+    // Tab & Layouts //
+    // ----------------//
     private ShuffleboardTab m_tab;
 
-    //---------//
+    // ---------//
     // Widgets //
-    //---------//
+    // ---------//
     public static SimpleWidget m_flashWidget;
     public static SimpleWidget m_limelightLEDenable;
     public static SimpleWidget m_enableTabsWidget;
+    public static ComplexWidget m_autonSelectorWidget;
 
-    //--------------//
-    // Constructor  //
-    //--------------//
+    // --------------//
+    // Constructor //
+    // --------------//
     public MainTelemetry() {
         m_tab = Shuffleboard.getTab("Main");
     }
 
-    //---------------------//
+    // ---------------------//
     // initialize //
-    //---------------------//
-    // Create all View Widgets, ones you can't edit, created after subsystem instances are made
+    // ---------------------//
+    // Create all View Widgets, ones you can't edit, created after subsystem
+    // instances are made
     public void initialize() {
         matchTimeWidget().withPosition(0, 1);
         flashWidget().withPosition(0, 0);
-        m_tab.addBoolean("Compressor on?", ()-> Robot.pneumatics.isCompressorEnabled()).withPosition(1,1);
-        m_tab.addNumber("Pressure", ()-> Robot.pneumatics.getPressure()).withPosition(1, 0);
+        m_tab.addBoolean("Compressor on?", () -> Robot.pneumatics.isCompressorEnabled()).withPosition(1, 1);
+        m_tab.addNumber("Pressure", () -> Robot.pneumatics.getPressure()).withPosition(1, 0);
         m_tab.addNumber("FPGA timestamp", () -> Timer.getFPGATimestamp()).withPosition(0, 4);
-        m_limelightLEDenable = m_tab.add("Limelight LED Enable", true).withWidget(BuiltInWidgets.kToggleButton).withPosition(2, 0);
-        m_tab.addNumber("LL-Distance", ()->Robot.visionLL.getLLDistance()).withPosition(2, 1);
-        m_tab.addNumber("Target Distance", ()->Robot.visionLL.getActualDistance()).withPosition(2, 2);
-        m_enableTabsWidget = m_tab.add("Update Enable", false).withWidget(BuiltInWidgets.kToggleButton).withPosition(3, 0);
-
-   }
+        m_limelightLEDenable = m_tab.add("Limelight LED Enable", true).withWidget(BuiltInWidgets.kToggleButton)
+                .withPosition(2, 0);
+        m_tab.addNumber("LL-Distance", () -> Robot.visionLL.getLLDistance()).withPosition(2, 1);
+        m_tab.addNumber("Target Distance", () -> Robot.visionLL.getActualDistance()).withPosition(2, 2);
+        m_enableTabsWidget = m_tab.add("Update Enable", false).withWidget(BuiltInWidgets.kToggleButton).withPosition(3,
+                0).withSize(1, 1);
+        AutonSetup.setupSelector();
+        m_autonSelectorWidget = m_tab.add(AutonSetup.chooser).withPosition(4, 0).withSize(3, 1)
+                .withProperties(Map.of("Title", "Choose Auton", "title", "Choose Auton"));
+    }
 
     // Match Time
-    public SuppliedValueWidget<Double> matchTimeWidget(){
-        SuppliedValueWidget<Double> m_matchTimeWidget = m_tab.addNumber("Match Time", () -> DriverStation.getMatchTime());
+    public SuppliedValueWidget<Double> matchTimeWidget() {
+        SuppliedValueWidget<Double> m_matchTimeWidget = m_tab.addNumber("Match Time",
+                () -> DriverStation.getMatchTime());
         m_matchTimeWidget.withWidget(BuiltInWidgets.kDial);
         m_matchTimeWidget.withProperties(Map.of("min", -1, "max", 135));
         return m_matchTimeWidget;
     }
 
-    //Flash
-    public SimpleWidget flashWidget(){
+    // Flash
+    public SimpleWidget flashWidget() {
         m_flashWidget = m_tab.add("Flash", false);
         flashEntry = m_flashWidget.getEntry();
         m_flashWidget.withWidget(BuiltInWidgets.kBooleanBox);
@@ -78,17 +83,17 @@ public class MainTelemetry {
         return m_flashWidget;
     }
 
-    //--------//
+    // --------//
     // Update //
-    //--------//
+    // --------//
     static boolean b = true;
 
-    public void update() {     // This will be called at a rate setup in ShufflbeboardTabs
+    public void update() { // This will be called at a rate setup in ShufflbeboardTabs
         b = !b;
         flashEntry.setBoolean(b);
     }
 
-    public static boolean getLimeLightToggle(){
+    public static boolean getLimeLightToggle() {
         return m_limelightLEDenable.getEntry().getBoolean(true);
     }
 }

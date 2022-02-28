@@ -1,72 +1,24 @@
 //Created by Spectrum3847
 package frc.robot.constants;
 
-import java.util.Map;
-
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.RobotBase;
-import frc.lib.util.Alert;
-import frc.lib.util.Alert.AlertType;
-import frc.robot.Robot;
-import frc.robot.Robot.RobotState;
 
 public final class Constants {
-    public static final RobotType ROBOT = RobotType.ROBOT_2022C;
+    public static RobotType ROBOT = RobotType.ROBOT_2022C;
     private static final boolean FAKE_FMS = false;
     public static final boolean TUNING_MODE = true;
     public static final boolean ENABLE_DASHBOARD = true;
     
     public static final double loopPeriodSecs = 0.02;
 
-    private static final Alert invalidRobotAlert =
-    new Alert("Invalid robot selected, using competition robot as default.",
-        AlertType.ERROR);
-        
-    public static final Map<RobotType, String> logFolders =
-    Map.of(RobotType.ROBOT_2022C, "/media/sda2/", RobotType.ROBOT_2022P,
-        "/media/sda1/");
-
     public static enum RobotType {
     ROBOT_2022C, ROBOT_2022P, ROBOT_SIMBOT, ROBOT_ROMI
     }
 
-    public static enum Mode {
-    REAL, REPLAY, SIM
-    }
-
-    //Check if we are FMSattached (or faking it) and we are not disabled
+    //Check if we are FMSattached or Faking it
     public static boolean isFMSEnabled (){
-      return ((DriverStation.isFMSAttached() || FAKE_FMS) && !(Robot.s_robot_state == RobotState.DISABLED));
+      return ((DriverStation.isFMSAttached() || FAKE_FMS));
     }
-
-    public static RobotType getRobot() {
-        if (RobotBase.isReal()) {
-          if (ROBOT == RobotType.ROBOT_SIMBOT || ROBOT == RobotType.ROBOT_ROMI) { // Invalid robot
-                                                                                  // selected
-            invalidRobotAlert.set(true);
-            return RobotType.ROBOT_2022C;
-          } else {
-            return ROBOT;
-          }
-        } else {
-          return ROBOT;
-        }
-      }
-    
-      public static Mode getMode() {
-        switch (getRobot()) {
-          case ROBOT_2022C:
-          case ROBOT_2022P:
-            return RobotBase.isReal() ? Mode.REAL : Mode.REPLAY;
-    
-          case ROBOT_SIMBOT:
-          case ROBOT_ROMI:
-            return Mode.SIM;
-    
-          default:
-            return Mode.REAL;
-        }
-      }
 
     public static int CANconfigTimeOut = 0;
     public static final int minBatteryVoltage = 12;

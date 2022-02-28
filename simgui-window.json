@@ -19,12 +19,12 @@
     "###FMS": {
       "Collapsed": "0",
       "Pos": "21,752",
-      "Size": "326,211"
+      "Size": "388,182"
     },
     "###Joysticks": {
       "Collapsed": "0",
-      "Pos": "617,802",
-      "Size": "1156,202"
+      "Pos": "622,879",
+      "Size": "1156,91"
     },
     "###NetworkTables": {
       "Collapsed": "0",
@@ -33,23 +33,13 @@
     },
     "###Other Devices": {
       "Collapsed": "0",
-      "Pos": "1007,52",
+      "Pos": "411,42",
       "Size": "355,695"
     },
     "###PWM Outputs": {
       "Collapsed": "0",
       "Pos": "1344,32",
       "Size": "151,99"
-    },
-    "###PowerDistributions": {
-      "Collapsed": "0",
-      "Pos": "448,385",
-      "Size": "555,485"
-    },
-    "###RoboRIO": {
-      "Collapsed": "0",
-      "Pos": "431,434",
-      "Size": "273,240"
     },
     "###System Joysticks": {
       "Collapsed": "0",

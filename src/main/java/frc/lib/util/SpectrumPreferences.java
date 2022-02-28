@@ -3,7 +3,6 @@ package frc.lib.util;
 import java.util.Vector;
 
 import edu.wpi.first.wpilibj.Preferences;
-import frc.robot.constants.Constants;
 
 public class SpectrumPreferences {
 	private static SpectrumPreferences instance;
