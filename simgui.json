@@ -18,6 +18,13 @@
       "/FMSInfo": "FMSInfo",
       "/Shuffleboard/Main/SendableChooser[0]": "String Chooser",
       "/SmartDashboard/Field": "Field2d"
+    },
+    "windows": {
+      "/SmartDashboard/Field": {
+        "window": {
+          "visible": true
+        }
+      }
     }
   },
   "NetworkTables": {

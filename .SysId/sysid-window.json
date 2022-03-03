@@ -6,8 +6,8 @@
       "style": "0",
       "userScale": "4",
       "width": "1920",
-      "xpos": "-10",
-      "ypos": "31"
+      "xpos": "-1325",
+      "ypos": "69"
     }
   },
   "Window": {
@@ -18,12 +18,12 @@
     },
     "###Generator": {
       "Collapsed": "0",
-      "Pos": "83,24",
+      "Pos": "-208,111",
       "Size": "599,763"
     },
     "###Logger": {
       "Collapsed": "0",
-      "Pos": "69,244",
+      "Pos": "-109,283",
       "Size": "599,573"
     },
     "###Program Log": {
