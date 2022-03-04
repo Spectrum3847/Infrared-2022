@@ -3,6 +3,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Robot;
 import frc.robot.constants.ClimberConstants;
 
@@ -17,7 +18,7 @@ public class ClimberCommands {
 
     //Put the climber fully up, used to grab the mid bar
     public static Command fullUp(){
-        return tiltUp().alongWith(extendFull());
+        return extendFull().alongWith(new WaitCommand(0.5).andThen(tiltUp()));
     }
 
     //Put the climber partially out and tilted up, used to grab the next rung
@@ -27,7 +28,7 @@ public class ClimberCommands {
 
     //pull the climber down, used to climb to mid bar, and from rung to rung
     public static Command climb(){
-        return tiltDown().alongWith(pull());
+        return pull().alongWith(new WaitCommand(0.1).andThen(tiltDown()));
     }
 
     public static Command extendFull(){

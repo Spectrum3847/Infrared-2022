@@ -173,7 +173,11 @@ public class Robot extends TimedRobot {
         LiveWindow.disableAllTelemetry();
 
         // schedule the autonomous command (example)
+        visionLL.limeLightLEDOn();
         m_autonomousCommand = AutonSetup.getAutonomousCommand();
+        double angle = AutonSetup.getAutonAngle();
+        Robot.swerve.resetGyro(angle);
+
         if (m_autonomousCommand != null) {
             m_autonomousCommand.schedule();
         }
@@ -271,7 +275,7 @@ public class Robot extends TimedRobot {
             }
             MAC = String.join(":", hexadecimal);
             return MAC;
-        } catch (UnknownHostException | SocketException e) {
+        } catch (UnknownHostException | SocketException | NullPointerException e) {
             e.printStackTrace();
         }
         return "";

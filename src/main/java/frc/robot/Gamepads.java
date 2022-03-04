@@ -5,6 +5,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.lib.gamepads.AndButton;
 import frc.lib.gamepads.AndNotButton;
+import frc.lib.gamepads.AxisButton;
 import frc.lib.gamepads.XboxGamepad;
 import frc.lib.util.Alert;
 import frc.robot.Robot.RobotState;
@@ -125,6 +126,9 @@ public class Gamepads {
 
 		//Manual climb tilt control
 		operator.leftBumper.whileHeld(ClimberCommands.tiltUp());
+
+		//Return to default command when pressed
+		operator.leftStickButton.whileHeld(Robot.climber.defaultCommand());
 	}
 
 	// Configure the button bindings for the driver control in Test Mode

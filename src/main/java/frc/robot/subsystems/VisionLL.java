@@ -44,7 +44,7 @@ public class VisionLL extends SubsystemBase {
         // This method will be called once per scheduler run
         // If disabled and LED-Toggle is false, than leave lights off, else they should
         // be on
-        if (Robot.s_robot_state == RobotState.DISABLED && !MainTelemetry.getLimeLightToggle()
+        /*if (Robot.s_robot_state == RobotState.DISABLED && !MainTelemetry.getLimeLightToggle()
                 && !DriverStation.isFMSAttached()) {
             if (LEDState == true) {
                 limeLightLEDOff();
@@ -55,7 +55,7 @@ public class VisionLL extends SubsystemBase {
                 limeLightLEDOn();
                 LEDState = true;
             }
-        }
+        }*/
 
         TargetAngle = limelight.getdegVerticalToTarget();
         Distance = ((TargetHeight - LLHeight) / Math.tan(Math.toRadians(LLAngle + TargetAngle)));
