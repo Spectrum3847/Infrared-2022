@@ -17,8 +17,8 @@ public final class LauncherConstants{
     public final static double closeShotAngle = 80;
     public final static double tarmacShotAngle = 68;
     public final static double farShotAngle = 50;
-    public final static double closeShotSpeed = 2200;
-    public final static double tarmacShotSpeed = 2400;
+    public final static double closeShotSpeed = 2000;
+    public final static double tarmacShotSpeed = 2200;
     public final static double farShotSpeed = 2600;
 
     //Physical Constants
@@ -48,10 +48,10 @@ public final class LauncherConstants{
     public static final NeutralMode kNeutralMode = NeutralMode.Coast;
 
     /* Control Loop Constants */
-    public static final double kP = 0.0465;
+    public static final double kP = 0.065;//0.0465;
     public static final double kI = 0.0005;
     public static final double kD = 0;
-    public static final double kF = 0.061;
+    public static final double kF = 0.0519;
     public static final double kIz = 150;
     public static final double motionCruiseVelocity = 0;
     public static final double motionAcceleration = 0;

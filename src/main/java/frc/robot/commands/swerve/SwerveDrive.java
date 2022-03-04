@@ -34,6 +34,9 @@ public class SwerveDrive extends CommandBase {
         m_x = x;
     }
 
+    public void intialize(){
+        s_Swerve.brakeMode(true);
+    }
     @Override
     public void execute() {
         double yAxis = m_y;
@@ -43,5 +46,11 @@ public class SwerveDrive extends CommandBase {
         translation = new Translation2d(yAxis, xAxis).times(SwerveConstants.maxSpeed);
         rotation = rAxis * SwerveConstants.maxAngularVelocity;
         s_Swerve.drive(translation, rotation, fieldRelative, openLoop);
+    }
+
+    public void end(boolean interrupted) {
+        super.end(interrupted);
+        s_Swerve.brakeMode(false);
+        s_Swerve.stop();
     }
 }
