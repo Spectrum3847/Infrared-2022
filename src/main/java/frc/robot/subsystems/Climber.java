@@ -28,10 +28,10 @@ public class Climber extends PositionSubsystem {
 
         resetEncoder();
         motorLeader.configForwardSoftLimitThreshold(ClimberConstants.fullExtend);
-        motorLeader.configForwardSoftLimitEnable(true);
+        motorLeader.configForwardSoftLimitEnable(false);
 
         motorLeader.configReverseSoftLimitThreshold(ClimberConstants.fullRetract);
-        motorLeader.configReverseSoftLimitEnable(true);
+        motorLeader.configReverseSoftLimitEnable(false);
 
         pneumatic = new SolenoidSubsystem("Climber Solenoid", SolenoidPorts.kclimberUp);
 
