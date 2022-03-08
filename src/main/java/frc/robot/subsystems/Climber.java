@@ -22,9 +22,9 @@ public class Climber extends PositionSubsystem {
         setName(ClimberConstants.name);
         motorLeader = new WPI_TalonFX(CanIDs.kClimberMotorLeft, Constants.Canivorename);
         ClimberConstants.setupFalconLeader(motorLeader);
-
         motorFollower = new WPI_TalonFX(CanIDs.kClimberMotorRight, Constants.Canivorename);
         ClimberConstants.setupFalconFollower(motorFollower, motorLeader);
+
 
         resetEncoder();
         motorLeader.configForwardSoftLimitThreshold(ClimberConstants.fullExtend);

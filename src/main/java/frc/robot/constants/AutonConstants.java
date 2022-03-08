@@ -3,7 +3,7 @@ package frc.robot.constants;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 
 public final class AutonConstants {
-    public static final double pos1angle = 92;
+    public static final double pos1angle = 160;
     public static final double pos2angle = 120;
     public static final double pos3angle = 270;
 

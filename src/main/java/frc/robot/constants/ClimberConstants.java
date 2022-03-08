@@ -14,7 +14,7 @@ import frc.lib.util.TalonFXSetup;
 public final class ClimberConstants{
     public static final String name = "Climber";
 
-    public static final int fullExtend = 112000;
+    public static final int fullExtend = 118000;
     public static final int nextRungExtend = 98000;
     public static final int fullRetract = -2000;
 
@@ -52,15 +52,15 @@ public final class ClimberConstants{
     public static final double motionAcceleration = 20000;
 
     /* Current Limiting */
-    public static final int currentLimit = 30;
-    public static final int tirggerThresholdLimit = 35;
-    public static final double PeakCurrentDuration = 0.3;
+    public static final int currentLimit = 40;
+    public static final int tirggerThresholdLimit = 40;
+    public static final double PeakCurrentDuration = 0.5;
     public static final boolean EnableCurrentLimit = true;
     public static final SupplyCurrentLimitConfiguration supplyLimit = new SupplyCurrentLimitConfiguration(
         EnableCurrentLimit, currentLimit, tirggerThresholdLimit, PeakCurrentDuration);
 
-    public static final StatorCurrentLimitConfiguration statorLimit = new StatorCurrentLimitConfiguration(
-        EnableCurrentLimit, currentLimit, tirggerThresholdLimit, PeakCurrentDuration);
+    /*public static final StatorCurrentLimitConfiguration statorLimit = new StatorCurrentLimitConfiguration(
+        EnableCurrentLimit, currentLimit, tirggerThresholdLimit, PeakCurrentDuration);*/
 
     /* Voltage Compensation */
     public static final double voltageCompSaturation = 12;
@@ -88,7 +88,6 @@ public final class ClimberConstants{
         config.motionAcceleration = motionAcceleration;
         
         config.supplyCurrLimit = supplyLimit;
-        config.statorCurrLimit = statorLimit;
         config.openloopRamp = openLoopRamp;
         config.closedloopRamp = closedLoopRamp;
         config.voltageCompSaturation = voltageCompSaturation;
