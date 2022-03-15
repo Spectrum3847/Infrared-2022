@@ -108,6 +108,7 @@ public class Robot extends TimedRobot {
         intializeSubsystems();
         Dashboard.intializeDashboard();
         shuffleboardTabs.initialize();
+        visionLL.limeLightLEDOff();
         Gamepads.resetConfig(); // Reset Gamepad Configs
         Log.initLog(); // Config the Debugger based on FMS state
         printNormal("End robotInit()");

@@ -19,10 +19,8 @@ public class TestPathPlanner extends SequentialCommandGroup {
     // An example trajectory to follow. All units in meters.
     PathPlannerTrajectory RightDriveBackToBall = PathPlanner.loadPath("RightDriveBackToBall", 3, 3);
     addCommands(
-        new SwerveFollowCommand(RightDriveBackToBall)
-          .raceWith(BallPathCommands.intakeBalls(), BallPathCommands.tarmacShot()),
-        new LLAim().withTimeout(2).raceWith(new SwerveDrive(true, 0, 0)),
-        new WaitCommand(2).alongWith(BallPathCommands.tarmacShot(), BallPathCommands. feed())
+        //new SwerveFollowCommand(RightDriveBackToBall)
+        new SwerveDrive(false, 0.2, 0).withTimeout(1)
     );
   }
 

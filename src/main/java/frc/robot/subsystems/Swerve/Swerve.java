@@ -5,6 +5,7 @@
 
 package frc.robot.subsystems.Swerve;
 
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.sensors.Pigeon2;
 
 import frc.lib.math.Conversions;
@@ -135,6 +136,21 @@ public class Swerve extends SubsystemBase {
 
     public void resetOdometry(Pose2d pose) {
         swerveOdometry.resetPosition(pose, getYaw());
+    }
+
+    public void brakeMode (boolean enabled){
+        for(SwerveModule mod : mSwerveMods){
+            if (enabled){
+                mod.mDriveMotor.setNeutralMode(NeutralMode.Brake);
+            } else{
+                mod.mDriveMotor.setNeutralMode(NeutralMode.Coast);
+            }
+        }
+    }
+
+
+    public void resetGyro(double degrees){
+        gyro.setYaw(degrees);
     }
 
     public SwerveModuleState[] getStates(){

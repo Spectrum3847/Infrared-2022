@@ -3,6 +3,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
+import frc.robot.commands.auto.RightDoubleBall;
 import frc.robot.commands.auto.TestPathPlanner;
 
 public class AutonSetup {
@@ -15,7 +16,7 @@ public class AutonSetup {
     // backward.
     private static final Command complexAuto = new PrintCommand("TEST COMPLEX AUTO");
 
-    private static final Command testPathPlanner = new TestPathPlanner();
+    private static final Command testPathPlanner = new RightDoubleBall();
 
     // A chooser for autonomous commands
     public static final SendableChooser<Command> chooser = new SendableChooser<>();

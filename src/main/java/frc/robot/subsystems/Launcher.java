@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.lib.drivers.LinearServo;
 import frc.lib.subsystems.RollerSubsystem;
+import frc.robot.commands.ballpath.BallPathCommands;
 import frc.robot.constants.Constants;
 import frc.robot.constants.LauncherConstants;
 import frc.robot.constants.Constants.CanIDs;
@@ -68,6 +69,7 @@ public class Launcher extends RollerSubsystem {
       leftHood = new LinearServo(PWMPorts.kHoodServoLeft, maxlength, hoodMaxSpeed);
       rightHood = new LinearServo(PWMPorts.kHoodServoRight, maxlength, hoodMaxSpeed);
       this.setHoodAngle(LauncherConstants.tarmacShotAngle);
+      this.setDefaultCommand(new RunCommand(() -> this.setHoodAngle(LauncherConstants.tarmacShotAngle), this));
     }
 
     public void periodic() {

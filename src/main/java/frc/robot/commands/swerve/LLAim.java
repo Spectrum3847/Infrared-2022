@@ -35,6 +35,7 @@ public class LLAim extends PIDCommand {
 
   @Override
   public void initialize() {
+    SmartDashboard.putNumber("/limelight/ledMode", 3);
     kP = SpectrumPreferences.getNumber("LL-AIM kP", kP)/100;
     kI = SpectrumPreferences.getNumber("LL-AIM kI", kI)/100;
     kD = SpectrumPreferences.getNumber("LL-AIM kD", kD)/100;
@@ -73,13 +74,6 @@ public class LLAim extends PIDCommand {
   @Override
   public void end(boolean interrupted) {
     super.end(interrupted);
-    //currently vibrates as long as it has target, doesn't care how far from target we are
-    /*if (hasTarget) {
-      new ParallelCommandGroup(
-        new RumbleController(Robot.operatorController, 0.5),
-        new RumbleController(Robot.driverController, 0.5)
-      ).schedule();
-    }*/
     Robot.swerve.useOutput(0);
   }
 

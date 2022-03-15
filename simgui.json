@@ -28,6 +28,15 @@
     }
   },
   "NetworkTables": {
+    "Shuffleboard": {
+      "Main": {
+        "SendableChooser[0]": {
+          "open": true
+        },
+        "open": true
+      },
+      "open": true
+    },
     "SmartDashboard": {
       "Gamepads": {
         "open": false
