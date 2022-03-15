@@ -38,6 +38,15 @@ public class BallPathCommands {
             runIndexer(IndexerConstants.feedSpeed));
     }
 
+    //sort balls
+    public static Command sortBalls(){
+        return runIntake(IntakeConstants.intakeSpeed).alongWith(indexerSort(), intakeDown());
+    }
+
+    public static Command indexerSort(){
+        return new RunCommand(() -> Robot.indexer.indexerColorSort(), Robot.indexer);
+    }
+
     // Deploy Intake
     public static Command intakeDown() {
         return new StartEndCommand(() -> Robot.intake.down(), () -> Robot.intake.up(), Robot.intake.pneumatic);
