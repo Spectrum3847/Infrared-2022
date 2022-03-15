@@ -10,7 +10,7 @@
  *
  ******************************************************************************/
 
-package frc.lib.util;
+package frc.lib.sysid;
 
 import Jama.Matrix;
 import Jama.QRDecomposition;

@@ -1,15 +1,11 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
+// Copied from 6328
 
-package frc.robot;
+package frc.robot.constants;
 
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.util.Units;
-import frc.robot.subsystems.hood.Hood.HoodState;
-import frc.robot.util.TunableNumber;
 
 /** Constants for the vision camera. */
 public final class VisionConstants {
@@ -18,31 +14,15 @@ public final class VisionConstants {
   public static final Rotation2d fovHorizontal = Rotation2d.fromDegrees(59.6);
   public static final Rotation2d fovVertical = Rotation2d.fromDegrees(49.7);
 
-  private static final double lowerCameraHeight = Units.inchesToMeters(37.2);
-  private static final TunableNumber lowerVerticalRotationDegrees =
-      new TunableNumber("VisionConstants/LowerVerticalRotationDegrees", 43.05);
-  private static final double lowerOffsetX = Units.inchesToMeters(12.0);
+  private static final double cameraHeight = Units.inchesToMeters(42.5);
+  private static final double verticalRotationDegrees = 24.6;
+  private static final double offsetX = Units.inchesToMeters(9.0);
 
-  private static final double upperCameraHeight = Units.inchesToMeters(42.5);
-  private static final TunableNumber upperVerticalRotationDegrees =
-      new TunableNumber("VisionConstants/UpperVerticalRotationDegrees", 24.6);
-  private static final double upperOffsetX = Units.inchesToMeters(9.0);
-
-  public static CameraPosition getCameraPosition(HoodState hoodState) {
-    switch (hoodState) {
-      case LOWER:
-        return new CameraPosition(lowerCameraHeight,
-            Rotation2d.fromDegrees(lowerVerticalRotationDegrees.get()),
-            new Transform2d(new Translation2d(lowerOffsetX, 0.0),
+  public static CameraPosition getCameraPosition() {
+        return new CameraPosition(cameraHeight,
+            Rotation2d.fromDegrees(verticalRotationDegrees),
+            new Transform2d(new Translation2d(offsetX, 0.0),
                 Rotation2d.fromDegrees(180.0)));
-      case RAISED:
-        return new CameraPosition(upperCameraHeight,
-            Rotation2d.fromDegrees(upperVerticalRotationDegrees.get()),
-            new Transform2d(new Translation2d(upperOffsetX, 0.0),
-                Rotation2d.fromDegrees(180.0)));
-      default:
-        return null;
-    }
   }
 
   public static final class CameraPosition {

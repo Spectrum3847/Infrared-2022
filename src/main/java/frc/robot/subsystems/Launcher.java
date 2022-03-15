@@ -7,7 +7,6 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.lib.drivers.LinearServo;
 import frc.lib.subsystems.RollerSubsystem;
-import frc.robot.commands.ballpath.BallPathCommands;
 import frc.robot.constants.Constants;
 import frc.robot.constants.LauncherConstants;
 import frc.robot.constants.Constants.CanIDs;
@@ -16,6 +15,7 @@ import frc.robot.constants.Constants.PWMPorts;
 public class Launcher extends RollerSubsystem {
   public final WPI_TalonFX motorFollower;
   public final ServoHood hood;
+  private boolean hasRun = false;
 
   /**
    * Creates a new Intake.
@@ -35,6 +35,12 @@ public class Launcher extends RollerSubsystem {
   }
 
   public void reset(){
+    if (Math.abs(getWheelRPM()) > 10){
+      hasRun = true;
+      motorFollower.follow(motorLeader);
+      setRPM(LauncherConstants.defaultSpeed);
+      return;
+    }
     motorFollower.follow(motorLeader);
     stop();
   }

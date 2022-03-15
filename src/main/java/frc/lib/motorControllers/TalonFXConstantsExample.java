@@ -1,4 +1,4 @@
-package frc.lib.util;
+package frc.lib.motorControllers;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;

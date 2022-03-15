@@ -8,7 +8,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 import com.ctre.phoenix.sensors.SensorInitializationStrategy;
 
-import frc.lib.util.TalonFXSetup;
+import frc.lib.motorControllers.TalonFXSetup;
 
 public final class PositionConstantsTemplate{
     public static final String name = "PositionSubsystem";
