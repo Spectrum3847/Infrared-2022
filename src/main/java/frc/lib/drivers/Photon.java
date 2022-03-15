@@ -3,6 +3,8 @@ package frc.lib.drivers;
 
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.SerialPort.Port;
+import frc.lib.util.Alert;
+import frc.robot.Robot;
 
 /**
  * Used to command a Teensy running the photon LED control library. Commands the
@@ -34,6 +36,7 @@ public class Photon {
     private int kColor2 = kDeafultColor2;
     private int kRate = kDefaultRate;
     private int kFade = kDefaultFade;
+    public Alert noPhoton = new Alert("No Photon Detected", Alert.AlertType.ERROR);
 
     public static enum Color {
         RED, ORANGE, YELLOW, GREEN, AQUA, BLUE, PURPLE, PINK, WHITE;
@@ -50,7 +53,7 @@ public class Photon {
         try {
             usb = new SerialPort(115200, Port.kUSB);
         } catch (Exception e) {
-            // Robot.printWarning("PHOTON NOT FOUND: NO LEDs :(");
+            noPhoton.set(true);
             usb = null;
         }
     }
@@ -61,8 +64,6 @@ public class Photon {
         kDefaultColor1 = Color1;
         kDeafultColor2 = Color2;
     }
-
-    // Build out more construcitons to set default colors, etc
 
     public void writeString(String s) {
         if (usb != null) {
@@ -255,4 +256,5 @@ public class Photon {
     public void setFade(int f) {
         kFade = f;
     }
+ 
 }
