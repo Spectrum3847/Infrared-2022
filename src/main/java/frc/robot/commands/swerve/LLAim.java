@@ -35,7 +35,7 @@ public class LLAim extends PIDCommand {
 
   @Override
   public void initialize() {
-    SmartDashboard.putNumber("/limelight/ledMode", 3);
+    Robot.visionLL.limeLightLEDOn();
     kP = SpectrumPreferences.getNumber("LL-AIM kP", kP)/100;
     kI = SpectrumPreferences.getNumber("LL-AIM kI", kI)/100;
     kD = SpectrumPreferences.getNumber("LL-AIM kD", kD)/100;

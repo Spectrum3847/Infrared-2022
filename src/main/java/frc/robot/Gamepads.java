@@ -5,6 +5,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.lib.gamepads.AndButton;
 import frc.lib.gamepads.AndNotButton;
+import frc.lib.gamepads.AxisButton;
 import frc.lib.gamepads.XboxGamepad;
 import frc.lib.util.Alert;
 import frc.robot.Robot.RobotState;
@@ -90,6 +91,9 @@ public class Gamepads {
 
 		new AndNotButton(driver.aButton, driver.leftBumper).whileHeld(BallPathCommands.intakeBalls());
 		new AndNotButton(driver.yButton, driver.leftBumper).whileHeld(BallPathCommands.eject());
+		new AndNotButton(driver.xButton, driver.leftBumper).whileHeld(BallPathCommands.feed());
+		driver.startButton.whenPressed(BallPathCommands.tarmacShot());
+		driver.selectButton.whenPressed(BallPathCommands.stopLauncher());
 
 		// Aim with limelight
 		driver.rightBumper.whileHeld(new LLAim());
@@ -120,11 +124,14 @@ public class Gamepads {
 		// Climber Controls
 		operator.Dpad.Up.whenPressed(ClimberCommands.fullUp());
 		operator.Dpad.Down.whenPressed(ClimberCommands.climb());
-		operator.Dpad.Left.whenPressed(ClimberCommands.extendNextRung());
+		operator.Dpad.Left.whenPressed(ClimberCommands.nextRungDown());
 		operator.Dpad.Right.whenPressed(ClimberCommands.nextRungUp());
 
 		//Manual climb tilt control
 		operator.leftBumper.whileHeld(ClimberCommands.tiltUp());
+
+		//Return to default command when pressed
+		operator.leftStickButton.whileHeld(Robot.climber.defaultCommand());
 	}
 
 	// Configure the button bindings for the driver control in Test Mode

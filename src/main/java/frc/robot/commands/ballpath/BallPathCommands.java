@@ -62,6 +62,10 @@ public class BallPathCommands {
         return new StartEndCommand(() -> Robot.feeder.setManualOutput(speed), () -> Robot.feeder.stop(), Robot.feeder);
     }
 
+    public static Command stopLauncher(){
+        return new RunCommand(() -> Robot.launcher.setManualOutput(0.0), Robot.launcher);
+    }
+
     // Run launcher motor
     public static Command runLauncher(double speed) {
         return new RunCommand(() -> Robot.launcher.setManualOutput(speed), Robot.launcher);
