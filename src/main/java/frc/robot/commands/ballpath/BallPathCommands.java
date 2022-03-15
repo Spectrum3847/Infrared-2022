@@ -26,6 +26,10 @@ public class BallPathCommands {
         return setHood(LauncherConstants.farShotAngle).alongWith(runLauncherRPM(LauncherConstants.farShotSpeed));
     }
 
+    public static Command sdShot() {
+        return setHood(Robot.prefs.getNumber("HoodAngle", 68)).alongWith(runLauncherRPM(Robot.prefs.getNumber("ShooterVel", 2200)));
+    }
+
     // Feed
     public static Command feed() {
         return runFeeder(FeederConstants.feedSpeed).alongWith(runIndexer(IndexerConstants.feedSpeed));

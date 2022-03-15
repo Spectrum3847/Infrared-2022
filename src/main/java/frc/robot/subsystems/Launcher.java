@@ -3,10 +3,12 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.lib.drivers.LinearServo;
 import frc.lib.subsystems.RollerSubsystem;
+import frc.robot.Robot;
 import frc.robot.constants.Constants;
 import frc.robot.constants.LauncherConstants;
 import frc.robot.constants.Constants.CanIDs;
@@ -16,7 +18,6 @@ public class Launcher extends RollerSubsystem {
   public final WPI_TalonFX motorFollower;
   public final ServoHood hood;
   private boolean hasRun = false;
-
   /**
    * Creates a new Intake.
    */
@@ -28,6 +29,7 @@ public class Launcher extends RollerSubsystem {
 
     motorFollower = new WPI_TalonFX(CanIDs.kFollowerMotorRight, Constants.Canivorename);
     LauncherConstants.setupFalconFollower(motorFollower, motorLeader);
+    
 
     hood = new ServoHood();
 
