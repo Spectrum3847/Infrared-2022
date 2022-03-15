@@ -4,8 +4,8 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import edu.wpi.first.wpilibj2.command.RunCommand;
+import frc.lib.motorControllers.TalonFXSetup;
 import frc.lib.subsystems.SolenoidSubsystem;
-import frc.lib.util.TalonFXSetup;
 import frc.robot.constants.Constants;
 import frc.robot.constants.IntakeConstants;
 import frc.robot.constants.Constants.CanIDs;

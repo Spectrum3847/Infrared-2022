@@ -8,7 +8,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 import com.ctre.phoenix.sensors.SensorInitializationStrategy;
 
-import frc.lib.util.TalonFXSetup;
+import frc.lib.motorControllers.TalonFXSetup;
 
 public final class LauncherConstants{
     public static final String name = "Launcher";
@@ -20,6 +20,7 @@ public final class LauncherConstants{
     public final static double closeShotSpeed = 2000;
     public final static double tarmacShotSpeed = 2200;
     public final static double farShotSpeed = 2600;
+    public final static double defaultSpeed = closeShotSpeed;
 
     //Physical Constants
     public static final double diameterInches = 4;

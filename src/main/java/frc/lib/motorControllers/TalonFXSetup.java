@@ -1,6 +1,6 @@
 //Created by Spectrum3847
 
-package frc.lib.util;
+package frc.lib.motorControllers;
 
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.StatusFrame;
