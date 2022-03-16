@@ -3,8 +3,6 @@ package frc.robot.commands.auto;
 
 import com.pathplanner.lib.PathPlanner;
 import com.pathplanner.lib.PathPlannerTrajectory;
-
-import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.ballpath.BallPathCommands;
@@ -22,9 +20,5 @@ public class TestPathPlanner extends SequentialCommandGroup {
         //new SwerveFollowCommand(RightDriveBackToBall)
         new SwerveDrive(false, 0.2, 0).withTimeout(1)
     );
-  }
-
-  Rotation2d finalRotation() {
-    return new Rotation2d(Math.PI);
   }
 }

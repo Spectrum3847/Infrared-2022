@@ -37,10 +37,11 @@ public class Swerve extends SubsystemBase {
     public double drive_y = 0;
     public double drive_rotation = 0;
     private final Field2d m_field = new Field2d();
-    public ProfiledPIDController thetaController = new ProfiledPIDController(AutonConstants.kPThetaController, 0, 0,
+    private final Translation2d prevVelocity = new Translation2d(0, 0);
+    public ProfiledPIDController thetaController = new ProfiledPIDController(AutonConstants.kPThetaController, 0, AutonConstants.kDThetaController,
                                                             AutonConstants.kThetaControllerConstraints);;
-    public PIDController xController = new PIDController(AutonConstants.kPXController, 0, 0);
-    public PIDController yController = new PIDController(AutonConstants.kPYController, 0, 0);
+    public PIDController xController = new PIDController(AutonConstants.kPXController, 0, AutonConstants.kDXController);
+    public PIDController yController = new PIDController(AutonConstants.kPYController, 0, AutonConstants.kDYController);
 
 
     public Swerve() {
@@ -64,6 +65,7 @@ public class Swerve extends SubsystemBase {
         xController.setPID(AutonConstants.kPXController/100, 0, AutonConstants.kDXController/100);
         yController.setPID(AutonConstants.kPYController/100, 0, AutonConstants.kDYController/100);
         thetaController.setPID(AutonConstants.kPThetaController/100, 0, AutonConstants.kDThetaController/100);
+        resetSteeringToAbsolute();
         setDefaultCommand(new TeleopSwerve(this, true, false));
     }    
 
@@ -121,6 +123,10 @@ public class Swerve extends SubsystemBase {
         }
     }
 
+    public void resetOdometry(Pose2d pose) {
+        swerveOdometry.resetPosition(pose, getYaw());
+    }
+
     /* Used by SwerveFollowCommand in Auto */
     public void setModuleStates(SwerveModuleState[] desiredStates) {
         SwerveDriveKinematics.desaturateWheelSpeeds(desiredStates, SwerveConstants.maxSpeed);
@@ -134,10 +140,6 @@ public class Swerve extends SubsystemBase {
         return swerveOdometry.getPoseMeters();
     }
 
-    public void resetOdometry(Pose2d pose) {
-        swerveOdometry.resetPosition(pose, getYaw());
-    }
-
     public void brakeMode (boolean enabled){
         for(SwerveModule mod : mSwerveMods){
             if (enabled){
@@ -146,19 +148,6 @@ public class Swerve extends SubsystemBase {
                 mod.mDriveMotor.setNeutralMode(NeutralMode.Coast);
             }
         }
-    }
-
-
-    public void resetGyro(double degrees){
-        gyro.setYaw(degrees);
-    }
-
-    public SwerveModuleState[] getStates(){
-        SwerveModuleState[] states = new SwerveModuleState[4];
-        for(SwerveModule mod : mSwerveMods){
-            states[mod.moduleNumber] = mod.getState();
-        }
-        return states;
     }
 
     public void zeroGyro(){
@@ -182,6 +171,14 @@ public class Swerve extends SubsystemBase {
 
     public double getRadians() {
         return getYaw().getRadians();
+    }
+
+    public SwerveModuleState[] getStates(){
+        SwerveModuleState[] states = new SwerveModuleState[4];
+        for(SwerveModule mod : mSwerveMods){
+            states[mod.moduleNumber] = mod.getState();
+        }
+        return states;
     }
 
     public void dashboard(){
@@ -221,5 +218,43 @@ public class Swerve extends SubsystemBase {
             mod.mDriveMotor.stopMotor();
             mod.mAngleMotor.stopMotor();
         }
+    }
+
+    //DOES NOT WORK!!
+    public Translation2d accelerationLimit(Translation2d desiredVelocitity, double desiredRotation){
+        Translation2d trans2d;
+        //Convert chassisSpeeds to Translation2D
+        ChassisSpeeds currentCS = SwerveConstants.swerveKinematics.toChassisSpeeds(mSwerveMods[0].getState(), 
+            mSwerveMods[1].getState(), mSwerveMods[2].getState(), mSwerveMods[3].getState());
+
+        trans2d = new Translation2d(currentCS.vxMetersPerSecond, currentCS.vyMetersPerSecond);
+
+        ChassisSpeeds desiredCS = ChassisSpeeds.fromFieldRelativeSpeeds(
+            desiredVelocitity.getX(), 
+            desiredVelocitity.getY(), 
+                desiredRotation, 
+                getYaw());
+
+        
+        //Computes difference betwee desired and actual velocities
+        double accelX = (desiredCS.vxMetersPerSecond - currentCS.vxMetersPerSecond);
+        double accelY = (desiredCS.vyMetersPerSecond - currentCS.vyMetersPerSecond);
+
+        //Converts from cartesian to polar
+        double accelNorm = new Translation2d(accelX, accelY).getNorm();
+        double angle = Math.atan2(accelY, accelX);
+
+        
+        //Checks if it exceeed max acceleration
+        if (accelNorm - SwerveConstants.maxAccel > 0){
+            accelNorm = SwerveConstants.maxAccel;
+        }
+
+        //get limited veclocity vector vecotr difference in cartesian coordinate system
+        //computes limited velocity 
+        //Sends back to Swerve Drive
+        Translation2d addedSpeed = new Translation2d(accelNorm, new Rotation2d(angle));
+
+        return trans2d.plus(addedSpeed);
     }
 }

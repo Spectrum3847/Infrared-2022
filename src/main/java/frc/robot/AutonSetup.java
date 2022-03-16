@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
 import frc.robot.commands.auto.DoubleBallSimple;
 import frc.robot.commands.auto.TaxiSimple;
+import frc.robot.commands.auto.TestPathPlanner;
 import frc.robot.constants.AutonConstants;
 
 public class AutonSetup {
@@ -15,6 +16,7 @@ public class AutonSetup {
     //AutoRoutines
     private static final Command taxiSimple = new TaxiSimple();
     private static final Command DoubleBall = new DoubleBallSimple();
+    private static final Command testPathFollow = new TestPathPlanner();
 
     // A chooser for autonomous commands
     public static final SendableChooser<Command> chooser = new SendableChooser<>();
@@ -24,9 +26,11 @@ public class AutonSetup {
         posChooser.addOption("B. LEFT-CENTER", AutonConstants.posBangle);
         posChooser.addOption("C. RIGHT-CENTER", AutonConstants.posCangle);
         posChooser.addOption("D. RIGHT", AutonConstants.posCangle);
+        posChooser.addOption("0 Degrees", 0.0);
 
         chooser.setDefaultOption("DoubleBall", DoubleBall);
         chooser.addOption("Taxi Simple", taxiSimple);
+        chooser.addOption("Test Path Planner", testPathFollow);
     }
 
     //Return the starting angle for each position

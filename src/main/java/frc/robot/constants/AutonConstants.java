@@ -12,16 +12,16 @@ public final class AutonConstants {
     public static final double posDangle = 270; //Infront of Right Ball (Cargo E) perpendicular to field
     public static final double posD90angle = 181.5; //Sideways D Setup intake facing the driver station
 
-    public static final double kMaxSpeedMetersPerSecond = 3;
-    public static final double kMaxAccelerationMetersPerSecondSquared = 3;
-    public static final double kMaxAngularSpeedRadiansPerSecond = Math.PI;
-    public static final double kMaxAngularSpeedRadiansPerSecondSquared = Math.PI;
+    public static final double kMaxSpeedMetersPerSecond = SwerveConstants.maxSpeed * 0.75;
+    public static final double kMaxAccelerationMetersPerSecondSquared = kMaxSpeedMetersPerSecond; // 1 sec to full speed
+    public static final double kMaxAngularSpeedRadiansPerSecond = SwerveConstants.maxAngularVelocity;
+    public static final double kMaxAngularSpeedRadiansPerSecondSquared = SwerveConstants.maxAngularVelocity;
 
-    public static final double kPXController = 2300;
-    public static final double kDXController = 20;
-    public static final double kPYController = 2300;
-    public static final double kDYController = 20;
-    public static final double kPThetaController = 1000;
+    public static final double kPXController = 500;//2300;
+    public static final double kDXController = 0;//20;
+    public static final double kPYController = 500;//2300;
+    public static final double kDYController = 0;//20;
+    public static final double kPThetaController = 2500;//1000;
     public static final double kDThetaController = 0;
 
     // Constraint for the motion profilied robot angle controller

@@ -9,6 +9,7 @@ import edu.wpi.first.math.kinematics.SwerveModuleState;
 import frc.lib.swerve.CTREModuleState;
 import frc.lib.swerve.SwerveModuleConstants;
 import frc.lib.util.Conversions;
+import frc.robot.Robot;
 import frc.robot.constants.SwerveConstants;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
@@ -23,11 +24,13 @@ public class SwerveModule {
     public WPI_TalonFX mAngleMotor;
     public WPI_TalonFX mDriveMotor;
     private WPI_CANCoder angleEncoder;
+    private SwerveModuleConstants constants;
     private double lastAngle;
 
     SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(SwerveConstants.driveKS, SwerveConstants.driveKV, SwerveConstants.driveKA);
 
     public SwerveModule(int moduleNumber, SwerveModuleConstants moduleConstants){
+        constants = moduleConstants;
         this.moduleNumber = moduleNumber;
         angleOffset = moduleConstants.angleOffset;
         
@@ -64,9 +67,14 @@ public class SwerveModule {
     }
 
     public void resetToAbsolute(){
-        double absolutePosition = Conversions.degreesToFalcon(getCanCoder().getDegrees() - angleOffset, SwerveConstants.angleGearRatio);
+        double offset = angleOffset;
+        if (Robot.isPractice){
+            offset = constants.angleOffsetPractice;
+        }
+        double absolutePosition = Conversions.degreesToFalcon(getCanCoder().getDegrees() - offset, SwerveConstants.angleGearRatio);
         mAngleMotor.setSelectedSensorPosition(absolutePosition);
     }
+
 
     private void configAngleEncoder(){        
         angleEncoder.configFactoryDefault();

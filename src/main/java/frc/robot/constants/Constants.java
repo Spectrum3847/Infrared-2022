@@ -4,8 +4,8 @@ package frc.robot.constants;
 import edu.wpi.first.wpilibj.DriverStation;
 
 public final class Constants {
-    public static RobotType ROBOT = RobotType.ROBOT_2022C;
-    private static final boolean FAKE_FMS = false;
+    public static RobotType ROBOT = RobotType.ROBOT_2022P;
+    private static final boolean FAKE_FMS = true;
     public static final boolean TUNING_MODE = false;
     public static final boolean ENABLE_DASHBOARD = true;
     public static final String MAC_ADDRESS = "00:80:2F:24:6D:7C";

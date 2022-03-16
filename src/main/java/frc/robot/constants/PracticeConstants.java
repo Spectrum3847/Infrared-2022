@@ -3,7 +3,7 @@ package frc.robot.constants;
 import frc.robot.constants.Constants.RobotType;
 
 public class PracticeConstants {
-    public static final String MAC_ADDRESS = "00:80:2F:23:E9:33";
+    public static final String MAC_ADDRESS = "00:80:2F:23:E9:33"; //Correct Practice Bot MAC
     
     public static void practiceBotConstantsOverride(){
         Constants.ROBOT = RobotType.ROBOT_2022P;

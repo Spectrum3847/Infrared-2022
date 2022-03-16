@@ -31,20 +31,20 @@ public final class SwerveConstants {
             new Translation2d(-wheelBase / 2.0, -trackWidth / 2.0));
 
     /* Swerve Current Limiting */
-    public static final int angleContinuousCurrentLimit = 25;
-    public static final int anglePeakCurrentLimit = 40;
+    public static final int angleContinuousCurrentLimit = 20;
+    public static final int anglePeakCurrentLimit = 30;
     public static final double anglePeakCurrentDuration = 0.1;
     public static final boolean angleEnableCurrentLimit = true;
 
     public static final int driveContinuousCurrentLimit = 35;
-    public static final int drivePeakCurrentLimit = 60;
+    public static final int drivePeakCurrentLimit = 80;
     public static final double drivePeakCurrentDuration = 0.1;
     public static final boolean driveEnableCurrentLimit = true;
 
     /* Angle Motor PID Values */
-    public static final double angleKP = 0.6;
+    public static final double angleKP = 0.6;//364 = 0.6; SDS = 0.2;
     public static final double angleKI = 0.0;
-    public static final double angleKD = 12.0;
+    public static final double angleKD = 12;//364 = 12.0; SDS = 0.1;
     public static final double angleKF = 0.0;
 
     /* Drive Motor PID Values */
@@ -59,8 +59,12 @@ public final class SwerveConstants {
     public static final double driveKA = (0.193/12); //(0.27 / 12);
 
     /* Swerve Profiling Values */
-    public static final double maxSpeed = 4.5; //meters per second
-    public static final double maxAngularVelocity = 11.5;
+    public static final double motorFreeSpeed = 6380.0;
+    public static final double maxSpeed = 4.8;//4.5; //meters per second
+    public static final double maxAccel = maxSpeed * 2; //take 1/2 sec to get to max speed.
+    public static final double autoMaxSpeed = maxSpeed * 0.7; //70% of full speed in auto
+    public static final double autoMaxAccel = autoMaxSpeed * 2; //Take 1/2 sec to get to full speed
+    public static final double maxAngularVelocity = 3 * Math.PI; //11.5; //4 revolutions a second
 
     /* Neutral Modes */
     public static final NeutralMode angleNeutralMode = NeutralMode.Coast;
@@ -83,7 +87,7 @@ public final class SwerveConstants {
         public static final double angleOffsetC = 321.855;
         public static double angleOffset = angleOffsetC; 
         public static final SwerveModuleConstants constants = 
-            new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
+            new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset, angleOffsetP);
     }
 
     /* Front Right Module - Module 1 */
@@ -95,7 +99,7 @@ public final class SwerveConstants {
         public static final double angleOffsetC = 126.826;
         public static double angleOffset = angleOffsetC;  
         public static final SwerveModuleConstants constants = 
-            new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
+            new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset, angleOffsetP);
     }
     
     /* Back Left Module - Module 2 */
@@ -107,7 +111,7 @@ public final class SwerveConstants {
         public static final double angleOffsetC = 140.712;
         public static double angleOffset = angleOffsetC;  
         public static final SwerveModuleConstants constants = 
-            new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
+            new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset, angleOffsetP);
     }
 
     /* Back Right Module - Module 3 */
@@ -119,6 +123,6 @@ public final class SwerveConstants {
         public static final double angleOffsetC = 71.718;
         public static double angleOffset = angleOffsetC; 
         public static final SwerveModuleConstants constants = 
-            new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
+            new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset, angleOffsetP);
     }
 }

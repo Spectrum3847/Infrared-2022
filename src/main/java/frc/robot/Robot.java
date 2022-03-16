@@ -150,7 +150,7 @@ public class Robot extends TimedRobot {
         CommandScheduler.getInstance().cancelAll(); // Disable any currently running commands
         LiveWindow.setEnabled(false); // Disable Live Window we don't need that data being sent
         LiveWindow.disableAllTelemetry();
-        //swerve.resetSteeringToAbsolute();
+        swerve.resetSteeringToAbsolute();
         printNormal("End disabledInit()");
     }
 
@@ -176,7 +176,7 @@ public class Robot extends TimedRobot {
         visionLL.limeLightLEDOn();
         m_autonomousCommand = AutonSetup.getAutonomousCommand();
         double angle = AutonSetup.getAutonAngle();
-        Robot.swerve.resetGyro(angle);
+        Robot.swerve.setGyro(angle);
 
         if (m_autonomousCommand != null) {
             m_autonomousCommand.schedule();

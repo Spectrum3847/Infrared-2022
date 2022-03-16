@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.lib.gamepads.AndButton;
 import frc.lib.gamepads.AndNotButton;
 import frc.lib.gamepads.XboxGamepad;
+import frc.lib.gamepads.mapping.ExpCurve;
 import frc.lib.util.Alert;
 import frc.robot.Robot.RobotState;
 import frc.robot.commands.ClimberCommands;
@@ -15,7 +16,9 @@ import frc.robot.commands.swerve.LLAim;
 
 public class Gamepads {
 	// Create Joysticks first so they can be used in defaultCommands
-	public static XboxGamepad driver = new XboxGamepad(0, .16, .16);
+	public static XboxGamepad driver = new XboxGamepad(0, 0, 0);
+	public static ExpCurve throttleCurve = new ExpCurve(1.2, 0, -1.0, 0.15);
+	public static ExpCurve steeringCurve = new ExpCurve(1.2, 0, -0.8, 0.07);
 	public static XboxGamepad operator = new XboxGamepad(1, .1, .1);
 	public static boolean driverConfigured = false;
 	public static boolean operatorConfigured = false;
@@ -152,18 +155,16 @@ public class Gamepads {
 	}
 
 	public static double getDriveY(){
-		return driver.leftStick.getY() * -1;
+		return throttleCurve.calculateMappedVal(driver.leftStick.getY());
 	}
 
 	public static double getDriveX(){
-		return driver.leftStick.getX() * -1;
+		return throttleCurve.calculateMappedVal(driver.leftStick.getX());
 	}
 
 	public static double getDriveR(){
 		double value = driver.triggers.getTwist();
-		if (Math.abs(value) < 0.06){
-			return 0.0;
-		}
-		return value * -0.75;
+		value = steeringCurve.calculateMappedVal(value);
+		return value;
 	}
 }
