@@ -5,6 +5,8 @@ import edu.wpi.first.util.net.PortForwarder;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.lib.drivers.LimeLight;
 import frc.lib.drivers.LimeLightControlModes.LedMode;
+import frc.lib.util.LLDistance;
+import frc.robot.constants.VisionConstants;
 import frc.robot.telemetry.Log;
 
 public class VisionLL extends SubsystemBase {
@@ -12,12 +14,8 @@ public class VisionLL extends SubsystemBase {
 
     public final LimeLight limelight;
     private boolean LEDState = true;
+    LLDistance UpperHub; 
 
-    private final double TargetHeight = 89.75;// in
-    private final double LLHeight = 34.25;// in
-    private final double LLAngle = 10; // deg
-    private double TargetAngle = 0;
-    private double Distance = 0;
 
     /**
      * Creates a new VisionLL.
@@ -27,6 +25,7 @@ public class VisionLL extends SubsystemBase {
         limelight = new LimeLight();
         limeLightLEDOn();
         forwardLimeLightPorts();
+        UpperHub = new LLDistance(VisionConstants.targetHeight, VisionConstants.limelightHeight, VisionConstants.limelightAngle);
     }
 
     public void forwardLimeLightPorts() {
@@ -53,25 +52,18 @@ public class VisionLL extends SubsystemBase {
             }
         }*/
 
-        TargetAngle = limelight.getdegVerticalToTarget();
-        Distance = ((TargetHeight - LLHeight) / Math.tan(Math.toRadians(LLAngle + TargetAngle)));
+        
     }
 
-    public double getLLDistance() {
-        return Distance;
+    public double getLLDistance(){
+        return UpperHub.distanceInches(limelight.getdegVerticalToTarget());
+    }
+    public double getActualDistance(){
+        return UpperHub.distanceMeters(limelight.getdegRotationToTarget());
     }
 
-    public double getActualDistance() {
-        return (Distance / 12);
-    }
-
-    public double getRPM() {
-        if (Distance > 15.71) {
-            return ((Distance / 12) * 17.28) + 3200;
-        }
-        else {
-            return 3200;
-        }
+    public double getRPM(){
+        return UpperHub.distanceMeters(limelight.getdegRotationToTarget());
     }
 
     public void limeLightLEDOff() {

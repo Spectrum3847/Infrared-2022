@@ -96,6 +96,11 @@ public class BallPathCommands {
         return runIntake(1.0).alongWith(runIndexer(-1.0).alongWith(runFeeder(-1.0).alongWith(intakeDown())));
     }
 
+    //Slow eject
+    public static Command slowEject(){
+        return intakeDown().alongWith(runIntake(-0.3).alongWith(runIndexer(-0.3).alongWith(runFeeder(-0.3))));
+    }
+
     // UnJam balls
     public static Command unJamAll() {
         return runIntake(-0.5).alongWith(runIndexer(-IndexerConstants.feedSpeed))

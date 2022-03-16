@@ -89,9 +89,11 @@ public class Gamepads {
 		new AndButton(driver.leftBumper, driver.bButton).whileHeld(new ResetGyro(270));
 
 		new AndNotButton(driver.aButton, driver.leftBumper).whileHeld(BallPathCommands.intakeBalls());
-		new AndNotButton(driver.yButton, driver.leftBumper).whileHeld(BallPathCommands.eject());
+		new AndNotButton(driver.yButton, driver.leftBumper).whileHeld(BallPathCommands.slowEject());
 		new AndNotButton(driver.xButton, driver.leftBumper).whileHeld(BallPathCommands.feed());
-		driver.startButton.whenPressed(BallPathCommands.sdShot());
+		new AndNotButton(driver.bButton, driver.leftBumper).whileHeld(BallPathCommands.eject());		
+		
+		//driver.startButton.whenPressed(BallPathCommands.sdShot());
 		driver.selectButton.whenPressed(BallPathCommands.stopLauncher());
 
 		// Aim with limelight
