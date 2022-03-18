@@ -7,12 +7,20 @@ import com.revrobotics.ColorSensorV3;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.RunCommand;
+import frc.lib.drivers.PhotonColorSensors;
+import frc.lib.drivers.PhotonColorSensors.RawColor;
 import frc.robot.constants.Constants;
 import frc.robot.constants.IndexerConstants;
 import frc.robot.constants.Constants.CanIDs;
 
 public class Indexer extends frc.lib.subsystems.RollerSubsystem {
-  public ColorSensorV3 colorSensor;
+  public PhotonColorSensors colorSensor;
+  private RawColor sensor1;
+  private RawColor sensor2;
+  private double redThreshold1 = 200;
+  private double blueThreshold1 = 170;
+  private double redThreshold2 = 200;
+  private double blueThreshold2 = 170;
 
   
   /** Creates a new Indexer. */
@@ -22,7 +30,7 @@ public class Indexer extends frc.lib.subsystems.RollerSubsystem {
     IndexerConstants.setupRollerFalconLeader(motorLeader);
 
     //sensor setup
-    colorSensor = new ColorSensorV3(I2C.Port.kOnboard);
+    colorSensor = new PhotonColorSensors();
     this.setDefaultCommand(new RunCommand(() -> stop(), this));
   }
 
@@ -36,34 +44,26 @@ public class Indexer extends frc.lib.subsystems.RollerSubsystem {
     }
   }
 
-
-  public boolean isBall(){
-    if (colorSensor.getProximity() > 110 || isRed() || isBlue()){
-      return false;
-    } else {
-      return true;
-    }
-  }
-
   public boolean isRed(){
-    return colorSensor.getRed() > 225;
+    return sensor1.red > redThreshold1 || sensor2.red > redThreshold2;
   }
 
   public boolean isBlue(){
-    return colorSensor.getBlue() > 170;
+    return sensor1.blue > blueThreshold1 || sensor2.blue > blueThreshold2;
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    colorSensor.getRawColor0(sensor1);
+    colorSensor.getRawColor1(sensor2);
   }
 
   public void dashboard() {
-    SmartDashboard.putNumber("Color Proximity", colorSensor.getProximity());
-    SmartDashboard.putNumber("Color Red", colorSensor.getRed());
-    SmartDashboard.putNumber("Color Blue", colorSensor.getBlue());
-    SmartDashboard.putNumber("Color Green", colorSensor.getGreen());
-    SmartDashboard.putNumber("Color IR", colorSensor.getIR());
+    SmartDashboard.putNumber("Color 1 Red", sensor1.red);
+    SmartDashboard.putNumber("Color 1 Blue", sensor1.blue);
+    SmartDashboard.putNumber("Color 2 Red", sensor2.red);
+    SmartDashboard.putNumber("Color 2 Blue", sensor2.blue);
   }
 
 }
