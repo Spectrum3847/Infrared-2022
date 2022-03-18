@@ -34,15 +34,13 @@ public class Feeder extends RollerSubsystem {
    */
   public void intakeBalls(){
     if (lowerHasBall() && !topHasBall()){
-      setManualOutput(FeederConstants.feedSpeed);
+      setManualOutput(FeederConstants.intakeSpeed);
     } else {
       stop();
     }
   }
 
   public void periodic() {
-    System.out.println(lowerHasBall());
-    System.out.println(topHasBall());
   }
 
   //returns whether lower sensor is broken (true = broken)
