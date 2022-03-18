@@ -13,6 +13,7 @@ import frc.lib.util.TalonFXSetup;
 public final class IndexerConstants {
     public static final String name = "Indexer";
 
+
     public final static double feedSpeed = 0.4;
     public final static double intakeSpeed = 1;
 

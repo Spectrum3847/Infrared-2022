@@ -15,6 +15,10 @@ public final class FeederConstants {
 
     public final static double feedSpeed = 0.3;
 
+    //sensors
+    public final static int topSensor = 8;
+    public final static int bottomSensor = 9;
+    
     // Physical Constants
     public static final double diameterInches = 2;
     public static final double diameterMeters = diameterInches * 0.0254;

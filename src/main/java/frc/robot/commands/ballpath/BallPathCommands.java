@@ -1,7 +1,9 @@
 package frc.robot.commands.ballpath;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import frc.robot.Robot;
 import frc.robot.constants.FeederConstants;
@@ -46,6 +48,14 @@ public class BallPathCommands {
     public static Command indexerSort(){
         return new RunCommand(() -> Robot.indexer.indexerColorSort(), Robot.indexer);
     }
+
+    public static Command autoIntake(){
+        return null;
+    }
+    public static Command feederSort(){
+        return runFeeder(0);
+    }
+
 
     // Deploy Intake
     public static Command intakeDown() {

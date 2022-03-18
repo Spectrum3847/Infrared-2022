@@ -4,6 +4,7 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.revrobotics.ColorSensorV3;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.RunCommand;
@@ -14,14 +15,15 @@ import frc.robot.constants.Constants.CanIDs;
 public class Indexer extends frc.lib.subsystems.RollerSubsystem {
   public ColorSensorV3 colorSensor;
 
+  
   /** Creates a new Indexer. */
   public Indexer() {  
     setName(IndexerConstants.name);
     motorLeader = new WPI_TalonFX(CanIDs.kIndexerMotor, Constants.Canivorename);
     IndexerConstants.setupRollerFalconLeader(motorLeader);
 
+    //sensor setup
     colorSensor = new ColorSensorV3(I2C.Port.kOnboard);
-
     this.setDefaultCommand(new RunCommand(() -> stop(), this));
   }
 
@@ -34,6 +36,7 @@ public class Indexer extends frc.lib.subsystems.RollerSubsystem {
         stop();
     }
   }
+
 
   public boolean isBall(){
     if (colorSensor.getProximity() > 110 || isRed() || isBlue()){
