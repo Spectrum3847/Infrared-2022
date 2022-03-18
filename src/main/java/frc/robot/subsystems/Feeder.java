@@ -13,6 +13,7 @@ import frc.robot.constants.Constants.CanIDs;
 public class Feeder extends RollerSubsystem {
   public DigitalInput topSensor;
   public DigitalInput lowerSensor;
+  public int numberOfBalls = 0;
 
   /** Creates a new Feeder. */
   public Feeder() {  
@@ -25,6 +26,18 @@ public class Feeder extends RollerSubsystem {
     FeederConstants.setupRollerFalconLeader(motorLeader);
 
     this.setDefaultCommand(new RunCommand(() -> stop(), this));
+  }
+
+  /**
+   * Feeder Command Flow Chart
+   * if Indexer is running and lower sensor broken, run until lower sensor not broken or Top Sensor broken
+   */
+  public void intakeBalls(){
+    if (lowerHasBall() && !topHasBall()){
+      setManualOutput(FeederConstants.feedSpeed);
+    } else {
+      stop();
+    }
   }
 
   public void periodic() {

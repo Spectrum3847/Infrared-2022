@@ -15,65 +15,56 @@ public class BallPathCommands {
 
     // fender shot
     public static Command fenderShot() {
-        return setHood(LauncherConstants.closeShotAngle).alongWith(runLauncherRPM(LauncherConstants.closeShotSpeed));
+        return setHood(LauncherConstants.closeShotAngle).alongWith(
+            runLauncherRPM(LauncherConstants.closeShotSpeed));
     }
 
     // tarmac shot
     public static Command tarmacShot() {
-        return setHood(LauncherConstants.tarmacShotAngle).alongWith(runLauncherRPM(LauncherConstants.tarmacShotSpeed));
+        return setHood(LauncherConstants.tarmacShotAngle).alongWith(
+            runLauncherRPM(LauncherConstants.tarmacShotSpeed));
     }
 
     // far shot
     public static Command farShot() {
-        return setHood(LauncherConstants.farShotAngle).alongWith(runLauncherRPM(LauncherConstants.farShotSpeed));
+        return setHood(LauncherConstants.farShotAngle).alongWith(
+            runLauncherRPM(LauncherConstants.farShotSpeed));
     }
 
     // Feed
     public static Command feed() {
-        return runFeeder(FeederConstants.feedSpeed).alongWith(runIndexer(IndexerConstants.feedSpeed));
+        return runFeeder(FeederConstants.feedSpeed).alongWith(
+            runIndexer(IndexerConstants.feedSpeed));
+    }
+
+    //Feeder Intake
+    public static Command feederIntake(){
+        return new RunCommand(() -> Robot.feeder.intakeBalls(), Robot.feeder);
     }
 
     // Intake
     public static Command intakeBalls() {
         return runIntake(IntakeConstants.intakeSpeed).alongWith(
             intakeDown(), 
-            runIndexer(IndexerConstants.feedSpeed));
+            runIndexer(IndexerConstants.feedSpeed),
+            feederIntake());
     }
 
     //sort balls
     public static Command sortBalls(){
-        return runIntake(IntakeConstants.intakeSpeed).alongWith(indexerSort(), intakeDown());
+        return runIntake(IntakeConstants.intakeSpeed).alongWith(
+            indexerSort(), 
+            intakeDown());
     }
 
     public static Command indexerSort(){
         return new RunCommand(() -> Robot.indexer.indexerColorSort(), Robot.indexer);
     }
 
-
-    public static Command autoIntake(){
-        return new RunCommand(() -> {
-            if((!Robot.feeder.lowerHasBall() && !Robot.feeder.topHasBall()) || (Robot.feeder.lowerHasBall() && !Robot.feeder.topHasBall())){
-                runFeeder(FeederConstants.feedSpeed);
-                intakeBalls();
-            }
-            else if(!Robot.feeder.lowerHasBall() && Robot.feeder.topHasBall()){
-                runFeeder(0);
-                intakeBalls();
-            }
-            else if(Robot.feeder.lowerHasBall() && Robot.feeder.topHasBall()){
-                runFeeder(0);
-                runIndexer(0);
-                runIntake(0); 
-                intakeUp();
-                
-            }
-        });
-    }
-
-
     // Deploy Intake
     public static Command intakeDown() {
-        return new StartEndCommand(() -> Robot.intake.down(), () -> Robot.intake.up(), Robot.intake.pneumatic);
+        return new StartEndCommand(() -> Robot.intake.down(), () -> Robot.intake.up(), 
+        Robot.intake.pneumatic);
     }
 
     public static Command intakeUp(){
@@ -82,17 +73,20 @@ public class BallPathCommands {
 
     // Run intake motor
     public static Command runIntake(double speed) {
-        return new StartEndCommand(() -> Robot.intake.setManualOutput(speed), () -> Robot.intake.stop(), Robot.intake);
+        return new StartEndCommand(() -> Robot.intake.setManualOutput(speed), () -> Robot.intake.stop(), 
+        Robot.intake);
     }
 
     // Run indexer motor
     public static Command runIndexer(double speed) {
-        return new StartEndCommand(() -> Robot.indexer.setManualOutput(speed), () -> Robot.indexer.stop(),  Robot.indexer);
+        return new StartEndCommand(() -> Robot.indexer.setManualOutput(speed), () -> Robot.indexer.stop(),  
+        Robot.indexer);
     }
 
     // Run feeder
     public static Command runFeeder(double speed) {
-        return new StartEndCommand(() -> Robot.feeder.setManualOutput(speed), () -> Robot.feeder.stop(), Robot.feeder);
+        return new StartEndCommand(() -> Robot.feeder.setManualOutput(speed), () -> Robot.feeder.stop(), 
+        Robot.feeder);
     }
 
     // Run launcher motor
@@ -118,12 +112,16 @@ public class BallPathCommands {
 
     // Eject Balls
     public static Command eject() {
-        return runIntake(1.0).alongWith(runIndexer(-1.0).alongWith(runFeeder(-1.0).alongWith(intakeDown())));
+        return runIntake(1.0).alongWith(
+            runIndexer(-1.0),
+            runFeeder(-1.0));
     }
 
     // UnJam balls
     public static Command unJamAll() {
-        return runIntake(-0.5).alongWith(runIndexer(-IndexerConstants.feedSpeed))
-                .alongWith(runFeeder(-FeederConstants.feedSpeed)).alongWith(runLauncher(-0.2));
+        return runIntake(-0.5).alongWith(
+            runIndexer(-IndexerConstants.feedSpeed),
+            runFeeder(-FeederConstants.feedSpeed),
+            runLauncher(-0.2));
     }
 }
