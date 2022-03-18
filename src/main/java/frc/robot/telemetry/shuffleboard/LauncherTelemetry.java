@@ -33,7 +33,6 @@ public class LauncherTelemetry {
     // Create all View Widgets, ones you can't edit, created after subsystem
     // instances are made
     public void initialize() {
-        // intakeLayout(m_tab).withPosition(0, 0);
         WidgetsAndLayouts.TalonFXLayout("Motor", m_tab, Robot.launcher.motorLeader).withPosition(0, 0);
         m_tab.addNumber("Velocity", ()-> Robot.launcher.motorLeader.getSelectedSensorVelocity()).withPosition(1, 0);
         m_tab.addNumber("WheelRPM", ()-> Robot.launcher.getWheelRPM()).withPosition(1, 1);

@@ -52,15 +52,15 @@ public class BallPathCommands {
 
     public static Command autoIntake(){
         return new RunCommand(() -> {
-            if((!Robot.feeder.bottomHasBall() && !Robot.feeder.topHasBall()) || (Robot.feeder.bottomHasBall() && !Robot.feeder.topHasBall())){
+            if((!Robot.feeder.lowerHasBall() && !Robot.feeder.topHasBall()) || (Robot.feeder.lowerHasBall() && !Robot.feeder.topHasBall())){
                 runFeeder(FeederConstants.feedSpeed);
                 intakeBalls();
             }
-            else if(!Robot.feeder.bottomHasBall() && Robot.feeder.topHasBall()){
+            else if(!Robot.feeder.lowerHasBall() && Robot.feeder.topHasBall()){
                 runFeeder(0);
                 intakeBalls();
             }
-            else if(Robot.feeder.bottomHasBall() && Robot.feeder.topHasBall()){
+            else if(Robot.feeder.lowerHasBall() && Robot.feeder.topHasBall()){
                 runFeeder(0);
                 runIndexer(0);
                 runIntake(0); 
