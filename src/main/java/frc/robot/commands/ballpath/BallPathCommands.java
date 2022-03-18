@@ -49,11 +49,25 @@ public class BallPathCommands {
         return new RunCommand(() -> Robot.indexer.indexerColorSort(), Robot.indexer);
     }
 
+
     public static Command autoIntake(){
-        return null;
-    }
-    public static Command feederSort(){
-        return runFeeder(0);
+        return new RunCommand(() -> {
+            if((!Robot.feeder.bottomHasBall() && !Robot.feeder.topHasBall()) || (Robot.feeder.bottomHasBall() && !Robot.feeder.topHasBall())){
+                runFeeder(FeederConstants.feedSpeed);
+                intakeBalls();
+            }
+            else if(!Robot.feeder.bottomHasBall() && Robot.feeder.topHasBall()){
+                runFeeder(0);
+                intakeBalls();
+            }
+            else if(Robot.feeder.bottomHasBall() && Robot.feeder.topHasBall()){
+                runFeeder(0);
+                runIndexer(0);
+                runIntake(0); 
+                intakeUp();
+                
+            }
+        });
     }
 
 
