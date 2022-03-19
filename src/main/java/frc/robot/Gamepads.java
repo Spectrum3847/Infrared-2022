@@ -129,6 +129,8 @@ public class Gamepads {
 		operator.Dpad.Down.whenPressed(ClimberCommands.climb());
 		operator.Dpad.Left.whenPressed(ClimberCommands.nextRungDown());
 		operator.Dpad.Right.whenPressed(ClimberCommands.nextRungUp());
+		operator.selectButton.whenPressed(ClimberCommands.hang());
+		operator.startButton.whenPressed(ClimberCommands.pull());
 
 		//Manual climb tilt control
 		operator.leftBumper.whileHeld(ClimberCommands.tiltUp());

@@ -1,6 +1,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Robot;
@@ -27,12 +28,12 @@ public class ClimberCommands {
     }
 
     public static Command nextRungDown(){
-        return extendNextRung().alongWith(releaseRung());
+        return extendNextRung();//.alongWith(releaseRung());
     }
 
     // pull the climber down, used to climb to mid bar, and from rung to rung
     public static Command climb() {
-        return pull().alongWith(new WaitCommand(0.1).andThen(tiltDown()));
+        return pull().alongWith(new WaitCommand(0.05).andThen(tiltDown()));
     }
 
     // release rung
@@ -41,16 +42,32 @@ public class ClimberCommands {
     }
 
     public static Command extendFull() {
-        return toPosition(ClimberConstants.fullExtend);
+        return extendPIDsetting().andThen(toPosition(ClimberConstants.fullExtend));
     }
 
     // Used to extend before tilting up to grab the next rung
     public static Command extendNextRung() {
-        return toPosition(ClimberConstants.nextRungExtend);
+        return extendPIDsetting().andThen(toPosition(ClimberConstants.nextRungExtend));
+    }
+
+    public static Command hang(){
+        return climbPIDsetting().andThen(toPosition(ClimberConstants.hangRetract));
     }
 
     public static Command pull() {
-        return toPosition(ClimberConstants.fullRetract);
+        return climbPIDsetting().andThen(toPosition(ClimberConstants.fullRetract));
+    }
+
+    public static Command partialClimb(){
+        return climbPIDsetting().andThen(toPosition(ClimberConstants.fullRetract + 5000));
+    }
+
+    public static Command climbPIDsetting(){
+        return new InstantCommand(() -> Robot.climber.setPIDslot(1));
+    }
+
+    public static Command extendPIDsetting(){
+        return new InstantCommand(() -> Robot.climber.setPIDslot(0));
     }
 
     public static Command toPosition(double position) {

@@ -47,6 +47,8 @@ public final class Constants {
 
         public static final int kClimberMotorLeft = 60;
         public static final int kClimberMotorRight = 61;
+        public static final int kClimberMotorLeft2 = 62;
+        public static final int kClimberMotorRight2 = 59;
     }
 
     public static final class SolenoidPorts{

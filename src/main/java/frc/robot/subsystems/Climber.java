@@ -16,6 +16,8 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 
 public class Climber extends PositionSubsystem {
     public final WPI_TalonFX motorFollower;
+    public final WPI_TalonFX motorFollower2;
+    public final WPI_TalonFX motorFollower3;
     public final SolenoidSubsystem pneumatic;
 
     public Climber() {
@@ -25,6 +27,14 @@ public class Climber extends PositionSubsystem {
         motorFollower = new WPI_TalonFX(CanIDs.kClimberMotorRight, Constants.Canivorename);
         ClimberConstants.setupFalconFollower(motorFollower, motorLeader);
 
+        motorFollower2 = new WPI_TalonFX(CanIDs.kClimberMotorLeft2, Constants.Canivorename);
+        ClimberConstants.setupFalconFollower(motorFollower2, motorLeader);
+        motorFollower2.setInverted(ClimberConstants.kInverted);
+        
+        motorFollower3 = new WPI_TalonFX(CanIDs.kClimberMotorRight2, Constants.Canivorename);
+        ClimberConstants.setupFalconFollower(motorFollower3, motorLeader);
+        follow();
+
 
         resetEncoder();
         motorLeader.configForwardSoftLimitThreshold(ClimberConstants.fullExtend);
@@ -32,6 +42,9 @@ public class Climber extends PositionSubsystem {
 
         motorLeader.configReverseSoftLimitThreshold(ClimberConstants.fullRetract);
         motorLeader.configReverseSoftLimitEnable(false);
+
+        motorLeader.configNominalOutputReverse(0.05);
+        
 
         pneumatic = new SolenoidSubsystem("Climber Solenoid", SolenoidPorts.kclimberUp);
 
@@ -41,9 +54,18 @@ public class Climber extends PositionSubsystem {
     public Command defaultCommand(){
         return new RunCommand(() -> setManualOutput(Gamepads.getClimberJoystick()), this);
     }
+
+    public void setPIDslot(int slot){
+        motorLeader.selectProfileSlot(slot, 0);
+    }
+
     public void follow() {
         motorFollower.setNeutralMode(NeutralMode.Brake);
         motorFollower.follow(motorLeader);
+        motorFollower2.setNeutralMode(NeutralMode.Brake);
+        motorFollower2.follow(motorLeader);
+        motorFollower3.setNeutralMode(NeutralMode.Brake);
+        motorFollower3.follow(motorLeader);
     }
 
     public void tiltUp() {

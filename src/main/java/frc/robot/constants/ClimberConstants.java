@@ -10,12 +10,14 @@ import com.ctre.phoenix.sensors.SensorInitializationStrategy;
 
 import frc.lib.motorControllers.TalonFXSetup;
 
+
 public final class ClimberConstants{
     public static final String name = "Climber";
 
-    public static final int fullExtend = 118000;
-    public static final int nextRungExtend = 98000;
-    public static final int fullRetract = -2000;
+    public static final int fullExtend = 82000;
+    public static final int nextRungExtend = 65000;
+    public static final int fullRetract = -200;
+    public static final int hangRetract = 40000;
 
     //Physical Constants
     public static final double pulleyDiameterInches = 2;
@@ -42,24 +44,29 @@ public final class ClimberConstants{
     public static final NeutralMode kNeutralMode = NeutralMode.Brake;
 
     /* Control Loop Constants */
-    public static final double kP = 0.01;
+    public static final double kP = 0.17;
     public static final double kI = 0;
     public static final double kD = 0;
-    public static final double kF = 0.05;
+    public static final double kF = 0.3;
     public static final double kIz = 150;
-    public static final double motionCruiseVelocity = 10000;
-    public static final double motionAcceleration = 20000;
+    public static final double motionCruiseVelocity = 12000;
+    public static final double motionAcceleration = 24000;
+
+    /* PID slot 2*/
+    
+    public static final double kP2 = 0.17;
+    public static final double kI2 = 0;
+    public static final double kD2 = 0;
+    public static final double kF2 = 0.4;
+    public static final double kIz2 = 150;
 
     /* Current Limiting */
-    public static final int currentLimit = 40;
-    public static final int tirggerThresholdLimit = 40;
+    public static final int currentLimit = 80;
+    public static final int tirggerThresholdLimit = 80;
     public static final double PeakCurrentDuration = 0.5;
     public static final boolean EnableCurrentLimit = true;
     public static final SupplyCurrentLimitConfiguration supplyLimit = new SupplyCurrentLimitConfiguration(
         EnableCurrentLimit, currentLimit, tirggerThresholdLimit, PeakCurrentDuration);
-
-    /*public static final StatorCurrentLimitConfiguration statorLimit = new StatorCurrentLimitConfiguration(
-        EnableCurrentLimit, currentLimit, tirggerThresholdLimit, PeakCurrentDuration);*/
 
     /* Voltage Compensation */
     public static final double voltageCompSaturation = 12;
@@ -83,6 +90,12 @@ public final class ClimberConstants{
         config.slot0.kD = kD;
         config.slot0.kF = kF;
         config.slot0.integralZone = kIz;
+        
+        config.slot1.kP = kP2;
+        config.slot1.kI = kI2;
+        config.slot1.kD = kD2;
+        config.slot1.kF = kF2;
+        config.slot1.integralZone = kIz2;
         config.motionCruiseVelocity = motionCruiseVelocity;
         config.motionAcceleration = motionAcceleration;
         
