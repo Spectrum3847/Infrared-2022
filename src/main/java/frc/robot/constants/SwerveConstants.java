@@ -10,6 +10,7 @@ import frc.lib.swerve.SwerveModuleConstants;
 import frc.robot.constants.Constants.CanIDs;
 
 public final class SwerveConstants {
+    public static final double DRIVE_PERIOD = 200;
     public static final boolean invertGyro = false; // Always ensure Gyro is CCW+ CW-
 
     /* Drivetrain Constants */
@@ -65,6 +66,7 @@ public final class SwerveConstants {
     public static final double autoMaxSpeed = maxSpeed * 0.7; //70% of full speed in auto
     public static final double autoMaxAccel = autoMaxSpeed * 2; //Take 1/2 sec to get to full speed
     public static final double maxAngularVelocity = 3 * Math.PI; //11.5; //4 revolutions a second
+    public static final double maxAngularAcceleration = maxAngularVelocity * 2; //take 1/2 sec to get to max angular velocity
 
     /* Neutral Modes */
     public static final NeutralMode angleNeutralMode = NeutralMode.Coast;

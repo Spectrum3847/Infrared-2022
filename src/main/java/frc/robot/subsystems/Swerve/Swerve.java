@@ -11,6 +11,7 @@ import com.ctre.phoenix.sensors.Pigeon2;
 import frc.lib.util.Conversions;
 import frc.robot.commands.swerve.TeleopSwerve;
 import frc.robot.constants.AutonConstants;
+import frc.robot.constants.Constants;
 import frc.robot.constants.SwerveConstants;
 import frc.robot.constants.Constants.CanIDs;
 import frc.robot.telemetry.Log;
@@ -23,6 +24,7 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -42,7 +44,8 @@ public class Swerve extends SubsystemBase {
                                                             AutonConstants.kThetaControllerConstraints);;
     public PIDController xController = new PIDController(AutonConstants.kPXController, 0, AutonConstants.kDXController);
     public PIDController yController = new PIDController(AutonConstants.kPYController, 0, AutonConstants.kDYController);
-
+    ChassisSpeeds lastRequestedVelocity = new ChassisSpeeds(0, 0, 0);
+    private double lastLoopTime = 0;
 
     public Swerve() {
         setName(name);
@@ -84,19 +87,24 @@ public class Swerve extends SubsystemBase {
         if (Math.abs(rotation) < 0.03){
             rotation = 0;
         }
+        ChassisSpeeds speeds; 
+        if (fieldRelative){ 
+            speeds = ChassisSpeeds.fromFieldRelativeSpeeds(
+                        translation.getX(), 
+                        translation.getY(), 
+                        rotation, 
+                        getYaw());
+        } else {
+        speeds =  new ChassisSpeeds(
+                    translation.getX(), 
+                    translation.getY(), 
+                    rotation);
+        }
+
+        speeds = limitAcceleration(speeds);
         SwerveModuleState[] swerveModuleStates =
-            SwerveConstants.swerveKinematics.toSwerveModuleStates(
-                fieldRelative ? ChassisSpeeds.fromFieldRelativeSpeeds(
-                                    translation.getX(), 
-                                    translation.getY(), 
-                                    rotation, 
-                                    getYaw()
-                                )
-                                : new ChassisSpeeds(
-                                    translation.getX(), 
-                                    translation.getY(), 
-                                    rotation)
-                                );
+            SwerveConstants.swerveKinematics.toSwerveModuleStates(speeds);
+        
         SwerveDriveKinematics.desaturateWheelSpeeds(swerveModuleStates, SwerveConstants.maxSpeed);
 
         for(SwerveModule mod : mSwerveMods){
@@ -105,6 +113,67 @@ public class Swerve extends SubsystemBase {
         drive_y = translation.getY();
         drive_x = translation.getX();
         drive_rotation = rotation;
+    }
+
+
+    /**
+     * Written by 3476
+     *  Puts a limit on the acceleration. This method should be called before setting a chassis speeds to the robot drivebase.
+     * <p>
+     * Limits the acceleration by ensuring that the difference between the command and previous velocity doesn't exceed a 
+     * set acceleration * delata time since the last calculation
+     *
+     * @param commandedVelocity Desired Field Relative Chassis Speeds (The chassis speeds is mutated to the limited acceleration)
+     * @return an acceleration limited chassis speeds
+     */
+    ChassisSpeeds limitAcceleration(ChassisSpeeds commandedVelocity) {
+        double dt;
+        if ((Timer.getFPGATimestamp() - lastLoopTime) > ((double) SwerveConstants.DRIVE_PERIOD / 1000) * 4) {
+            // If the dt is a lot greater than our nominal dt reset the acceleration limiting
+            // (ex. we've been disabled for a while)
+            lastRequestedVelocity = commandedVelocity;
+            dt = (double) SwerveConstants.DRIVE_PERIOD / 1000;
+        } else {
+            dt = Timer.getFPGATimestamp() - lastLoopTime;
+        }
+        lastLoopTime = Timer.getFPGATimestamp();
+
+        double maxVelocityChange = SwerveConstants.maxAccel * dt;
+        double maxAngularVelocityChange = SwerveConstants.maxAngularAcceleration * dt;
+
+        Translation2d velocityCommand = new Translation2d(
+                commandedVelocity.vxMetersPerSecond, commandedVelocity.vyMetersPerSecond
+        );
+
+        Translation2d lastVelocityCommand = new Translation2d(
+                lastRequestedVelocity.vxMetersPerSecond, lastRequestedVelocity.vyMetersPerSecond
+        );
+
+        Translation2d velocityChange = velocityCommand.minus(lastVelocityCommand);
+        double velocityChangeAngle = Math.atan2(velocityChange.getY(), velocityChange.getX()); //Radians
+
+        // Check if velocity change exceeds max limit
+        if (velocityChange.getNorm() > maxVelocityChange) {
+            // Get limited velocity vector difference in cartesian coordinate system
+            Translation2d limitedVelocityVectorChange = new Translation2d(maxVelocityChange, new Rotation2d(velocityChangeAngle));
+            Translation2d limitedVelocityVector = lastVelocityCommand.plus(limitedVelocityVectorChange);
+
+            commandedVelocity.vyMetersPerSecond = limitedVelocityVector.getX();
+            commandedVelocity.vyMetersPerSecond = limitedVelocityVector.getY();
+        }
+
+        // Checks if requested change in Angular Velocity is greater than allowed
+        if (Math.abs(commandedVelocity.omegaRadiansPerSecond - lastRequestedVelocity.omegaRadiansPerSecond)
+                > maxAngularVelocityChange) {
+            // Add the lastCommandVelocity and the maxAngularVelocityChange (changed to have the same sign as the actual change)
+            commandedVelocity.omegaRadiansPerSecond =
+                    lastRequestedVelocity.omegaRadiansPerSecond +
+                            Math.copySign(maxAngularVelocityChange,
+                                    commandedVelocity.omegaRadiansPerSecond - lastRequestedVelocity.omegaRadiansPerSecond);
+        }
+
+        lastRequestedVelocity = commandedVelocity; // save our current commanded velocity to be used in next iteration
+        return commandedVelocity;
     }
 
     public void useOutput(double output) {
