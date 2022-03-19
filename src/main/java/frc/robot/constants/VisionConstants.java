@@ -14,10 +14,9 @@ public final class VisionConstants {
   public static final Rotation2d fovHorizontal = Rotation2d.fromDegrees(59.6);
   public static final Rotation2d fovVertical = Rotation2d.fromDegrees(49.7);
 
-  private static final double cameraHeight = Units.inchesToMeters(42.5);
-  private static final double verticalRotationDegrees = 24.6;
-  private static final double offsetX = Units.inchesToMeters(9.0);
-
+  private static final double cameraHeight = Units.inchesToMeters(32.5);
+  private static final double verticalRotationDegrees = 10;
+  private static final double offsetX = Units.inchesToMeters(0);
 
   public static final double limelightHeight = Units.inchesToMeters(32.5);
   public static final double limelightAngle = Units.degreesToRadians(10);
