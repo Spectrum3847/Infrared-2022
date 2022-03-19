@@ -1,10 +1,16 @@
 //Created by Spectrum3847
 package frc.robot.subsystems;
 
+import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.util.net.PortForwarder;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.lib.drivers.LimeLight;
 import frc.lib.drivers.LimeLightControlModes.LedMode;
+import frc.lib.util.LLDistance;
+import frc.robot.constants.VisionConstants;
+import frc.robot.subsystems.Vision.Vision.TimestampedTranslation2d;
 import frc.robot.telemetry.Log;
 
 public class VisionLL extends SubsystemBase {
@@ -12,12 +18,10 @@ public class VisionLL extends SubsystemBase {
 
     public final LimeLight limelight;
     private boolean LEDState = true;
+    LLDistance UpperHub; 
 
-    private final double TargetHeight = 89.75;// in
-    private final double LLHeight = 34.25;// in
-    private final double LLAngle = 10; // deg
-    private double TargetAngle = 0;
-    private double Distance = 0;
+    private TimestampedTranslation2d translationToGoal;
+
 
     /**
      * Creates a new VisionLL.
@@ -25,8 +29,10 @@ public class VisionLL extends SubsystemBase {
     public VisionLL() {
         setName(name);
         limelight = new LimeLight();
-        limeLightLEDOn();
+        limeLightLEDOn();   
         forwardLimeLightPorts();
+        translationToGoal = new TimestampedTranslation2d(0, new Translation2d(0,0));
+        UpperHub = new LLDistance(VisionConstants.targetHeight, VisionConstants.limelightHeight, VisionConstants.limelightAngle);
     }
 
     public void forwardLimeLightPorts() {
@@ -35,8 +41,17 @@ public class VisionLL extends SubsystemBase {
         PortForwarder.add(5801, "10.85.15.22", 5801);
     }
 
+    public void setTranslationToGoal(TimestampedTranslation2d translationToGoal) {
+        this.translationToGoal = translationToGoal;
+    }
+
     @Override
     public void periodic() {
+        SmartDashboard.putNumber("Limelight Position (M)", getActualDistance());
+        SmartDashboard.putNumber("Limelight Angle", limelight.getdegVerticalToTarget());
+        SmartDashboard.putNumber("Inches to Goal",
+             Units.metersToInches(translationToGoal.translation.getNorm()));
+
         // This method will be called once per scheduler run
         // If disabled and LED-Toggle is false, than leave lights off, else they should
         // be on
@@ -53,25 +68,18 @@ public class VisionLL extends SubsystemBase {
             }
         }*/
 
-        TargetAngle = limelight.getdegVerticalToTarget();
-        Distance = ((TargetHeight - LLHeight) / Math.tan(Math.toRadians(LLAngle + TargetAngle)));
+        
     }
 
-    public double getLLDistance() {
-        return Distance;
+    public double getLLDistance(){
+        return UpperHub.distanceInches(limelight.getdegVerticalToTarget());
+    }
+    public double getActualDistance(){
+        return UpperHub.distanceMeters(limelight.getdegRotationToTarget());
     }
 
-    public double getActualDistance() {
-        return (Distance / 12);
-    }
-
-    public double getRPM() {
-        if (Distance > 15.71) {
-            return ((Distance / 12) * 17.28) + 3200;
-        }
-        else {
-            return 3200;
-        }
+    public double getRPM(){
+        return UpperHub.distanceMeters(limelight.getdegRotationToTarget());
     }
 
     public void limeLightLEDOff() {
