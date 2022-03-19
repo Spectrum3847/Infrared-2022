@@ -3,6 +3,9 @@ package frc.lib.drivers;
 
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.SerialPort.Port;
+import frc.lib.util.Alert;
+import frc.lib.util.Alert.AlertType;
+import frc.robot.Robot;
 
 /**
  * Used to command a Teensy running the photon LED control library. Commands the
@@ -20,6 +23,7 @@ import edu.wpi.first.wpilibj.SerialPort.Port;
 public class Photon {
 
     private SerialPort usb;
+    private Alert photonNotConnected = new Alert("Photon Not Connected", AlertType.WARNING);
 
     // Set your default values here. You can set default colors that match your team
     // colors, refer to the Color chart Above
@@ -50,7 +54,7 @@ public class Photon {
         try {
             usb = new SerialPort(115200, Port.kUSB);
         } catch (Exception e) {
-            // Robot.printWarning("PHOTON NOT FOUND: NO LEDs :(");
+            photonNotConnected.set(true);
             usb = null;
         }
     }

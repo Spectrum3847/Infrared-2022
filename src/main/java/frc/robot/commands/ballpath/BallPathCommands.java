@@ -54,7 +54,8 @@ public class BallPathCommands {
     public static Command sortBalls(){
         return runIntake(IntakeConstants.intakeSpeed).alongWith(
             indexerSort(), 
-            intakeDown());
+            intakeDown(),
+            feederIntake());
     }
 
     public static Command indexerSort(){

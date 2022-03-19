@@ -25,6 +25,7 @@ import frc.robot.subsystems.Feeder;
 import frc.robot.subsystems.Indexer;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Launcher;
+import frc.robot.subsystems.PhotonLEDs;
 import frc.robot.subsystems.Pneumatics;
 import frc.robot.subsystems.VisionLL;
 import frc.robot.subsystems.Swerve.Swerve;
@@ -50,6 +51,7 @@ public class Robot extends TimedRobot {
     public static Climber climber;
     public static VisionLL visionLL;
     public static Pneumatics pneumatics;
+    public static PhotonLEDs photonLEDs;
     public static PowerDistribution pdh;
     public static SpectrumPreferences prefs;
     public static ShuffleboardTabs shuffleboardTabs;
@@ -63,6 +65,7 @@ public class Robot extends TimedRobot {
         climber = new Climber();
         visionLL = new VisionLL();
         pneumatics = new Pneumatics();
+        photonLEDs = new PhotonLEDs();
         pdh = new PowerDistribution(1, ModuleType.kRev);
         prefs = SpectrumPreferences.getInstance();
         shuffleboardTabs = new ShuffleboardTabs();

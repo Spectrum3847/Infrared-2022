@@ -90,7 +90,7 @@ public class PhotonColorSensors implements AutoCloseable {
 
   private void threadMain() { 
     // Using JNI for a non allocating read
-    int port = SerialPortJNI.serialInitializePort((byte)2);
+    int port = SerialPortJNI.serialInitializePort((byte)3);
     SerialPortJNI.serialSetBaudRate(port, 115200);
     SerialPortJNI.serialSetDataBits(port, (byte)8);
     SerialPortJNI.serialSetParity(port, (byte)0);
@@ -275,7 +275,7 @@ public class PhotonColorSensors implements AutoCloseable {
     }
   }
 
-  void setDebugPrints(boolean debug) {
+  public void setDebugPrints(boolean debug) {
     debugPrints.set(debug);
   }
 
