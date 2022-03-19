@@ -2,6 +2,7 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.util.net.PortForwarder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -48,7 +49,8 @@ public class VisionLL extends SubsystemBase {
     public void periodic() {
         SmartDashboard.putNumber("Limelight Position (M)", getActualDistance());
         SmartDashboard.putNumber("Limelight Angle", limelight.getdegVerticalToTarget());
-        SmartDashboard.putNumber("6328 Distance To Goal", translationToGoal.translation.getNorm());
+        SmartDashboard.putNumber("Inches to Goal",
+             Units.metersToInches(translationToGoal.translation.getNorm()));
 
         // This method will be called once per scheduler run
         // If disabled and LED-Toggle is false, than leave lights off, else they should

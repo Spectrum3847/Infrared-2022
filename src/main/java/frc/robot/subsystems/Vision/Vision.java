@@ -11,6 +11,7 @@ import java.util.function.Consumer;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.lib.util.CircleFitter;
 import frc.robot.constants.FieldConstants;
@@ -60,7 +61,7 @@ public class Vision extends SubsystemBase {
   @Override
   public void periodic() {
     io.updateInputs(inputs);
-    int targetCount = ledsOn ? inputs.cornerX.length / 4 : 0;
+    int targetCount = inputs.cornerX.length / 4;
 
     // Update LED idle state
     if (targetCount > 0) {
@@ -80,6 +81,7 @@ public class Vision extends SubsystemBase {
       return;
     }
 
+    SmartDashboard.putNumber("LL Target Count", targetCount);
     // Calculate camera to target translation
     if (targetCount >= minTargetCount) {
       List<Translation2d> cameraToTargetTranslations = new ArrayList<>();
@@ -111,7 +113,9 @@ public class Vision extends SubsystemBase {
       if (cameraToTargetTranslations.size() >= minTargetCount * 4) {
         Translation2d cameraToTargetTranslation =
             CircleFitter.fit(FieldConstants.visionTargetDiameter / 2.0,
-                cameraToTargetTranslations, circleFitPrecision);
+              cameraToTargetTranslations, circleFitPrecision);
+        SmartDashboard.putNumber("cameraToTargetTrans X", cameraToTargetTranslation.getX());
+        SmartDashboard.putNumber("cameraToTargetTrans Y", cameraToTargetTranslation.getY());
         translationConsumer.accept(new TimestampedTranslation2d(
             inputs.captureTimestamp - extraLatencySecs,
             cameraToTargetTranslation));
