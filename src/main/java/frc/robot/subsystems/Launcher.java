@@ -35,7 +35,7 @@ public class Launcher extends RollerSubsystem {
   }
 
   public void reset(){
-    if (Math.abs(getWheelRPM()) > 10){
+    if (Math.abs(getWheelRPM()) > 100){
       hasRun = true;
       motorFollower.follow(motorLeader);
       setRPM(LauncherConstants.defaultSpeed);

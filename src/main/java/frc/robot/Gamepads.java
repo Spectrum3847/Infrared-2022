@@ -92,6 +92,7 @@ public class Gamepads {
 		new AndButton(driver.leftBumper, driver.bButton).whileHeld(new ResetGyro(270));
 
 		new AndNotButton(driver.aButton, driver.leftBumper).whileHeld(BallPathCommands.intakeBalls());
+		new AndNotButton(driver.bButton, driver.leftBumper).whileHeld(BallPathCommands.sortBalls());
 		new AndNotButton(driver.yButton, driver.leftBumper).whileHeld(BallPathCommands.eject());
 		new AndNotButton(driver.xButton, driver.leftBumper).whileHeld(BallPathCommands.feed());
 		driver.startButton.whenPressed(BallPathCommands.tarmacShot());

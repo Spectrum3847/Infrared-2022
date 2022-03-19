@@ -10,11 +10,17 @@ import com.ctre.phoenix.sensors.SensorInitializationStrategy;
 
 import frc.lib.motorControllers.TalonFXSetup;
 
+
 public final class FeederConstants {
     public static final String name = "Feeder";
 
     public final static double feedSpeed = 0.3;
+    public final static double intakeSpeed = 0.3;
 
+    //sensors
+    public final static int topSensor = 8;
+    public final static int bottomSensor = 9;
+    
     // Physical Constants
     public static final double diameterInches = 2;
     public static final double diameterMeters = diameterInches * 0.0254;
@@ -39,7 +45,7 @@ public final class FeederConstants {
     public static final boolean kFollowerInverted = true;
 
     /* Neutral Modes */
-    public static final NeutralMode kNeutralMode = NeutralMode.Coast;
+    public static final NeutralMode kNeutralMode = NeutralMode.Brake;
 
     /* Control Loop Constants */
     public static final double kP = 0.0;
