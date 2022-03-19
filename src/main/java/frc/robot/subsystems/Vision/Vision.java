@@ -7,23 +7,21 @@ package frc.robot.subsystems.Vision;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
-import java.util.function.Supplier;
 
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.lib.util.CircleFitter;
+import frc.robot.constants.FieldConstants;
 import frc.robot.constants.VisionConstants;
+import frc.robot.constants.VisionConstants.CameraPosition;
 import frc.robot.subsystems.Vision.VisionIO.VisionIOInputs;
 
 public class Vision extends SubsystemBase {
   private static final double circleFitPrecision = 0.01;
   private static final int minTargetCount = 2; // For calculating odometry
   private static final double extraLatencySecs = 0.06; // Approximate camera + network latency
-  private static final double targetGraceSecs = 0.5;
-  private static final double blinkPeriodSecs = 3.0;
-  private static final double blinkLengthSecs = 0.5;
 
   // FOV constants
   private static final double vpw =
@@ -35,14 +33,9 @@ public class Vision extends SubsystemBase {
   private final VisionIOInputs inputs = new VisionIOInputs();
 
   private double lastCaptureTimestamp = 0.0;
-  private Supplier<VisionLedMode> modeSupplier;
-  private Supplier<Boolean> climbModeSupplier;
-  private Supplier<HoodState> hoodStateSupplier;
   private Consumer<TimestampedTranslation2d> translationConsumer;
 
   private boolean ledsOn = false;
-  private boolean forceLeds = false;
-  private boolean autoEnabled = false;
   private Timer targetGraceTimer = new Timer();
 
   /** Creates a new Vision. */
@@ -51,26 +44,9 @@ public class Vision extends SubsystemBase {
     targetGraceTimer.start();
   }
 
-  public void setSuppliers(Supplier<VisionLedMode> modeSupplier,
-      Supplier<Boolean> climbModeSupplier,
-      Supplier<HoodState> hoodStateSupplier) {
-    this.modeSupplier = modeSupplier;
-    this.climbModeSupplier = climbModeSupplier;
-    this.hoodStateSupplier = hoodStateSupplier;
-  }
-
   public void setTranslationConsumer(
       Consumer<TimestampedTranslation2d> translationConsumer) {
     this.translationConsumer = translationConsumer;
-  }
-
-  /** Use to enable LEDs continuously while override is "Auto" */
-  public void setForceLeds(boolean on) {
-    forceLeds = on;
-  }
-
-  public void setAutoEnabled(boolean enabled) {
-    autoEnabled = enabled;
   }
 
   public boolean getSimpleTargetValid() {
@@ -84,42 +60,12 @@ public class Vision extends SubsystemBase {
   @Override
   public void periodic() {
     io.updateInputs(inputs);
-    Logger.getInstance().processInputs("Vision", inputs);
     int targetCount = ledsOn ? inputs.cornerX.length / 4 : 0;
 
     // Update LED idle state
     if (targetCount > 0) {
       targetGraceTimer.reset();
     }
-    boolean idleOn = targetGraceTimer.get() < targetGraceSecs
-        || Timer.getFPGATimestamp() % blinkPeriodSecs < blinkLengthSecs;
-
-    // Update LED state based on switch
-    switch (modeSupplier.get()) {
-      case ALWAYS_OFF:
-        ledsOn = false;
-        break;
-      case ALWAYS_ON:
-        ledsOn = true;
-        break;
-      case AUTO:
-        if (forceLeds) {
-          ledsOn = true;
-        } else if (DriverStation.isDisabled()) {
-          ledsOn = false;
-        } else if (DriverStation.isAutonomous()) {
-          ledsOn = autoEnabled;
-        } else if (climbModeSupplier.get()) {
-          ledsOn = false;
-        } else {
-          ledsOn = idleOn;
-        }
-        break;
-      default:
-        ledsOn = false;
-        break;
-    }
-    io.setLeds(ledsOn);
 
     // Exit if no new frame
     if (inputs.captureTimestamp == lastCaptureTimestamp) {
@@ -129,7 +75,7 @@ public class Vision extends SubsystemBase {
 
     // Get camera constants
     CameraPosition cameraPosition =
-        VisionConstants.getCameraPosition(hoodStateSupplier.get());
+        VisionConstants.getCameraPosition();
     if (cameraPosition == null) { // Hood is moving or unknown, don't process frame
       return;
     }

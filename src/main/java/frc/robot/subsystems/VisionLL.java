@@ -1,6 +1,7 @@
 //Created by Spectrum3847
 package frc.robot.subsystems;
 
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.util.net.PortForwarder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -8,6 +9,7 @@ import frc.lib.drivers.LimeLight;
 import frc.lib.drivers.LimeLightControlModes.LedMode;
 import frc.lib.util.LLDistance;
 import frc.robot.constants.VisionConstants;
+import frc.robot.subsystems.Vision.Vision.TimestampedTranslation2d;
 import frc.robot.telemetry.Log;
 
 public class VisionLL extends SubsystemBase {
@@ -16,6 +18,8 @@ public class VisionLL extends SubsystemBase {
     public final LimeLight limelight;
     private boolean LEDState = true;
     LLDistance UpperHub; 
+
+    private TimestampedTranslation2d translationToGoal;
 
 
     /**
@@ -26,6 +30,7 @@ public class VisionLL extends SubsystemBase {
         limelight = new LimeLight();
         limeLightLEDOn();   
         forwardLimeLightPorts();
+        translationToGoal = new TimestampedTranslation2d(0, new Translation2d(0,0));
         UpperHub = new LLDistance(VisionConstants.targetHeight, VisionConstants.limelightHeight, VisionConstants.limelightAngle);
     }
 
@@ -35,10 +40,16 @@ public class VisionLL extends SubsystemBase {
         PortForwarder.add(5801, "10.85.15.22", 5801);
     }
 
+    public void setTranslationToGoal(TimestampedTranslation2d translationToGoal) {
+        this.translationToGoal = translationToGoal;
+    }
+
     @Override
     public void periodic() {
         SmartDashboard.putNumber("Limelight Position (M)", getActualDistance());
         SmartDashboard.putNumber("Limelight Angle", limelight.getdegVerticalToTarget());
+        SmartDashboard.putNumber("6328 Distance To Goal", translationToGoal.translation.getNorm());
+
         // This method will be called once per scheduler run
         // If disabled and LED-Toggle is false, than leave lights off, else they should
         // be on
