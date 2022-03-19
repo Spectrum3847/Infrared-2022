@@ -2,6 +2,7 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.util.net.PortForwarder;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.lib.drivers.LimeLight;
 import frc.lib.drivers.LimeLightControlModes.LedMode;
@@ -23,7 +24,7 @@ public class VisionLL extends SubsystemBase {
     public VisionLL() {
         setName(name);
         limelight = new LimeLight();
-        limeLightLEDOn();
+        limeLightLEDOn();   
         forwardLimeLightPorts();
         UpperHub = new LLDistance(VisionConstants.targetHeight, VisionConstants.limelightHeight, VisionConstants.limelightAngle);
     }
@@ -36,6 +37,8 @@ public class VisionLL extends SubsystemBase {
 
     @Override
     public void periodic() {
+        SmartDashboard.putNumber("Limelight Position (M)", getActualDistance());
+        SmartDashboard.putNumber("Limelight Angle", limelight.getdegVerticalToTarget());
         // This method will be called once per scheduler run
         // If disabled and LED-Toggle is false, than leave lights off, else they should
         // be on

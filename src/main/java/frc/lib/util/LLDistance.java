@@ -15,15 +15,15 @@ public class LLDistance{
         this.limelightAngle = limelightAngle;
     }
     public double distanceInches(double targetAngle){
-        distanceToTarget = ((targetHeight - limelightHeight) / Math.tan(limelightAngle + Units.degreesToRadians(targetAngle)));
+        distanceToTarget = ((targetHeight - limelightHeight) / Math.tan(limelightAngle + Math.toRadians(targetAngle)));
         return Units.metersToInches(distanceToTarget);
     }
     public double distanceFeet(double targetAngle){
-        distanceToTarget = ((targetHeight - limelightHeight) / Math.tan(limelightAngle + Units.degreesToRadians(targetAngle)));
+        distanceToTarget = ((targetHeight - limelightHeight) / Math.tan(limelightAngle + Math.toRadians(targetAngle)));
         return Units.metersToFeet(distanceToTarget);
     }
     public double distanceMeters(double targetAngle){
-        distanceToTarget = ((targetHeight - limelightHeight) / Math.tan(limelightAngle + Units.degreesToRadians(targetAngle)));
+        distanceToTarget = ((targetHeight - limelightHeight) / Math.tan(limelightAngle + Math.toRadians(targetAngle)));
         return distanceToTarget;
     }
 }
