@@ -15,11 +15,11 @@ public class DoubleBallSimple extends ParallelCommandGroup {
   public DoubleBallSimple() {
 
     addCommands(
-      BallPathCommands.tarmacShot().withTimeout(6),
+      BallPathCommands.tarmacShot().withTimeout(5),
       new SwerveDrive(false, 0.2, 0).withTimeout(1.0)
           .deadlineWith(BallPathCommands.intakeBalls()).andThen(
         new WaitCommand(1.5).deadlineWith(new LLAim(), BallPathCommands.intakeBalls()).andThen(
-        new WaitCommand(2).deadlineWith(BallPathCommands.feed())))
+        new WaitCommand(2.5).deadlineWith(BallPathCommands.feed())))
     );
   }
 
