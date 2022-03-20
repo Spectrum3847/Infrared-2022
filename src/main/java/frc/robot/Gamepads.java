@@ -5,7 +5,10 @@ package frc.robot;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.lib.gamepads.AndButton;
 import frc.lib.gamepads.AndNotButton;
+import frc.lib.gamepads.AxisButton;
 import frc.lib.gamepads.XboxGamepad;
+import frc.lib.gamepads.AxisButton.ThresholdType;
+import frc.lib.gamepads.XboxGamepad.XboxAxis;
 import frc.lib.gamepads.mapping.ExpCurve;
 import frc.lib.util.Alert;
 import frc.robot.Robot.RobotState;
@@ -137,6 +140,8 @@ public class Gamepads {
 
 		//Return to default command when pressed
 		operator.leftStickButton.whileHeld(Robot.climber.defaultCommand());
+		new AxisButton(operator, XboxAxis.LEFT_Y, 0.15, ThresholdType.DEADBAND)
+			.whenPressed(Robot.climber.defaultCommand());
 	}
 
 	// Configure the button bindings for the driver control in Test Mode
