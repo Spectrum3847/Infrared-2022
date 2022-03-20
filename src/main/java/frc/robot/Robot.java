@@ -28,6 +28,8 @@ import frc.robot.subsystems.Launcher;
 import frc.robot.subsystems.Pneumatics;
 import frc.robot.subsystems.VisionLL;
 import frc.robot.subsystems.Swerve.Swerve;
+import frc.robot.subsystems.Vision.Vision;
+import frc.robot.subsystems.Vision.VisionIOLimelight;
 import frc.robot.telemetry.Dashboard;
 import frc.robot.telemetry.Log;
 import frc.robot.telemetry.ShuffleboardTabs;
@@ -49,6 +51,7 @@ public class Robot extends TimedRobot {
     public static Launcher launcher;
     public static Climber climber;
     public static VisionLL visionLL;
+    public static Vision vision;
     public static Pneumatics pneumatics;
     public static PowerDistribution pdh;
     public static SpectrumPreferences prefs;
@@ -62,6 +65,8 @@ public class Robot extends TimedRobot {
         launcher = new Launcher();
         climber = new Climber();
         visionLL = new VisionLL();
+        vision = new Vision(new VisionIOLimelight());
+        vision.setTranslationConsumer(visionLL::setTranslationToGoal);
         pneumatics = new Pneumatics();
         pdh = new PowerDistribution(1, ModuleType.kRev);
         prefs = SpectrumPreferences.getInstance();
@@ -108,7 +113,7 @@ public class Robot extends TimedRobot {
         intializeSubsystems();
         Dashboard.intializeDashboard();
         shuffleboardTabs.initialize();
-        visionLL.limeLightLEDOff();
+        visionLL.limeLightLEDOn();
         Gamepads.resetConfig(); // Reset Gamepad Configs
         Log.initLog(); // Config the Debugger based on FMS state
         printNormal("End robotInit()");

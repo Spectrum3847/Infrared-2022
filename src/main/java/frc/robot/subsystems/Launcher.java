@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.lib.drivers.LinearServo;
 import frc.lib.subsystems.RollerSubsystem;
+import frc.robot.Robot;
 import frc.robot.constants.Constants;
 import frc.robot.constants.LauncherConstants;
 import frc.robot.constants.Constants.CanIDs;
@@ -52,6 +53,11 @@ public class Launcher extends RollerSubsystem {
     // to 1
     double motorVelocity = ((wheelRPM / 600) * 2048);
     setVelocity(motorVelocity);
+  }
+
+  public void LLsetRPMandHood(){
+    setRPM(Robot.visionLL.getLauncherRPM());
+    hood.setHoodAngle(Robot.visionLL.getHoodAngle());
   }
 
   public double getWheelRPM() {
