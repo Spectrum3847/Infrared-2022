@@ -36,7 +36,7 @@ public class Vision extends SubsystemBase {
   private double lastCaptureTimestamp = 0.0;
   private Consumer<TimestampedTranslation2d> translationConsumer;
 
-  private boolean ledsOn = false;
+  //private boolean ledsOn = false;
   private Timer targetGraceTimer = new Timer();
 
   /** Creates a new Vision. */

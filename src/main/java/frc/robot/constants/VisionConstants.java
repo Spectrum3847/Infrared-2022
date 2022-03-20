@@ -18,8 +18,9 @@ public final class VisionConstants {
   private static final double verticalRotationDegrees = 30;
   private static final double offsetX = Units.inchesToMeters(0);
 
-  public static final double limelightHeight = Units.inchesToMeters(32.5);
-  public static final double limelightAngle = Units.degreesToRadians(10);
+  //custom visionLL stuff
+  public static final double limelightHeight = Units.inchesToMeters(31.5);
+  public static final double limelightAngle = Units.degreesToRadians(30);
   public static final double targetHeight = Units.inchesToMeters(105.5);
 
   public static CameraPosition getCameraPosition() {
