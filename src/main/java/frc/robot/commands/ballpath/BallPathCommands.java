@@ -33,9 +33,7 @@ public class BallPathCommands {
 
     //Limelight shot
     public static Command llShot(){
-        return setHood(Robot.visionLL.getHoodAngle()).alongWith(
-            runLauncherRPM(Robot.visionLL.getLauncherRPM())
-        );
+        return new RunCommand(() -> Robot.launcher.LLsetRPMandHood(), Robot.launcher);
     }
 
     public static Command stopLauncher(){
