@@ -35,6 +35,9 @@ public class BallPathCommands {
     public static Command llShot(){
         return new RunCommand(() -> Robot.launcher.LLsetRPMandHood(), Robot.launcher);
     }
+    public static Command llShotRPM(){
+        return new RunCommand(() -> Robot.launcher.LLsetRPM(), Robot.launcher);
+    }
 
     public static Command stopLauncher(){
         return new RunCommand(() -> Robot.launcher.stop(), Robot.launcher);

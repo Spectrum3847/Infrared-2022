@@ -82,15 +82,26 @@ public class VisionLL extends SubsystemBase {
     }
 
     public double getLauncherRPM(){
-        return (200 * translationToGoal.translation.getNorm()) + (1700);//turns to just +1640 once we tune the shooter
+        return (200 * translationToGoal.translation.getNorm()) + (1640);//turns to just +1640 once we tune the shooter
+    }
+    public double getJustLauncherRPM(){
+        return (200 * translationToGoal.translation.getNorm()) + (1620);
     }
 
     public double getHoodAngle(){
         double d = translationToGoal.translation.getNorm();
-        if(d < 1.5) return ((-2)*d + 70);
-        else if(d < 2) return ((-4) * d + 73);
-        else if(d < 3) return ((-2) * d + 69);
-        return -d + 66;
+        double setpoint;
+        if(d < 1.5) setpoint = ((-2)*d + 70);
+        else if(d < 2) setpoint = ((-4) * d + 73);
+        else if(d < 3) setpoint = ((-2) * d + 69);
+        setpoint = -d + 66;
+        if(setpoint < 57){
+            return 57;
+        }
+        else if(setpoint >68){
+            return 68;
+        }
+        return setpoint;
     }
 
     public void limeLightLEDOff() {
