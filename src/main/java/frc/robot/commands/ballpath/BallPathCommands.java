@@ -14,9 +14,9 @@ import frc.robot.constants.LauncherConstants;
 public class BallPathCommands {
 
     // fender shot
-    public static Command fenderShot() {
-        return setHood(LauncherConstants.closeShotAngle).alongWith(
-            runLauncherRPM(LauncherConstants.closeShotSpeed));
+    public static Command lowGoalShot() {
+        return setHood(LauncherConstants.lowGoalShotAngle).alongWith(
+            runLauncherRPM(LauncherConstants.LowGoalShotSpeed));
     }
 
     // tarmac shot

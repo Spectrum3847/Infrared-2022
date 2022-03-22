@@ -101,7 +101,7 @@ public class Swerve extends SubsystemBase {
                     rotation);
         }
 
-        speeds = limitAcceleration(speeds);
+        //speeds = limitAcceleration(speeds);
         SwerveModuleState[] swerveModuleStates =
             SwerveConstants.swerveKinematics.toSwerveModuleStates(speeds);
         

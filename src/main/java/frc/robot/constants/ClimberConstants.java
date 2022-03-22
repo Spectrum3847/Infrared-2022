@@ -14,9 +14,9 @@ import frc.lib.motorControllers.TalonFXSetup;
 public final class ClimberConstants{
     public static final String name = "Climber";
 
-    public static final int fullExtend = 76000;
+    public static final int fullExtend = 85000;
     public static final int nextRungExtend = 65000;
-    public static final int fullRetract = 10000;
+    public static final int fullRetract = 15000;
     public static final int hangRetract = 40000;
 
     //Physical Constants
@@ -37,7 +37,7 @@ public final class ClimberConstants{
     public static TalonFXConfiguration config = new TalonFXConfiguration();
 
     /* Inverted */
-    public static final boolean kInverted = true;
+    public static final boolean kInverted = false;
     public static final boolean kFollowerInverted = !kInverted;
 
     /* Neutral Modes */

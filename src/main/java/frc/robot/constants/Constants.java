@@ -4,7 +4,7 @@ package frc.robot.constants;
 import edu.wpi.first.wpilibj.DriverStation;
 
 public final class Constants {
-    public static RobotType ROBOT = RobotType.ROBOT_2022P;
+    public static RobotType ROBOT = RobotType.ROBOT_2022C;
     private static final boolean FAKE_FMS = true;
     public static final boolean TUNING_MODE = false;
     public static final boolean ENABLE_DASHBOARD = true;

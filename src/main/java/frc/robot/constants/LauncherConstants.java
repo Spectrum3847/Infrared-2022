@@ -14,13 +14,13 @@ public final class LauncherConstants{
     public static final String name = "Launcher";
 
     
-    public final static double closeShotAngle = 80;
+    public final static double lowGoalShotAngle = 68;
     public final static double tarmacShotAngle = 68;
-    public final static double farShotAngle = 50;
-    public final static double closeShotSpeed = 2000;
-    public final static double tarmacShotSpeed = 2200;
-    public final static double farShotSpeed = 2600;
-    public final static double defaultSpeed = closeShotSpeed;
+    public final static double farShotAngle = 68;
+    public final static double LowGoalShotSpeed = 1175;
+    public final static double tarmacShotSpeed = 2150;
+    public final static double farShotSpeed = 2550;
+    public final static double defaultSpeed = LowGoalShotSpeed;
 
     //Physical Constants
     public static final double diameterInches = 4;
