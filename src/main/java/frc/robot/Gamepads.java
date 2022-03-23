@@ -120,7 +120,7 @@ public class Gamepads {
 		operator.bButton.whileHeld(BallPathCommands.unJamAll());
 
 		// Fender
-		operator.leftTriggerButton.whileHeld(BallPathCommands.fenderShot());
+		operator.leftTriggerButton.whileHeld(BallPathCommands.lowGoalShot());
 
 		// Tarmac
 		operator.rightTriggerButton.whileHeld(BallPathCommands.tarmacShot());
@@ -128,13 +128,14 @@ public class Gamepads {
 		// Far Shot
 		operator.rightBumper.whileHeld(BallPathCommands.farShot());
 
+		operator.startButton.whenPressed(BallPathCommands.stopLauncher());
+
 		// Climber Controls
 		operator.Dpad.Up.whenPressed(ClimberCommands.fullUp());
 		operator.Dpad.Down.whenPressed(ClimberCommands.climb());
 		operator.Dpad.Left.whenPressed(ClimberCommands.nextRungDown());
 		operator.Dpad.Right.whenPressed(ClimberCommands.nextRungUp());
 		operator.selectButton.whenPressed(ClimberCommands.hang());
-		operator.startButton.whenPressed(ClimberCommands.pull());
 
 		//Manual climb tilt control
 		operator.leftBumper.whileHeld(ClimberCommands.tiltUp());

@@ -1,6 +1,7 @@
 //Created by Spectrum3847
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import edu.wpi.first.wpilibj2.command.RunCommand;
@@ -35,14 +36,17 @@ public class Launcher extends RollerSubsystem {
     this.setDefaultCommand(new RunCommand(() -> reset(), this));
   }
 
+  public void follow(){
+    motorFollower.set(TalonFXControlMode.Follower, motorLeader.getDeviceID());
+  }
+
   public void reset(){
-    if (Math.abs(getWheelRPM()) > 100){
+    if (Math.abs(getWheelRPM()) > 500){
       hasRun = true;
-      motorFollower.follow(motorLeader);
       setRPM(LauncherConstants.defaultSpeed);
+      follow();
       return;
     }
-    motorFollower.follow(motorLeader);
     stop();
   }
   
@@ -52,18 +56,17 @@ public class Launcher extends RollerSubsystem {
     // Motor Velocity in RPM / 600 (ms to min) * Sensor ticks per rev / Gear Ratio 1
     // to 1
     double motorVelocity = ((wheelRPM / 600) * 2048);
-    setVelocity(motorVelocity);
-    motorFollower.follow(motorLeader);
+      setVelocity(motorVelocity);
+      follow();
   }
 
   public void LLsetRPMandHood(){
     setRPM(Robot.visionLL.getLauncherRPM());
     hood.setHoodAngle(Robot.visionLL.getHoodAngle());
-    motorFollower.follow(motorLeader);
   }
+
   public void LLsetRPM(){
     setRPM(Robot.visionLL.getJustLauncherRPM());
-    hood.setHoodAngle(68);
   }
 
   public double getWheelRPM() {

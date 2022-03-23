@@ -109,6 +109,5 @@ public final class LauncherConstants{
         motorFollower.setInverted(kFollowerInverted);
         motorFollower.setNeutralMode(kNeutralMode);
         motorFollower.enableVoltageCompensation(true);
-        motorFollower.follow(motorLeader);
     }
 }
