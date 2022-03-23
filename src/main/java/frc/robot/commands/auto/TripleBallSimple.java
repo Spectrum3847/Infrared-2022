@@ -26,19 +26,12 @@ public class TripleBallSimple extends SequentialCommandGroup {
 
   private Command thirdBall(){
     return  new WaitCommand(0.25).andThen(
-      BallPathCommands.tarmacShot().withTimeout(6).alongWith(
+      BallPathCommands.tarmacShot().withTimeout(8).alongWith(
       new TurnToAngle(AutonConstants.thirdBallAngle).andThen(  //turn towards third ball
-        new SwerveDrive(false, 0.4, 0).withTimeout(1.5)                 //Drive towards third ball
-            .deadlineWith(intakeCommand()),      //Intake balls
-          new TurnToAngle(AutonConstants.thirdBallTurnToGoal).withTimeout(1),  //Turn to goal
-            new WaitCommand(1).deadlineWith(intakeCommand()), 
-            new WaitCommand(2).deadlineWith(BallPathCommands.feed()))));         //launch balls
-            
+        AutonCommands.driveForTime(2, 0.25)                 //Drive towards third ball
+            .deadlineWith(AutonCommands.intake()),      //Intake balls
+          new TurnToAngle(AutonConstants.thirdBallTurnToGoal).withTimeout(1).alongWith(  //Turn to goal
+            new WaitCommand(1).deadlineWith(AutonCommands.intake())), 
+            new WaitCommand(2).deadlineWith(BallPathCommands.feed()))));         //and then launch balls
   }
-
-  Command intakeCommand(){
-    //return BallPathCommands.intakeBalls();
-    return new WaitCommand(1);
-  }
-  
 }

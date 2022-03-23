@@ -20,18 +20,13 @@ public class DoubleBallSimple extends ParallelCommandGroup {
   public DoubleBallSimple() {
 
     addCommands(
-      BallPathCommands.tarmacShot().withTimeout(5.25),
+      AutonCommands.tarmacShotwithTimeout(5.25),
       new WaitCommand(0.25).andThen(
-      new SwerveDrive(false, 0.2, 0).withTimeout(1.0)
-          .deadlineWith(intakeCommand()).andThen(
-        new WaitCommand(1).deadlineWith(intakeCommand()).andThen(
+      AutonCommands.driveForTime(1, 0.2)
+          .deadlineWith(AutonCommands.intake()).andThen(
+        new WaitCommand(1).deadlineWith(AutonCommands.intake()).andThen(
         new WaitCommand(2.5).deadlineWith(BallPathCommands.feed(),
         new PrintCommand("Double Ball Done"))))).withTimeout(5.25)
     );
-  }
-
-  Command intakeCommand(){
-    //return BallPathCommands.intakeBalls();
-    return new WaitCommand(1);
   }
 }
