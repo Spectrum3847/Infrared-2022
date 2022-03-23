@@ -14,7 +14,7 @@ import frc.lib.motorControllers.TalonFXSetup;
 public final class FeederConstants {
     public static final String name = "Feeder";
 
-    public final static double feedSpeed = 0.3;
+    public final static double feedSpeed = 0.25;
     public final static double intakeSpeed = 0.3;
 
     //sensors

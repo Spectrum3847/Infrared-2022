@@ -40,6 +40,11 @@ public class Launcher extends RollerSubsystem {
     motorFollower.set(TalonFXControlMode.Follower, motorLeader.getDeviceID());
   }
 
+  public void stop(){
+    super.stop();
+    follow();
+  }
+  
   public void reset(){
     if (Math.abs(getWheelRPM()) > 500){
       hasRun = true;

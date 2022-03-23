@@ -17,7 +17,7 @@ public final class LauncherConstants{
     public final static double lowGoalShotAngle = 68;
     public final static double tarmacShotAngle = 68;
     public final static double farShotAngle = 68;
-    public final static double LowGoalShotSpeed = 1175;
+    public final static double LowGoalShotSpeed = 1200; //1175 was a little short on 2nd ball
     public final static double tarmacShotSpeed = 2150;
     public final static double farShotSpeed = 2550;
     public final static double defaultSpeed = LowGoalShotSpeed;

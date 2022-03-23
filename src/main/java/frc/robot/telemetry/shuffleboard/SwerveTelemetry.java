@@ -8,7 +8,6 @@ import java.util.Map;
 
 import frc.robot.Robot;
 import frc.robot.telemetry.Log;
-import frc.lib.telemetry.FalconConfigLayout;
 
 // The Shuffleboard Main tab.
 public class SwerveTelemetry {
@@ -22,7 +21,6 @@ public class SwerveTelemetry {
     //----------------//
     // Tab & Layouts  //
     private ShuffleboardTab m_tab;
-    private FalconConfigLayout driveMod0;
 
     //---------//
     // Widgets //
@@ -44,9 +42,6 @@ public class SwerveTelemetry {
         moduleLayout("Mod 1", 1, m_tab).withPosition(2, 0);
         moduleLayout("Mod 2", 2, m_tab).withPosition(3, 0);
         moduleLayout("Mod 4", 3, m_tab).withPosition(4, 0);
-        
-        driveMod0 = new FalconConfigLayout("Drive Mod 0", m_tab, Robot.swerve.mSwerveMods[0].mDriveMotor, 5, 0);
-        driveMod0.initialize();
     }
 
     public ShuffleboardLayout driveLayout() {
@@ -67,6 +62,10 @@ public class SwerveTelemetry {
         SuppliedValueWidget<Double> m_driveRWidget = driveLayout.addNumber("Drive R",
                 () -> Robot.swerve.drive_rotation);
         m_driveRWidget.withPosition(0, 3);
+
+        SuppliedValueWidget<Double> m_driveDistanceWidget = driveLayout.addNumber("Distance",
+                () -> Robot.swerve.getDistance());
+        m_driveDistanceWidget.withPosition(0, 4);
         return driveLayout;
     }
 
@@ -92,7 +91,6 @@ public class SwerveTelemetry {
     //--------//
     // Update //
     public void update() {     // This will be called in the robotPeriodic
-        driveMod0.update();
     }
 
     public static void printLow(String msg) {

@@ -209,6 +209,18 @@ public class Swerve extends SubsystemBase {
         return swerveOdometry.getPoseMeters();
     }
 
+    public double getXDistance(){
+        return getPose().getX();
+    }
+
+    public double getYDistance(){
+        return getPose().getY();
+    }
+
+    public double getDistance(){
+        return getPose().getTranslation().getNorm();
+      }
+
     public void brakeMode (boolean enabled){
         for(SwerveModule mod : mSwerveMods){
             if (enabled){
@@ -255,6 +267,12 @@ public class Swerve extends SubsystemBase {
     }
 
     //Characterization methods
+    public void resetFalconPositions(){
+        for(SwerveModule mod : mSwerveMods){
+            mod.mDriveMotor.setSelectedSensorPosition(0);
+        }
+    }
+
     public double getLeftPositionMeters(){
         return Conversions.FalconToMeters(mSwerveMods[0].mDriveMotor.getSelectedSensorPosition(),
                 SwerveConstants.wheelCircumference, SwerveConstants.driveGearRatio);

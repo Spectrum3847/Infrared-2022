@@ -9,6 +9,7 @@ import frc.robot.constants.Constants.CanIDs;
 import frc.robot.constants.Constants.SolenoidPorts;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import edu.wpi.first.wpilibj2.command.Command;
@@ -55,17 +56,24 @@ public class Climber extends PositionSubsystem {
         return new RunCommand(() -> setManualOutput(Gamepads.getClimberJoystick()), this);
     }
 
+    public void setManualOutput(double speed){
+        super.setManualOutput(speed);
+        follow();
+    }
+
+    public void setMMPosition(double position){
+        super.setMMPosition(position);
+        follow();
+    }
+
     public void setPIDslot(int slot){
         motorLeader.selectProfileSlot(slot, 0);
     }
 
     public void follow() {
-        motorFollower.setNeutralMode(NeutralMode.Brake);
-        motorFollower.follow(motorLeader);
-        motorFollower2.setNeutralMode(NeutralMode.Brake);
-        motorFollower2.follow(motorLeader);
-        motorFollower3.setNeutralMode(NeutralMode.Brake);
-        motorFollower3.follow(motorLeader);
+        motorFollower.set(TalonFXControlMode.Follower, motorLeader.getDeviceID());
+        motorFollower2.set(TalonFXControlMode.Follower, motorLeader.getDeviceID());
+        motorFollower3.set(TalonFXControlMode.Follower, motorLeader.getDeviceID());
     }
 
     public void tiltUp() {

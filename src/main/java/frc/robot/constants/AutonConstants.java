@@ -16,7 +16,7 @@ public final class AutonConstants {
     public static final double thirdBallTurnToGoal = 220;
 
     public static final double kMaxSpeedMetersPerSecond = SwerveConstants.maxSpeed * 0.75;
-    public static final double kMaxAccelerationMetersPerSecondSquared = kMaxSpeedMetersPerSecond; // 1 sec to full speed
+    public static final double kMaxAccelerationMetersPerSecondSquared = kMaxSpeedMetersPerSecond*2; // 1 sec to full speed
     public static final double kMaxAngularSpeedRadiansPerSecond = SwerveConstants.maxAngularVelocity;
     public static final double kMaxAngularSpeedRadiansPerSecondSquared = SwerveConstants.maxAngularVelocity;
 
