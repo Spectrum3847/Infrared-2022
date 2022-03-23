@@ -61,6 +61,10 @@ public class Launcher extends RollerSubsystem {
     hood.setHoodAngle(Robot.visionLL.getHoodAngle());
     motorFollower.follow(motorLeader);
   }
+  public void LLsetRPM(){
+    setRPM(Robot.visionLL.getJustLauncherRPM());
+    hood.setHoodAngle(68);
+  }
 
   public double getWheelRPM() {
     return (motorLeader.getSelectedSensorVelocity()) / 2048 * 600;

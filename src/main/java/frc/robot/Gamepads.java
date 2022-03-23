@@ -98,9 +98,10 @@ public class Gamepads {
 		new AndNotButton(driver.bButton, driver.leftBumper).whileHeld(BallPathCommands.sortBalls());
 		new AndNotButton(driver.yButton, driver.leftBumper).whileHeld(BallPathCommands.eject());
 		new AndNotButton(driver.xButton, driver.leftBumper).whileHeld(BallPathCommands.feed());
-		//driver.startButton.whenPressed(BallPathCommands.tarmacShot());
-		//driver.selectButton.whenPressed(BallPathCommands.stopLauncher());
-
+		driver.startButton.whenPressed(BallPathCommands.llShotRPM());
+		driver.selectButton.whenPressed(BallPathCommands.stopLauncher());
+		
+		
 		// Aim with limelight
 		driver.rightBumper.whileHeld(new LLAim());
 	}
@@ -119,7 +120,7 @@ public class Gamepads {
 		operator.bButton.whileHeld(BallPathCommands.unJamAll());
 
 		// Fender
-		operator.leftTriggerButton.whileHeld(BallPathCommands.lowGoalShot());
+		operator.leftTriggerButton.whileHeld(BallPathCommands.fenderShot());
 
 		// Tarmac
 		operator.rightTriggerButton.whileHeld(BallPathCommands.tarmacShot());
@@ -127,14 +128,13 @@ public class Gamepads {
 		// Far Shot
 		operator.rightBumper.whileHeld(BallPathCommands.farShot());
 
-		operator.startButton.whenPressed(BallPathCommands.stopLauncher());
-
 		// Climber Controls
 		operator.Dpad.Up.whenPressed(ClimberCommands.fullUp());
 		operator.Dpad.Down.whenPressed(ClimberCommands.climb());
 		operator.Dpad.Left.whenPressed(ClimberCommands.nextRungDown());
 		operator.Dpad.Right.whenPressed(ClimberCommands.nextRungUp());
 		operator.selectButton.whenPressed(ClimberCommands.hang());
+		operator.startButton.whenPressed(ClimberCommands.pull());
 
 		//Manual climb tilt control
 		operator.leftBumper.whileHeld(ClimberCommands.tiltUp());
