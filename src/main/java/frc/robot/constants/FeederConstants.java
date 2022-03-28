@@ -14,7 +14,7 @@ import frc.lib.motorControllers.TalonFXSetup;
 public final class FeederConstants {
     public static final String name = "Feeder";
 
-    public final static double feedSpeed = 0.25;
+    public final static double feedSpeed = 0.30;
     public final static double intakeSpeed = 0.3;
 
     //sensors
@@ -45,7 +45,7 @@ public final class FeederConstants {
     public static final boolean kFollowerInverted = true;
 
     /* Neutral Modes */
-    public static final NeutralMode kNeutralMode = NeutralMode.Brake;
+    public static final NeutralMode kNeutralMode = NeutralMode.Coast;
 
     /* Control Loop Constants */
     public static final double kP = 0.0;
