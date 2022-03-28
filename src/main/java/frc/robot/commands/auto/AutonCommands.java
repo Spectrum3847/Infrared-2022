@@ -8,8 +8,8 @@ import frc.robot.commands.swerve.SwerveDrive;
 public class AutonCommands {
 
     public static Command intake(){
-        //return BallPathCommands.intakeBalls();
-        return new WaitCommand(1);
+        return BallPathCommands.intakeBalls();
+        //return new WaitCommand(1);
     }
 
     public static Command intake(double time){
