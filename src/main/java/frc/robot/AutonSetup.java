@@ -17,6 +17,10 @@ public class AutonSetup {
     //Positions
     public static final SendableChooser<Double> posChooser = new SendableChooser<>();
 
+    //Color
+    
+    public static final SendableChooser<Integer> colorChooser = new SendableChooser<>();
+
     //AutoRoutines
     private static final Command taxiSimple = new TaxiSimple();
     private static final Command doubleBall = new DoubleBallSimple();
@@ -31,6 +35,9 @@ public class AutonSetup {
     public static final SendableChooser<Command> chooser = new SendableChooser<>();
 
     public static void setupSelectors() {
+        colorChooser.setDefaultOption("Red", 0);
+        colorChooser.addOption("Blue", 1);
+
         posChooser.setDefaultOption("A. LEFT", AutonConstants.posAangle);
         posChooser.addOption("B. LEFT-CENTER", AutonConstants.posBangle);
         posChooser.addOption("C. RIGHT-CENTER", AutonConstants.posCangle);
@@ -51,6 +58,10 @@ public class AutonSetup {
     //Return the starting angle for each position
     public static double getAutonAngle(){
         return posChooser.getSelected();
+    }
+
+    public static boolean getIsRed(){
+        return colorChooser.getSelected() == 0;
     }
 
     /**
