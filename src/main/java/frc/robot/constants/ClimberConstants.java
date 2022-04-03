@@ -14,10 +14,10 @@ import frc.lib.motorControllers.TalonFXSetup;
 public final class ClimberConstants{
     public static final String name = "Climber";
 
-    public static final int fullExtend = 85000;
-    public static final int nextRungExtend = 65000;
-    public static final int fullRetract = 15000;
-    public static final int hangRetract = 40000;
+    public static final int fullExtend = 94000;
+    public static final int nextRungExtend = 68000;
+    public static final int fullRetract = 18000;
+    public static final int hangRetract = 48000;
 
     //Physical Constants
     public static final double pulleyDiameterInches = 2;
@@ -61,8 +61,8 @@ public final class ClimberConstants{
     public static final double kIz2 = 150;
 
     /* Current Limiting */
-    public static final int currentLimit = 80;
-    public static final int tirggerThresholdLimit = 80;
+    public static final int currentLimit = 60;
+    public static final int tirggerThresholdLimit = 60;
     public static final double PeakCurrentDuration = 0.5;
     public static final boolean EnableCurrentLimit = true;
     public static final SupplyCurrentLimitConfiguration supplyLimit = new SupplyCurrentLimitConfiguration(

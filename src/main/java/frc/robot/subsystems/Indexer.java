@@ -7,28 +7,40 @@ import com.revrobotics.ColorSensorV3;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.RunCommand;
-import com.revrobotics.ColorSensorV3.RawColor;
+
+import frc.lib.drivers.PicoColorSensor;
+import frc.lib.drivers.PicoColorSensor.RawColor;
+import frc.robot.AutonSetup;
+import frc.robot.Robot;
 import frc.robot.constants.Constants;
 import frc.robot.constants.IndexerConstants;
 import frc.robot.constants.Constants.CanIDs;
 
 public class Indexer extends frc.lib.subsystems.RollerSubsystem {
   public ColorSensorV3 revColorSensor;
-  //public PhotonColorSensors colorSensor;
+  public PicoColorSensor picoCS;
   private RawColor sensor1 = new RawColor(0, 0, 0, 0);
   private RawColor sensor2 = new RawColor(0, 0, 0, 0);
-  private double redThreshold1 = 175;
-  private double blueThreshold1 = 220;
-  private double redThreshold2 = 600;
-  private double blueThreshold2 = 500;
+  private double prox1 = 0;
+  private double prox2 = 0;
 
-  private int redLED = 24000;
-  private int greenLED = 47000;
-  private int blueLED = 22000;
+  private double redLED1 = 5786;//30108;//24000;
+  private double greenLED1 = 5152;//55341;//47000;
+  private double blueLED1 = 11993;//25171;//22000;
 
-  private int BAL_RED1 = greenLED/redLED;
-  private int BAL_GREEN1 = 1;
-  private int BAL_BLUE1 = greenLED/blueLED;
+  private double redLED2 = 1358;//42702;
+  private double greenLED2 = 1155;//83718;
+  private double blueLED2 = 2502;//38932;
+
+  private double BAL_RED1 =  greenLED1/redLED1;
+  private double BAL_GREEN1 = 1;
+  private double BAL_BLUE1 = greenLED1/blueLED1;
+
+  private double BAL_RED2 = greenLED2/redLED2;
+  private double BAL_GREEN2 = 1;
+  private double BAL_BLUE2 = greenLED2/blueLED2;
+
+  private double currentSpeed = IndexerConstants.intakeSpeed;
 
   /** Creates a new Indexer. */
   public Indexer() {  
@@ -37,26 +49,39 @@ public class Indexer extends frc.lib.subsystems.RollerSubsystem {
     IndexerConstants.setupRollerFalconLeader(motorLeader);
 
     //sensor setup
-    //colorSensor = new PhotonColorSensors();
-    //colorSensor.setDebugPrints(true);
+    picoCS = new PicoColorSensor();
     revColorSensor = new ColorSensorV3(I2C.Port.kMXP);
     this.setDefaultCommand(new RunCommand(() -> stop(), this));
   }
 
-  public void indexerColorSort(){
-    if (isRed()){
-      setManualOutput(IndexerConstants.intakeSpeed);
-    } else if (isBlue()){
-        setManualOutput(-.5);
-    } else {
-        stop();
+  public void restartColorSensor(){
+    try {
+      picoCS.close();
+    } catch (Exception e) {
+      e.printStackTrace();
     }
+    picoCS = new PicoColorSensor();
+  }
+
+  public void indexerColorSort(){
+    boolean redAlliance = AutonSetup.getIsRed();
+    //Reject the ball if it's not our color, default to intaking the ball
+    if (isDisconnected()){
+      currentSpeed = IndexerConstants.intakeSpeed;
+    } else if ((isBlue() && redAlliance) || (isRed() && !redAlliance)){
+      currentSpeed = -.33;
+    } else if ((isBlue() && !redAlliance) || (isRed() && redAlliance)) {
+      currentSpeed = IndexerConstants.intakeSpeed;
+    }
+    setManualOutput(currentSpeed);
   }
 
   public boolean isRed(){
     //check if Red is greater than the low threshold and blue is less than threshold or 
     //red is greater than the large threshold.
-    return !isNothing() && (double) getRed() / (double) getBlue() > 0.72;
+    return !isNothing() && 
+    ((double) getRed1() / (double) getBlue1() > 1.35 ||
+    (double) getRed2() / (double) getBlue2() > 1.35);
     //return getRed() > redThreshold1 && getRed() > getBlue() ||
     //  (getGreen() < 175 && (getRed() - getBlue()) > -30);
     //return sensor1.red > redThreshold1 || sensor2.red > redThreshold2;
@@ -70,27 +95,54 @@ public class Indexer extends frc.lib.subsystems.RollerSubsystem {
   }
 
   public boolean isNothing(){
-    return getGreen() > 220 && getRed() < 200 && getBlue() - getGreen() < 10;
+    return getGreen1() > 80 && getGreen2() > 80;
+    //return getProx1() < 150 && getProx2() < 113;
+    //return getGreen1() > 220 && getRed1() < 200 && getBlue1() - getGreen1() < 10;
   }
 
-  public int getRed(){
+  public boolean isDisconnected(){
+    return getGreen1() == 0 || getGreen2() == 0;
+  }
+
+  public double getRed1(){
     return sensor1.red * BAL_RED1;
   }
 
-  public int getBlue(){
+  public double getBlue1(){
     return sensor1.blue * BAL_BLUE1;
   }
 
-  public int getGreen(){
+  public double getGreen1(){
     return sensor1.green * BAL_GREEN1;
+  }
+
+  public double getProx1(){
+    return prox1;
+  }
+
+  public double getRed2(){
+    return sensor2.red * BAL_RED2;
+  }
+
+  public double getBlue2(){
+    return sensor2.blue * BAL_BLUE2;
+  }
+
+  public double getGreen2(){
+    return sensor2.green * BAL_GREEN2;
+  }
+  public double getProx2(){
+    return prox2;
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    sensor1 = revColorSensor.getRawColor();
-    //colorSensor.getRawColor0(sensor1);
-    //colorSensor.getRawColor1(sensor2);
+    //sensor1 = revColorSensor.getRawColor();
+    picoCS.getRawColor0(sensor1);
+    picoCS.getRawColor1(sensor2);
+    prox1 = picoCS.getProximity0();
+    prox2 = picoCS.getProximity1();
   }
 
   public void dashboard() {
@@ -101,3 +153,4 @@ public class Indexer extends frc.lib.subsystems.RollerSubsystem {
   }
 
 }
+

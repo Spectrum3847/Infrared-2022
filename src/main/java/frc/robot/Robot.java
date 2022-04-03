@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.lib.util.Alert;
 import frc.lib.util.SpectrumPreferences;
 import frc.lib.util.Alert.AlertType;
+import frc.lib.drivers.PicoColorSensor;
 import frc.lib.sim.PhysicsSim;
 import frc.robot.constants.Constants;
 import frc.robot.constants.PracticeConstants;

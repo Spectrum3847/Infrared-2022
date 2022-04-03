@@ -45,7 +45,7 @@ public final class FeederConstants {
     public static final boolean kFollowerInverted = true;
 
     /* Neutral Modes */
-    public static final NeutralMode kNeutralMode = NeutralMode.Coast;
+    public static final NeutralMode kNeutralMode = NeutralMode.Brake;
 
     /* Control Loop Constants */
     public static final double kP = 0.0;

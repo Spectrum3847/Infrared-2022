@@ -36,6 +36,7 @@ public class MainTelemetry {
     public static SimpleWidget m_enableTabsWidget;
     public static ComplexWidget m_autonSelectorWidget;
     public static ComplexWidget m_autonPositionWidget;
+    public static ComplexWidget m_autonColorWidget;
 
     // --------------//
     // Constructor //
@@ -62,10 +63,9 @@ public class MainTelemetry {
         m_enableTabsWidget = m_tab.add("Update Enable", false).withWidget(BuiltInWidgets.kToggleButton).withPosition(3,
                 0).withSize(1, 1);
         AutonSetup.setupSelectors();
-        m_autonSelectorWidget = m_tab.add(AutonSetup.chooser).withPosition(4, 0).withSize(3, 1)
-                .withProperties(Map.of("Title", "Choose Auton", "title", "Choose Auton"));
-        m_autonPositionWidget = m_tab.add(AutonSetup.posChooser).withPosition(4, 1).withSize(3, 1)
-        .withProperties(Map.of("Name", "Auton Positio", "name", " Auton Position"));
+        m_autonSelectorWidget = m_tab.add(AutonSetup.chooser).withPosition(4, 0).withSize(3, 1);
+        m_autonPositionWidget = m_tab.add(AutonSetup.posChooser).withPosition(4, 1).withSize(3, 1);
+        m_autonColorWidget = m_tab.add(AutonSetup.colorChooser).withPosition(4, 2).withSize(3, 1);
     }
 
     // Match Time
