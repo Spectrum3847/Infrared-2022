@@ -84,14 +84,30 @@ public class BallPathCommands {
         Robot.intake.pneumatic);
     }
 
+    public static Command intakeDownInstant() {
+        return new InstantCommand(() -> Robot.intake.down(), Robot.intake.pneumatic);
+    }
+
     public static Command intakeUp(){
         return new RunCommand(() -> Robot.intake.up(), Robot.intake.pneumatic);
+    }
+
+    public static Command intakeUpInstant(){
+        return new InstantCommand(() -> Robot.intake.up(), Robot.intake.pneumatic);
     }
 
     // Run intake motor
     public static Command runIntake(double speed) {
         return new StartEndCommand(() -> Robot.intake.setManualOutput(speed), () -> Robot.intake.stop(), 
         Robot.intake);
+    }
+
+    public static Command runIntakeInstant(double speed) {
+        return new InstantCommand(() -> Robot.intake.setManualOutput(speed), Robot.intake);
+    }
+
+    public static Command stopIntakeInstant() {
+        return new InstantCommand(() -> Robot.intake.stop(), Robot.intake);
     }
 
     // Run indexer motor
