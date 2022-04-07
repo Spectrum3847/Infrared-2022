@@ -53,6 +53,19 @@ public class Feeder extends RollerSubsystem {
     return !topSensor.get();
   }
 
+  public void setRPM(double wheelRPM) {
+    // Sensor Velocity in ticks per 100ms / Sensor Ticks per Rev * 600 (ms to min) *
+    // 1 gear ratio to shooter
+    // Motor Velocity in RPM / 600 (ms to min) * Sensor ticks per rev / Gear Ratio 1
+    // to 1
+    double motorVelocity = ((wheelRPM / 600) * 2048) * FeederConstants.gearRatio;
+      setVelocity(motorVelocity);
+  }
+
+  public double getRPM(){
+    return super.getRPM() / FeederConstants.gearRatio;
+  }
+
   public void dashboard() {
 
   }

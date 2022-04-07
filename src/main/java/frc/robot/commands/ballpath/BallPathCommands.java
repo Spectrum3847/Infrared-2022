@@ -32,10 +32,6 @@ public class BallPathCommands {
             runLauncherRPM(LauncherConstants.farShotSpeed));
     }
 
-    //Limelight shot
-    public static Command llShot(){
-        return new RunCommand(() -> Robot.launcher.LLsetRPMandHood(), Robot.launcher);
-    }
     public static Command llShotRPM(){
         return new RunCommand(() -> Robot.launcher.LLsetRPM(), Robot.launcher);
     }
@@ -46,8 +42,11 @@ public class BallPathCommands {
 
     // Feed
     public static Command feed() {
-        return runFeeder(FeederConstants.feedSpeed).alongWith(
-            runIndexer(IndexerConstants.feedSpeed));
+        //return runFeeder(FeederConstants.feedSpeed).alongWith(
+         //   runIndexer(IndexerConstants.feedSpeed));
+
+       return setFeederRPM(FeederConstants.feedRPM).alongWith(
+           runIndexer(IndexerConstants.feedSpeed));
     }
 
     //Feeder Intake
@@ -103,6 +102,12 @@ public class BallPathCommands {
     // Run feeder
     public static Command runFeeder(double speed) {
         return new StartEndCommand(() -> Robot.feeder.setManualOutput(speed), () -> Robot.feeder.stop(), 
+        Robot.feeder);
+    }
+
+    //Set Feeder RPM
+    public static Command setFeederRPM(double RPM){
+        return new StartEndCommand(() -> Robot.feeder.setRPM(RPM), () -> Robot.feeder.stop(), 
         Robot.feeder);
     }
 

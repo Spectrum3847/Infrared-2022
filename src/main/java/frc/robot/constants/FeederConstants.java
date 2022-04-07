@@ -14,6 +14,7 @@ import frc.lib.motorControllers.TalonFXSetup;
 public final class FeederConstants {
     public static final String name = "Feeder";
 
+    public final static double feedRPM = 350;
     public final static double feedSpeed = 0.30;
     public final static double intakeSpeed = 0.3;
 
@@ -22,10 +23,10 @@ public final class FeederConstants {
     public final static int bottomSensor = 9;
     
     // Physical Constants
-    public static final double diameterInches = 2;
+    public static final double diameterInches = 4;
     public static final double diameterMeters = diameterInches * 0.0254;
 
-    public static final double gearRatio = 1;
+    public static final double gearRatio = 72/16;
 
     public static final double wheelCircumferenceMeters = diameterMeters * Math.PI;
     public static final double wheelCircumferenceInches = diameterInches * Math.PI;
@@ -48,9 +49,9 @@ public final class FeederConstants {
     public static final NeutralMode kNeutralMode = NeutralMode.Brake;
 
     /* Control Loop Constants */
-    public static final double kP = 0.0;
-    public static final double kI = 0;
-    public static final double kD = 0;
+    public static final double kP = 0.05;
+    public static final double kI = 0.0005;
+    public static final double kD = 2;
     public static final double kF = 0.05;
     public static final double kIz = 150;
     public static final double motionCruiseVelocity = 0;

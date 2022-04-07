@@ -114,8 +114,8 @@ public class Vision extends SubsystemBase {
         Translation2d cameraToTargetTranslation =
             CircleFitter.fit(FieldConstants.visionTargetDiameter / 2.0,
               cameraToTargetTranslations, circleFitPrecision);
-        SmartDashboard.putNumber("cameraToTargetTrans X", cameraToTargetTranslation.getX());
-        SmartDashboard.putNumber("cameraToTargetTrans Y", cameraToTargetTranslation.getY());
+        //SmartDashboard.putNumber("cameraToTargetTrans X", cameraToTargetTranslation.getX());
+        //SmartDashboard.putNumber("cameraToTargetTrans Y", cameraToTargetTranslation.getY());
         translationConsumer.accept(new TimestampedTranslation2d(
             inputs.captureTimestamp - extraLatencySecs,
             cameraToTargetTranslation));

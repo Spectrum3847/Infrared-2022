@@ -20,6 +20,7 @@ public final class LauncherConstants{
     public final static double LowGoalShotSpeed = 1185; //1175 was a little short on 2nd ball
     public final static double tarmacShotSpeed = 2125; //2150 was previous
     public final static double farShotSpeed = 2460;
+    public final static double visionBaseSpeed = 1535;
     public final static double defaultSpeed = LowGoalShotSpeed;
 
     //Physical Constants

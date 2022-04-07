@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.lib.drivers.LimeLight;
 import frc.lib.drivers.LimeLightControlModes.LedMode;
 import frc.lib.util.LLDistance;
+import frc.robot.constants.LauncherConstants;
 import frc.robot.constants.VisionConstants;
 import frc.robot.subsystems.Vision.Vision.TimestampedTranslation2d;
 import frc.robot.telemetry.Log;
@@ -47,14 +48,13 @@ public class VisionLL extends SubsystemBase {
 
     @Override
     public void periodic() {
-        SmartDashboard.putNumber("Limelight Position (M)", getActualDistance());
-        SmartDashboard.putNumber("Limelight Position (in)", getLLDistance());
-        SmartDashboard.putNumber("Limelight Angle", limelight.getdegVerticalToTarget());
+        //SmartDashboard.putNumber("Limelight Position (M)", getActualDistance());
+        //SmartDashboard.putNumber("Limelight Position (in)", getLLDistance());
+        //SmartDashboard.putNumber("Limelight Angle", limelight.getdegVerticalToTarget());
         SmartDashboard.putNumber("Inches to Goal",
              Units.metersToInches(translationToGoal.translation.getNorm()));
         SmartDashboard.putNumber("Meters to Goal",translationToGoal.translation.getNorm());
-        SmartDashboard.putNumber("Limelight Shooter Vel", getLauncherRPM());
-        SmartDashboard.putNumber("Limelight Hood angle", getHoodAngle());
+        SmartDashboard.putNumber("Limelight Shooter Vel", getVisionLauncherRPM());
         // This method will be called once per scheduler run
         // If disabled and LED-Toggle is false, than leave lights off, else they should
         // be on
@@ -81,11 +81,16 @@ public class VisionLL extends SubsystemBase {
         return UpperHub.distanceMeters(limelight.getdegRotationToTarget());
     }
 
-    public double getLauncherRPM(){
-        return (200 * translationToGoal.translation.getNorm()) + (1640);//turns to just +1640 once we tune the shooter
+    public double getDistanceToGoalMeters(){
+        return translationToGoal.translation.getNorm();
     }
-    public double getJustLauncherRPM(){
-        return (200 * translationToGoal.translation.getNorm()) + (1620);
+
+    public double getDistanceToGoalFeet(){
+        return Units.metersToFeet(getDistanceToGoalMeters());
+    }
+
+    public double getVisionLauncherRPM(){
+        return (60 * getDistanceToGoalFeet()) + (LauncherConstants.visionBaseSpeed);
     }
 
     public double getHoodAngle(){

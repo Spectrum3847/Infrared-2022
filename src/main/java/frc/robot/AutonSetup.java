@@ -41,7 +41,7 @@ public class AutonSetup {
         posChooser.setDefaultOption("A. LEFT", AutonConstants.posAangle);
         posChooser.addOption("B. LEFT-CENTER", AutonConstants.posBangle);
         posChooser.addOption("C. RIGHT-CENTER", AutonConstants.posCangle);
-        posChooser.addOption("D. RIGHT", AutonConstants.posCangle);
+        posChooser.addOption("D. RIGHT", AutonConstants.posDangle);
         posChooser.addOption("0 Degrees", 0.0);
 
         chooser.setDefaultOption("DoubleBall", doubleBall);
