@@ -53,7 +53,7 @@ public class VisionLL extends SubsystemBase {
         //SmartDashboard.putNumber("Limelight Angle", limelight.getdegVerticalToTarget());
         SmartDashboard.putNumber("Inches to Goal",
              Units.metersToInches(translationToGoal.translation.getNorm()));
-        SmartDashboard.putNumber("Meters to Goal",translationToGoal.translation.getNorm());
+        //SmartDashboard.putNumber("Meters to Goal",translationToGoal.translation.getNorm());
         SmartDashboard.putNumber("Limelight Shooter Vel", getVisionLauncherRPM());
         // This method will be called once per scheduler run
         // If disabled and LED-Toggle is false, than leave lights off, else they should
@@ -90,7 +90,7 @@ public class VisionLL extends SubsystemBase {
     }
 
     public double getVisionLauncherRPM(){
-        return (60 * getDistanceToGoalFeet()) + (LauncherConstants.visionBaseSpeed);
+        return (LauncherConstants.visionPerFootSpeed * getDistanceToGoalFeet()) + (LauncherConstants.visionBaseSpeed);
     }
 
     public double getHoodAngle(){

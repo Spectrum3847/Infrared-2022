@@ -42,7 +42,7 @@ public class BallPathTelemtry {
             .withProperties(Map.of("Color when true", "#1a0068", "Color when false", "#FFFFFF"));
         m_tab.addBoolean("Top Sensor?", () -> Robot.feeder.topHasBall()).withPosition(2, 2)
             .withProperties(Map.of("Color when true", "#1a0068", "Color when false", "#FFFFFF"));
-        m_tab.addBoolean("Is Blue?", () -> Robot.indexer.isBlue()).withPosition(2, 3)
+       /* m_tab.addBoolean("Is Blue?", () -> Robot.indexer.isBlue()).withPosition(2, 3)
             .withProperties(Map.of("Color when true", "#0000FF", "Color when false", "#FFFFFF"));
         m_tab.addBoolean("Is Red?", () -> Robot.indexer.isRed()).withPosition(2, 4)
             .withProperties(Map.of("Color when true", "#FF0000", "Color when false", "#FFFFFF"));
@@ -53,7 +53,7 @@ public class BallPathTelemtry {
         m_tab.addNumber("Red 2", () -> Robot.indexer.getRed2()).withPosition(4, 0);
         m_tab.addNumber("Blue 2", () -> Robot.indexer.getBlue2()).withPosition(4, 1);
         m_tab.addNumber("Green 2", () -> Robot.indexer.getGreen2()).withPosition(4, 2);
-        m_tab.addNumber("Prox 2", () -> Robot.indexer.getProx2()).withPosition(4, 3);
+        m_tab.addNumber("Prox 2", () -> Robot.indexer.getProx2()).withPosition(4, 3);*/
     }
 
     //--------//

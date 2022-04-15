@@ -37,7 +37,7 @@ public class LauncherTelemetry {
         WidgetsAndLayouts.TalonFXLayout("Motor", m_tab, Robot.launcher.motorLeader).withPosition(0, 0);
         m_tab.addNumber("Velocity", ()-> Robot.launcher.motorLeader.getSelectedSensorVelocity()).withPosition(1, 0);
         m_tab.addNumber("WheelRPM", ()-> Robot.launcher.getWheelRPM()).withPosition(1, 1);
-        m_tab.addNumber("Hood Current Angle", ()-> Robot.launcher.hood.getCurrentAngle()).withPosition(1, 2);
+        //m_tab.addNumber("Hood Current Angle", ()-> Robot.launcher.hood.getCurrentAngle()).withPosition(1, 2);
 
         LauncherLeader = new FalconConfigLayout("Launcher Config", m_tab, Robot.launcher.motorLeader, 3, 0);
         //LauncherLeader.initialize();

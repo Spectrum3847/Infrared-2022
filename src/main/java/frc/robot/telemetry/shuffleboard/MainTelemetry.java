@@ -55,9 +55,9 @@ public class MainTelemetry {
         flashWidget().withPosition(0, 0);
         m_tab.addBoolean("Compressor on?", () -> Robot.pneumatics.isCompressorEnabled()).withPosition(1, 1);
         m_tab.addNumber("Pressure", () -> Robot.pneumatics.getPressure()).withPosition(1, 0);
-        m_tab.addNumber("FPGA timestamp", () -> Timer.getFPGATimestamp()).withPosition(0, 4);
-        m_limelightLEDenable = m_tab.add("Limelight LED Enable", true).withWidget(BuiltInWidgets.kToggleButton)
-                .withPosition(2, 0);
+        //m_tab.addNumber("FPGA timestamp", () -> Timer.getFPGATimestamp()).withPosition(0, 4);
+        //m_limelightLEDenable = m_tab.add("Limelight LED Enable", true).withWidget(BuiltInWidgets.kToggleButton)
+        //        .withPosition(2, 0);
         m_tab.addNumber("LL-Distance", () -> Robot.visionLL.getLLDistance()).withPosition(2, 1);
         m_tab.addNumber("Target Distance", () -> Robot.visionLL.getActualDistance()).withPosition(2, 2);
         m_enableTabsWidget = m_tab.add("Update Enable", false).withWidget(BuiltInWidgets.kToggleButton).withPosition(3,

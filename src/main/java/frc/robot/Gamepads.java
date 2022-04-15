@@ -139,7 +139,7 @@ public class Gamepads {
 		operator.selectButton.whenPressed(ClimberCommands.hang());
 
 		//Manual climb tilt control
-		operator.leftBumper.whileHeld(ClimberCommands.tiltUp());
+		new AndNotButton(operator.leftBumper, operator.Dpad.Down).whileHeld(ClimberCommands.tiltUp());
 
 		//Return to default command when pressed
 		operator.leftStickButton.whileHeld(Robot.climber.defaultCommand());

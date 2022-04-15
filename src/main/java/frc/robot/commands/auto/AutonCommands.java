@@ -17,7 +17,7 @@ public class AutonCommands {
     }
 
     public static Command tarmacShotwithTimeout(double time){
-        return BallPathCommands.tarmacShot().withTimeout(time);
+        return BallPathCommands.llShotRPM().withTimeout(time);
     }
 
     public static Command driveForTime(double time, double speed){

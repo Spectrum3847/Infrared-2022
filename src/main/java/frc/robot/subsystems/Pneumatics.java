@@ -18,7 +18,7 @@ public class Pneumatics extends SubsystemBase {
     if (Robot.isPractice){
       compressor.enableDigital();
     } else{
-      compressor.enableAnalog(90, 105);
+      compressor.enableAnalog(90, 115);
     }
   }
 

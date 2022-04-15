@@ -49,8 +49,8 @@ public class Indexer extends frc.lib.subsystems.RollerSubsystem {
     IndexerConstants.setupRollerFalconLeader(motorLeader);
 
     //sensor setup
-    picoCS = new PicoColorSensor();
-    revColorSensor = new ColorSensorV3(I2C.Port.kMXP);
+    //picoCS = new PicoColorSensor();
+    //revColorSensor = new ColorSensorV3(I2C.Port.kMXP);
     this.setDefaultCommand(new RunCommand(() -> stop(), this));
   }
 
@@ -139,17 +139,17 @@ public class Indexer extends frc.lib.subsystems.RollerSubsystem {
   public void periodic() {
     // This method will be called once per scheduler run
     //sensor1 = revColorSensor.getRawColor();
-    picoCS.getRawColor0(sensor1);
+    /*picoCS.getRawColor0(sensor1);
     picoCS.getRawColor1(sensor2);
     prox1 = picoCS.getProximity0();
-    prox2 = picoCS.getProximity1();
+    prox2 = picoCS.getProximity1();*/
   }
 
   public void dashboard() {
     //SmartDashboard.putNumber("Color 1 Red", sensor1.red);
-    SmartDashboard.putNumber("Color 1 Blue", sensor1.blue);
+    /*SmartDashboard.putNumber("Color 1 Blue", sensor1.blue);
     SmartDashboard.putNumber("Color 2 Red", sensor2.red);
-    SmartDashboard.putNumber("Color 2 Blue", sensor2.blue);
+    SmartDashboard.putNumber("Color 2 Blue", sensor2.blue);*/
   }
 
 }
