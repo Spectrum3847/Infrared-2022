@@ -65,9 +65,9 @@ public class Swerve extends SubsystemBase {
         //Setup thetaController used for auton and automatic turns
         thetaController.enableContinuousInput(-Math.PI, Math.PI);
 
-        xController.setPID(AutonConstants.kPXController/100, 0, AutonConstants.kDXController/100);
-        yController.setPID(AutonConstants.kPYController/100, 0, AutonConstants.kDYController/100);
-        thetaController.setPID(AutonConstants.kPThetaController/100, 0, AutonConstants.kDThetaController/100);
+        //xController.setPID(AutonConstants.kPXController/100, 0, AutonConstants.kDXController/100);
+        //yController.setPID(AutonConstants.kPYController/100, 0, AutonConstants.kDYController/100);
+        //thetaController.setPID(AutonConstants.kPThetaController/100, 0, AutonConstants.kDThetaController/100);
         resetSteeringToAbsolute();
         setDefaultCommand(new TeleopSwerve(this, true, false));
     }    
@@ -76,6 +76,7 @@ public class Swerve extends SubsystemBase {
     public void periodic(){
         swerveOdometry.update(getYaw(), getStates());   
         m_field.setRobotPose(swerveOdometry.getPoseMeters()); //Field is used for simulation and testing
+        SmartDashboard.putData("Field", m_field);
     }
 
     public void drive(Translation2d translation, double rotation, boolean fieldRelative, boolean isOpenLoop) {
@@ -236,7 +237,7 @@ public class Swerve extends SubsystemBase {
     }
 
     //Set gyro to a specific value
-    public void setGyro(double value){
+    public void setGyroDegrees(double value){
         gyro.setYaw(value);
     }
 

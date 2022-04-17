@@ -66,6 +66,18 @@ public class Climber extends PositionSubsystem {
         follow();
     }
 
+    public double getTarget(){
+        return motorLeader.getClosedLoopTarget();
+    }
+
+    public void zeroClimberEncoder(){
+        motorLeader.setSelectedSensorPosition(0);
+    }
+
+    public boolean getAtTarget(double tolerance){
+        return Math.abs(getPosition() - getTarget()) < tolerance;
+    }
+
     public void setPIDslot(int slot){
         motorLeader.selectProfileSlot(slot, 0);
     }

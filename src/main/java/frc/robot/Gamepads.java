@@ -17,6 +17,7 @@ import frc.robot.commands.ResetGyro;
 import frc.robot.commands.ballpath.BallPathCommands;
 import frc.robot.commands.swerve.LLAim;
 import frc.robot.commands.swerve.TeleopSwerve;
+import frc.robot.subsystems.Climber;
 
 public class Gamepads {
 	// Create Joysticks first so they can be used in defaultCommands
@@ -139,7 +140,8 @@ public class Gamepads {
 		operator.Dpad.Down.whenPressed(ClimberCommands.climb());
 		operator.Dpad.Left.whenPressed(ClimberCommands.nextRungDown());
 		operator.Dpad.Right.whenPressed(ClimberCommands.nextRungUp());
-		operator.selectButton.whenPressed(ClimberCommands.hang());
+
+		operator.selectButton.whenPressed(ClimberCommands.zeroClimberPosition());
 
 		//Manual climb tilt control
 		new AndNotButton(operator.leftBumper, operator.Dpad.Down).whileHeld(ClimberCommands.tiltUp());

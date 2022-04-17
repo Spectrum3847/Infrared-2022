@@ -23,7 +23,7 @@ public final class IntakeConstants{
     public static final double wheelCircumferenceInches = diameterInches * Math.PI;
 
     public static final double maxRPM = 6000;
-    public static final double intakeSpeed = 0.7;
+    public static final double intakeSpeed = 0.9;
 
     /* Motor Characterization Values */
     public static final double kS = 0;

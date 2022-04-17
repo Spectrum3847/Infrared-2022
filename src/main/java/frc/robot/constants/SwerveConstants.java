@@ -16,7 +16,7 @@ public final class SwerveConstants {
     /* Drivetrain Constants */
     public static final double trackWidth = Units.inchesToMeters(18.75);
     public static final double wheelBase = Units.inchesToMeters(21.75);
-    public static final double wheelDiameter = Units.inchesToMeters(3.94);
+    public static final double wheelDiameter = Units.inchesToMeters(3.66); //3.94);
     public static final double wheelCircumference = wheelDiameter * Math.PI;
 
     public static final double openLoopRamp = 0.25;
@@ -37,8 +37,8 @@ public final class SwerveConstants {
     public static final double anglePeakCurrentDuration = 0.1;
     public static final boolean angleEnableCurrentLimit = true;
 
-    public static final int driveContinuousCurrentLimit = 35;
-    public static final int drivePeakCurrentLimit = 80;
+    public static final int driveContinuousCurrentLimit = 38;
+    public static final int drivePeakCurrentLimit = 60;
     public static final double drivePeakCurrentDuration = 0.1;
     public static final boolean driveEnableCurrentLimit = true;
 
