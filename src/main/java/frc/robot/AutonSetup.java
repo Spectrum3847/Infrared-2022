@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.auto.DoubleBallSimple;
 import frc.robot.commands.auto.DriveToMeters;
+import frc.robot.commands.auto.FiveBallAuto;
 import frc.robot.commands.auto.FourBallAuto;
 import frc.robot.commands.auto.TaxiSimple;
 import frc.robot.commands.auto.TestPathPlanner;
@@ -27,6 +28,7 @@ public class AutonSetup {
     private static final Command doubleBall = new DoubleBallSimple();
     private static final Command tripleBall = new TripleBallSimple();
     private static final Command fourBall = new FourBallAuto();
+    private static final Command fiveBall = new FiveBallAuto();
     private static final Command testPathFollow = new TestPathPlanner();
     private static final Command turnTest = new WaitCommand(0.25).andThen(new TurnToAngle(AutonConstants.thirdBallTurnToGoal));
     private static final Command doNothing = new WaitCommand(10);
@@ -49,6 +51,7 @@ public class AutonSetup {
         chooser.setDefaultOption("DoubleBall", doubleBall);
         chooser.addOption("TripleBall", tripleBall);
         chooser.addOption("FourBall", fourBall);
+        chooser.addOption("FiveBall", fiveBall);
         chooser.addOption("Taxi Simple", taxiSimple);
         chooser.addOption("Test Path Planner", testPathFollow);
         //chooser.addOption("TurnTest", turnTest);

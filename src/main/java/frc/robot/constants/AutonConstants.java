@@ -9,7 +9,7 @@ public final class AutonConstants {
     public static final double posA90angle = 91.5; //Sideways A setup, intake toward field boarder
     public static final double posBangle = 120;
     public static final double posCangle = 205; //Pointing to Cargo D
-    public static final double posDangle = 263; //Infront of Right Ball (Cargo E)
+    public static final double posDangle = 272;//263; //Infront of Right Ball (Cargo E)
     public static final double posD90angle = 181.5; //Sideways D Setup intake facing the driver station
 
     public static final double thirdBallAngle = 157;
