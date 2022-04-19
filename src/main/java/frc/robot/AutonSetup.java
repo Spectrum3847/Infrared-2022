@@ -8,6 +8,7 @@ import frc.robot.commands.auto.DoubleBallSimple;
 import frc.robot.commands.auto.DriveToMeters;
 import frc.robot.commands.auto.FiveBallAuto;
 import frc.robot.commands.auto.FourBallAuto;
+import frc.robot.commands.auto.LeftFancyDouble;
 import frc.robot.commands.auto.TaxiSimple;
 import frc.robot.commands.auto.TestPathPlanner;
 import frc.robot.commands.auto.TripleBallSimple;
@@ -26,6 +27,7 @@ public class AutonSetup {
     //AutoRoutines
     private static final Command taxiSimple = new TaxiSimple();
     private static final Command doubleBall = new DoubleBallSimple();
+    private static final Command leftFancyDouble = new LeftFancyDouble();
     private static final Command tripleBall = new TripleBallSimple();
     private static final Command fourBall = new FourBallAuto();
     private static final Command fiveBall = new FiveBallAuto();
@@ -43,12 +45,14 @@ public class AutonSetup {
         colorChooser.addOption("Blue", 1);
 
         posChooser.setDefaultOption("A. LEFT", AutonConstants.posAangle);
+        posChooser.addOption("AA. LEFT-FANCY", 227.0);
         posChooser.addOption("B. LEFT-CENTER", AutonConstants.posBangle);
         posChooser.addOption("C. RIGHT-CENTER", AutonConstants.posCangle);
         posChooser.addOption("D. RIGHT", AutonConstants.posDangle);
         posChooser.addOption("0 Degrees", 0.0);
 
         chooser.setDefaultOption("DoubleBall", doubleBall);
+        chooser.addOption("LeftFancyDouble", leftFancyDouble);
         chooser.addOption("TripleBall", tripleBall);
         chooser.addOption("FourBall", fourBall);
         chooser.addOption("FiveBall", fiveBall);
