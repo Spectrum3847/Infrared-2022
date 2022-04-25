@@ -8,23 +8,28 @@ public final class AutonConstants {
     public static final double posAangle = 142; //Infront of Left Ball (Cargo B)
     public static final double posA90angle = 91.5; //Sideways A setup, intake toward field boarder
     public static final double posBangle = 120;
-    public static final double posCangle = 220; //Pointing to Cargo D
-    public static final double posDangle = 263; //Infront of Right Ball (Cargo E)
+    public static final double posCangle = 205; //Pointing to Cargo D
+    public static final double posDangle = 272;//263; //Infront of Right Ball (Cargo E)
     public static final double posD90angle = 181.5; //Sideways D Setup intake facing the driver station
 
     public static final double thirdBallAngle = 157;
     public static final double thirdBallTurnToGoal = 215;
+
+    public static final double fourBall1stAngle = 220;
+    public static final double fourBall2ndAngle = 190;
+    public static final double fourBall3rdAngle = 210;
+
 
     public static final double kMaxSpeedMetersPerSecond = SwerveConstants.maxSpeed * 0.75;
     public static final double kMaxAccelerationMetersPerSecondSquared = kMaxSpeedMetersPerSecond*2; // 1 sec to full speed
     public static final double kMaxAngularSpeedRadiansPerSecond = SwerveConstants.maxAngularVelocity;
     public static final double kMaxAngularSpeedRadiansPerSecondSquared = SwerveConstants.maxAngularVelocity;
 
-    public static final double kPXController = 0.1;//2300;
-    public static final double kDXController = 0;//20;
-    public static final double kPYController = 0.1;//2300;
-    public static final double kDYController = 0;//20;
-    public static final double kPThetaController = 0.1;//1000;
+    public static final double kPXController = 0.2;
+    public static final double kDXController = 0;
+    public static final double kPYController = 0.2;
+    public static final double kDYController = 0;
+    public static final double kPThetaController = 8;
     public static final double kDThetaController = 0;
 
     // Constraint for the motion profilied robot angle controller

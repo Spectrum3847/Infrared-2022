@@ -156,6 +156,7 @@ public class Robot extends TimedRobot {
         LiveWindow.setEnabled(false); // Disable Live Window we don't need that data being sent
         LiveWindow.disableAllTelemetry();
         swerve.resetSteeringToAbsolute();
+        swerve.brakeMode(false); // Set the swerve to coast mode for disabled
         printNormal("End disabledInit()");
     }
 
@@ -181,7 +182,8 @@ public class Robot extends TimedRobot {
         visionLL.limeLightLEDOn();
         m_autonomousCommand = AutonSetup.getAutonomousCommand();
         double angle = AutonSetup.getAutonAngle();
-        Robot.swerve.setGyro(angle);
+        Robot.swerve.setGyroDegrees(angle);
+        swerve.brakeMode(true); // Set the swerve to brake mode for Auton
 
         if (m_autonomousCommand != null) {
             m_autonomousCommand.schedule();
@@ -205,6 +207,7 @@ public class Robot extends TimedRobot {
         ; // Reset Gamepad Configs
         LiveWindow.setEnabled(false); // Disable Live Window we don't need that data being sent
         LiveWindow.disableAllTelemetry();
+        swerve.brakeMode(false); //Force the robot to coast for telop
         printNormal("End teleopInit()");
     }
 

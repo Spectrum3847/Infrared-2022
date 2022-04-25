@@ -1,6 +1,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.FunctionalCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
@@ -50,16 +51,8 @@ public class ClimberCommands {
         return extendPIDsetting().andThen(toPosition(ClimberConstants.nextRungExtend));
     }
 
-    public static Command hang(){
-        return climbPIDsetting().andThen(toPosition(ClimberConstants.hangRetract));
-    }
-
     public static Command pull() {
         return climbPIDsetting().andThen(toPosition(ClimberConstants.fullRetract));
-    }
-
-    public static Command partialClimb(){
-        return climbPIDsetting().andThen(toPosition(ClimberConstants.fullRetract + 5000));
     }
 
     public static Command climbPIDsetting(){
@@ -72,6 +65,23 @@ public class ClimberCommands {
 
     public static Command toPosition(double position) {
         return new RunCommand(() -> Robot.climber.setMMPosition(position), Robot.climber);
+    }
+
+    public static Command toPositionAndEnd(double position){
+        return new FunctionalCommand(
+            () -> nothing(),
+            () -> Robot.climber.setMMPosition(position),
+            interrupted -> nothing(),
+            () -> Robot.climber.getAtTarget(200),
+            Robot.climber
+        );
+    }
+
+    public static void nothing(){      
+    }
+
+    public static Command zeroClimberPosition(){
+        return new RunCommand(() -> Robot.climber.zeroClimberEncoder(), Robot.climber);
     }
 
     public static Command tiltUp() {

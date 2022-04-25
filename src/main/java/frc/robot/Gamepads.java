@@ -16,6 +16,8 @@ import frc.robot.commands.ClimberCommands;
 import frc.robot.commands.ResetGyro;
 import frc.robot.commands.ballpath.BallPathCommands;
 import frc.robot.commands.swerve.LLAim;
+import frc.robot.commands.swerve.TeleopSwerve;
+import frc.robot.subsystems.Climber;
 
 public class Gamepads {
 	// Create Joysticks first so they can be used in defaultCommands
@@ -89,18 +91,20 @@ public class Gamepads {
 	public static void driverBindings() {
 		// Driver Controls
 		// Reset Gyro based on left bumper and the abxy buttons
-		new AndButton(driver.leftBumper, driver.yButton).whileHeld(new ResetGyro(0));
-		new AndButton(driver.leftBumper, driver.xButton).whileHeld(new ResetGyro(90));
-		new AndButton(driver.leftBumper, driver.aButton).whileHeld(new ResetGyro(180));
-		new AndButton(driver.leftBumper, driver.bButton).whileHeld(new ResetGyro(270));
+		new AndButton(driver.leftBumper, driver.Dpad.Up).whileHeld(new ResetGyro(0));
+		new AndButton(driver.leftBumper, driver.Dpad.Left).whileHeld(new ResetGyro(90));
+		new AndButton(driver.leftBumper, driver.Dpad.Down).whileHeld(new ResetGyro(180));
+		new AndButton(driver.leftBumper, driver.Dpad.Right).whileHeld(new ResetGyro(270));
 
-		new AndNotButton(driver.aButton, driver.leftBumper).whileHeld(BallPathCommands.intakeBalls());
-		new AndNotButton(driver.bButton, driver.leftBumper).whileHeld(BallPathCommands.sortBalls());
-		new AndNotButton(driver.yButton, driver.leftBumper).whileHeld(BallPathCommands.eject());
-		new AndNotButton(driver.xButton, driver.leftBumper).whileHeld(BallPathCommands.feed());
+		driver.aButton.whileHeld(BallPathCommands.intakeBalls());
+		//driver.bButton.whileHeld(BallPathCommands.sortBalls());
+		driver.bButton.whileHeld(new TeleopSwerve(Robot.swerve, false, false));
+		driver.yButton.whileHeld(BallPathCommands.eject());
+		driver.xButton.whileHeld(BallPathCommands.feed());
 
 
 		driver.selectButton.whenPressed(BallPathCommands.stopLauncher());
+		
 		
 		// Aim with limelight
 		driver.rightBumper.whileHeld(new LLAim());
@@ -136,7 +140,8 @@ public class Gamepads {
 		operator.Dpad.Down.whenPressed(ClimberCommands.climb());
 		operator.Dpad.Left.whenPressed(ClimberCommands.nextRungDown());
 		operator.Dpad.Right.whenPressed(ClimberCommands.nextRungUp());
-		operator.selectButton.whenPressed(ClimberCommands.hang());
+
+		operator.selectButton.whenPressed(ClimberCommands.zeroClimberPosition());
 
 		//Manual climb tilt control
 		new AndNotButton(operator.leftBumper, operator.Dpad.Down).whileHeld(ClimberCommands.tiltUp());

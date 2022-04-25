@@ -16,7 +16,7 @@ public final class ClimberConstants{
 
     public static final int fullExtend = 97000;
     public static final int nextRungExtend = 92000;
-    public static final int fullRetract = 18000;
+    public static final int fullRetract = 1000;//18000;
     public static final int hangRetract = 48000;
 
     //Physical Constants
@@ -61,8 +61,8 @@ public final class ClimberConstants{
     public static final double kIz2 = 150;
 
     /* Current Limiting */
-    public static final int currentLimit = 50;
-    public static final int tirggerThresholdLimit = 50;
+    public static final int currentLimit = 40;
+    public static final int tirggerThresholdLimit = 40;
     public static final double PeakCurrentDuration = 0.01;
     public static final boolean EnableCurrentLimit = true;
     public static final SupplyCurrentLimitConfiguration supplyLimit = new SupplyCurrentLimitConfiguration(

@@ -21,8 +21,7 @@ public class SwerveFollowCommand extends PPSwerveControllerCommand {
     @Override
     public void initialize() {
         super.initialize();
-        Robot.swerve.resetOdometry(m_trajectory.getInitialPose()); //Not sure if this is needed
-        Robot.swerve.setGyro(m_trajectory.getInitialState().holonomicRotation.getDegrees());
+        //Robot.swerve.resetOdometry(m_trajectory.getInitialPose()); //Not sure if this is needed
     }
 
     // Called every time the scheduler runs while the command is scheduled.
@@ -35,6 +34,7 @@ public class SwerveFollowCommand extends PPSwerveControllerCommand {
     @Override
     public void end(boolean interrupted) {
         super.end(interrupted);
+        Robot.swerve.stop();
     }
 
     // Returns true when the command should end.

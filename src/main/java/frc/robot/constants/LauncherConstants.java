@@ -20,8 +20,8 @@ public final class LauncherConstants{
     public final static double LowGoalShotSpeed = 1185; //1175 was a little short on 2nd ball
     public final static double tarmacShotSpeed = 2155; //2150 was previous
     public final static double farShotSpeed = 2460;
-    public final static double visionBaseSpeed = 1535;
-    public final static double visionPerFootSpeed = 58;
+    public final static double visionBaseSpeed = 1555;//1670;//1535;
+    public final static double visionPerFootSpeed = 58;//60; //58
     public final static double defaultSpeed = LowGoalShotSpeed;
 
     //Physical Constants
@@ -51,10 +51,10 @@ public final class LauncherConstants{
     public static final NeutralMode kNeutralMode = NeutralMode.Coast;
 
     /* Control Loop Constants */
-    public static final double kP = 0.065;//0.0465;
-    public static final double kI = 0.0005;
+    public static final double kP = 0.07;//0.065 is states, 0.0465;
+    public static final double kI = 0.001; //.005
     public static final double kD = 0;
-    public static final double kF = 0.0519;
+    public static final double kF = 0.053; //.519
     public static final double kIz = 150;
     public static final double motionCruiseVelocity = 0;
     public static final double motionAcceleration = 0;

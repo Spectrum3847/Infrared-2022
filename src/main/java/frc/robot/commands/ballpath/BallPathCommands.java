@@ -49,6 +49,10 @@ public class BallPathCommands {
            runIndexer(IndexerConstants.feedSpeed));
     }
 
+    public static Command feedNoIndexer(){
+        return setFeederRPM(FeederConstants.feedRPM);
+    }
+
     //Feeder Intake
     public static Command feederIntake(){
         return new RunCommand(() -> Robot.feeder.intakeBalls(), Robot.feeder);
@@ -150,8 +154,7 @@ public class BallPathCommands {
 
     // Eject Balls
     public static Command eject() {
-        return runIntake(1.0).alongWith(
-            runIndexer(-1.0),
+        return runIndexer(-0.6).alongWith(
             runFeeder(-1.0));
     }
 

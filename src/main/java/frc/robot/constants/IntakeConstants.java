@@ -23,7 +23,7 @@ public final class IntakeConstants{
     public static final double wheelCircumferenceInches = diameterInches * Math.PI;
 
     public static final double maxRPM = 6000;
-    public static final double intakeSpeed = 0.7;
+    public static final double intakeSpeed = 0.9;
 
     /* Motor Characterization Values */
     public static final double kS = 0;
@@ -50,9 +50,9 @@ public final class IntakeConstants{
     public static final double motionAcceleration = 0;
 
     /* Current Limiting */
-    public static final int currentLimit = 40;
-    public static final int tirggerThresholdLimit = 45;
-    public static final double PeakCurrentDuration = 0.5;
+    public static final int currentLimit = 30;
+    public static final int tirggerThresholdLimit = 30;
+    public static final double PeakCurrentDuration = 0.0;
     public static final boolean EnableCurrentLimit = true;
     public static final SupplyCurrentLimitConfiguration supplyLimit = new SupplyCurrentLimitConfiguration(
         EnableCurrentLimit, currentLimit, tirggerThresholdLimit, PeakCurrentDuration);
