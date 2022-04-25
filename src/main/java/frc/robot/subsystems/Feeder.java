@@ -35,6 +35,8 @@ public class Feeder extends RollerSubsystem {
   public void intakeBalls(){
     if (lowerHasBall() && !topHasBall()){
       setManualOutput(FeederConstants.intakeSpeed);
+    } else if (topHasBall()){
+      setManualOutput(-0.2);
     } else {
       stop();
     }

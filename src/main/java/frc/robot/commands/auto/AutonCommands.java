@@ -34,8 +34,8 @@ public class AutonCommands {
     }
 
     public static Command llShotwithTimeout(double time){
-        //return BallPathCommands.llShotRPM().withTimeout(time);
-        return BallPathCommands.lowGoalShot().withTimeout(time);
+        return BallPathCommands.llShotRPM().withTimeout(time);
+        //return BallPathCommands.lowGoalShot().withTimeout(time);
     }
 
     public static Command driveForTime(double time, double speed){

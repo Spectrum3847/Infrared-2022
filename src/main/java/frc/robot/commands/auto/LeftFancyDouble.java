@@ -29,12 +29,11 @@ public class LeftFancyDouble extends SequentialCommandGroup {
       AutonCommands.llShotwithTimeout(15).alongWith(
         AutonCommands.followPathAndIntake(GetFirstBalls, 2).andThen(
           AutonCommands.intake(0.5),
-          AutonCommands.feed(1.5) //Feed two balls
-         /* AutonCommands.followPathAndIntake(PrepOpponentBall, 2),
-          AutonCommands.intake(3),
-          new SwerveFollowCommand(GetOpponentBall).withTimeout(4),
-          AutonCommands.autonLLAim().withTimeout(1),
-          AutonCommands.feed(1)*/
+          AutonCommands.feed(1.5), //Feed two balls
+          AutonCommands.followPathAndIntake(PrepOpponentBall, 2),
+          AutonCommands.followPathAndIntake(GetOpponentBall, 2),
+          AutonCommands.intake(2),
+          AutonCommands.feed(1)
     )));
   }
 }

@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.lib.drivers.LimeLight;
 import frc.lib.drivers.LimeLightControlModes.LedMode;
 import frc.lib.util.LLDistance;
+import frc.robot.Robot;
 import frc.robot.constants.LauncherConstants;
 import frc.robot.constants.VisionConstants;
 import frc.robot.subsystems.Vision.Vision.TimestampedTranslation2d;
@@ -86,11 +87,18 @@ public class VisionLL extends SubsystemBase {
     }
 
     public double getDistanceToGoalFeet(){
+        if (Robot.visionLL.limelight.getTargetArea() <= 0){
+            return 0;
+        }
         return Units.metersToFeet(getDistanceToGoalMeters());
     }
 
     public double getVisionLauncherRPM(){
-        return (LauncherConstants.visionPerFootSpeed * getDistanceToGoalFeet()) + (LauncherConstants.visionBaseSpeed);
+        double distance = getDistanceToGoalFeet();
+        if (distance <= 0){
+            return LauncherConstants.LowGoalShotSpeed;
+        }
+        return (LauncherConstants.visionPerFootSpeed * distance) + (LauncherConstants.visionBaseSpeed);
     }
 
     public double getHoodAngle(){

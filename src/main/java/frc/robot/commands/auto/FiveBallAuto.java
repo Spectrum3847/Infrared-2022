@@ -35,10 +35,10 @@ public class FiveBallAuto extends SequentialCommandGroup {
           AutonCommands.intake(0.1),
           AutonCommands.feed(1.5), //Feed first three balls
           AutonCommands.followPathAndIntake(GoToTerminal, 4),
-          AutonCommands.intake(1.5),
-          new SwerveFollowCommand(GoTo2ndShots).withTimeout(4),
-          AutonCommands.autonLLAim().withTimeout(1),
-          AutonCommands.feed(2)
+          AutonCommands.intake(2).alongWith(AutonCommands.autonLLAim().withTimeout(2)),
+          //new SwerveFollowCommand(GoTo2ndShots).withTimeout(4),
+          //AutonCommands.autonLLAim().withTimeout(1),
+          AutonCommands.feed(6)
     )));
   }
 }

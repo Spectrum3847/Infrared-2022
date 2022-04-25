@@ -154,8 +154,7 @@ public class BallPathCommands {
 
     // Eject Balls
     public static Command eject() {
-        return runIntake(1.0).alongWith(
-            runIndexer(-1.0),
+        return runIndexer(-0.6).alongWith(
             runFeeder(-1.0));
     }
 

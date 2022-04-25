@@ -37,9 +37,9 @@ public final class SwerveConstants {
     public static final double anglePeakCurrentDuration = 0.1;
     public static final boolean angleEnableCurrentLimit = true;
 
-    public static final int driveContinuousCurrentLimit = 38;
-    public static final int drivePeakCurrentLimit = 60;
-    public static final double drivePeakCurrentDuration = 0.1;
+    public static final int driveContinuousCurrentLimit = 40;
+    public static final int drivePeakCurrentLimit = 40;
+    public static final double drivePeakCurrentDuration = 0.0;
     public static final boolean driveEnableCurrentLimit = true;
 
     /* Angle Motor PID Values */
