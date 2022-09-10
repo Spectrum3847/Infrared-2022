@@ -148,6 +148,8 @@ public class Robot extends TimedRobot {
     public void disabledInit() {
         setState(RobotState.DISABLED);
         printNormal("Start disabledInit(), MAC Address:" + MAC);
+        checkIfPracticeRobot();
+        pneumatics.checkIfPractice();
         checkFMS();
         Log.initLog(); // Config the Debugger based on FMS state
         Gamepads.resetConfig();

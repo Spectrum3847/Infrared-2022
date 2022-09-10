@@ -16,6 +16,11 @@
           "open": true
         }
       },
+      "Talon FX[2]/Fwd Limit": {
+        "header": {
+          "open": true
+        }
+      },
       "Talon FX[2]/Integrated Sensor": {
         "header": {
           "open": true
@@ -54,6 +59,12 @@
   },
   "NetworkTables": {
     "Shuffleboard": {
+      "Intake": {
+        "Motor": {
+          "open": true
+        },
+        "open": true
+      },
       "Main": {
         "SendableChooser[0]": {
           "open": true

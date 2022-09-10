@@ -31,7 +31,7 @@ public class AutonSetup {
     private static final Command tripleBall = new TripleBallSimple();
     private static final Command fourBall = new FourBallAuto();
     private static final Command fiveBall = new FiveBallAuto();
-    private static final Command testPathFollow = new TestPathPlanner();
+    private static final Command testPathFollow = new WaitCommand(0.5).andThen(new TestPathPlanner());
     private static final Command turnTest = new WaitCommand(0.25).andThen(new TurnToAngle(AutonConstants.thirdBallTurnToGoal));
     private static final Command doNothing = new WaitCommand(10);
     private static final Command driveTest = new WaitCommand(0.25).andThen(new DriveToMeters(-1));
@@ -50,6 +50,7 @@ public class AutonSetup {
         posChooser.addOption("C. RIGHT-CENTER", AutonConstants.posCangle);
         posChooser.addOption("D. RIGHT", AutonConstants.posDangle);
         posChooser.addOption("0 Degrees", 0.0);
+        posChooser.addOption("180 Degrees", 180.0);
 
         chooser.setDefaultOption("DoubleBall", doubleBall);
         chooser.addOption("LeftFancyDouble", leftFancyDouble);
