@@ -20,17 +20,17 @@ public final class AutonConstants {
     public static final double fourBall3rdAngle = 210;
 
 
-    public static final double kMaxSpeedMetersPerSecond = SwerveConstants.maxSpeed * 0.75;
-    public static final double kMaxAccelerationMetersPerSecondSquared = kMaxSpeedMetersPerSecond*2; // 1 sec to full speed
+    public static final double kMaxSpeedMetersPerSecond = 3;
+    public static final double kMaxAccelerationMetersPerSecondSquared = 3; // 1 sec to full speed
     public static final double kMaxAngularSpeedRadiansPerSecond = SwerveConstants.maxAngularVelocity;
     public static final double kMaxAngularSpeedRadiansPerSecondSquared = SwerveConstants.maxAngularVelocity;
 
-    public static final double kPXController = 0.2;
+    public static final double kPXController = 0.85;
     public static final double kDXController = 0;
-    public static final double kPYController = 0.2;
+    public static final double kPYController = 0.85;
     public static final double kDYController = 0;
     public static final double kPThetaController = 8;
-    public static final double kDThetaController = 0;
+    public static final double kDThetaController = 0.0;
 
     // Constraint for the motion profilied robot angle controller
     public static final TrapezoidProfile.Constraints kThetaControllerConstraints =

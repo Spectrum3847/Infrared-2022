@@ -218,6 +218,10 @@ public class Robot extends TimedRobot {
     public void teleopPeriodic() {
     }
 
+    public void teleopExit(){
+        Robot.swerve.stop();
+    }
+
     @Override
     public void testInit() {
         setState(RobotState.TEST);

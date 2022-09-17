@@ -1,7 +1,9 @@
 package frc.robot.commands.auto;
 
 import com.pathplanner.lib.PathPlannerTrajectory;
+import com.pathplanner.lib.PathPlannerTrajectory.PathPlannerState;
 
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
@@ -34,8 +36,8 @@ public class AutonCommands {
     }
 
     public static Command llShotwithTimeout(double time){
-        return BallPathCommands.llShotRPM().withTimeout(time);
-        //return BallPathCommands.lowGoalShot().withTimeout(time);
+        //return BallPathCommands.llShotRPM().withTimeout(time);
+        return BallPathCommands.lowGoalShot().withTimeout(time);
     }
 
     public static Command driveForTime(double time, double speed){
@@ -71,10 +73,14 @@ public class AutonCommands {
     }
 
     public static Command intializeGyroAngle(PathPlannerTrajectory path){
-        return setGryoDegrees(path.getInitialState().holonomicRotation.getDegrees());
+        PathPlannerState s = (PathPlannerState) path.getStates().get(0);
+        return setGryoDegrees(s.holonomicRotation.getDegrees());
     }
 
     public static Command resetOdometry(PathPlannerTrajectory path){
-        return new InstantCommand(() -> Robot.swerve.resetOdometry(path.getInitialPose()));
+        Pose2d tempPose = path.getInitialPose();
+        PathPlannerState s = (PathPlannerState) path.getStates().get(0) ;
+        Pose2d tempPose2 = new Pose2d(tempPose.getTranslation(), s.holonomicRotation) ;
+        return new InstantCommand(() -> Robot.swerve.resetOdometry(tempPose2));
     }
 }

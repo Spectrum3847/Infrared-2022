@@ -66,6 +66,16 @@ public class SwerveTelemetry {
         SuppliedValueWidget<Double> m_driveDistanceWidget = driveLayout.addNumber("Distance",
                 () -> Robot.swerve.getDistance());
         m_driveDistanceWidget.withPosition(0, 4);
+        
+        SuppliedValueWidget<Double> m_driveyLocatioWidget = driveLayout.addNumber("Y-Location",
+                () -> Robot.swerve.getPose().getY());
+        m_driveyLocatioWidget.withPosition(0, 5);
+        SuppliedValueWidget<Double> m_drivexLocatioWidget = driveLayout.addNumber("X-Location",
+                () -> Robot.swerve.getPose().getX());
+        m_drivexLocatioWidget.withPosition(0, 6);
+        SuppliedValueWidget<Double> m_driveThetaWidget = driveLayout.addNumber("Theta",
+                () -> Robot.swerve.getPose().getRotation().getDegrees());
+        m_driveThetaWidget.withPosition(0, 7);
         return driveLayout;
     }
 
