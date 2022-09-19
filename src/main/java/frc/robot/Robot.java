@@ -199,6 +199,10 @@ public class Robot extends TimedRobot {
     public void autonomousPeriodic() {
     }
 
+    public void autonomousExit(){
+        Robot.swerve.stop();
+    }
+
     @Override
     public void teleopInit() {
         setState(RobotState.TELEOP);

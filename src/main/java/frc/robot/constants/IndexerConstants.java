@@ -15,7 +15,7 @@ public final class IndexerConstants {
 
 
     public final static double feedSpeed = 0.4;
-    public final static double intakeSpeed = 1;
+    public final static double intakeSpeed = 0.9;
 
     // Physical Constants
     public static final double diameterInches = 2;
