@@ -25,7 +25,7 @@ public class DriveToMeters extends ProfiledPIDCommand {
             // The PID gainss
             kP, kI, kD,
             // The motion profile constraints
-            new TrapezoidProfile.Constraints(AutonConstants.kMaxSpeedMetersPerSecond, AutonConstants.kMaxAccelerationMetersPerSecondSquared)),
+            new TrapezoidProfile.Constraints(AutonConstants.kMaxSpeed, AutonConstants.kMaxAccel)),
         // This should return the measurement
         DriveToMeters::getDistance,
         // This should return the goal (can also be a constant)

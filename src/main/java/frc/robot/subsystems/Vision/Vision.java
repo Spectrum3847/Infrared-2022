@@ -81,7 +81,7 @@ public class Vision extends SubsystemBase {
       return;
     }
 
-    SmartDashboard.putNumber("LL Target Count", targetCount);
+    //SmartDashboard.putNumber("LL Target Count", targetCount);
     // Calculate camera to target translation
     if (targetCount >= minTargetCount) {
       List<Translation2d> cameraToTargetTranslations = new ArrayList<>();

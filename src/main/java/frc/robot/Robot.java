@@ -148,6 +148,8 @@ public class Robot extends TimedRobot {
     public void disabledInit() {
         setState(RobotState.DISABLED);
         printNormal("Start disabledInit(), MAC Address:" + MAC);
+        checkIfPracticeRobot();
+        pneumatics.checkIfPractice();
         checkFMS();
         Log.initLog(); // Config the Debugger based on FMS state
         Gamepads.resetConfig();
@@ -197,6 +199,10 @@ public class Robot extends TimedRobot {
     public void autonomousPeriodic() {
     }
 
+    public void autonomousExit(){
+        Robot.swerve.stop();
+    }
+
     @Override
     public void teleopInit() {
         setState(RobotState.TELEOP);
@@ -214,6 +220,10 @@ public class Robot extends TimedRobot {
     /** This function is called periodically during operator control. */
     @Override
     public void teleopPeriodic() {
+    }
+
+    public void teleopExit(){
+        Robot.swerve.stop();
     }
 
     @Override

@@ -15,16 +15,20 @@ public class Pneumatics extends SubsystemBase {
   public Pneumatics() {
     compressor = new Compressor(PneumaticsModuleType.REVPH);
 
-    if (Robot.isPractice){
-      compressor.enableDigital();
-    } else{
-      compressor.enableAnalog(90, 115);
-    }
+    checkIfPractice();
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+  }
+
+  public void checkIfPractice(){
+    if (Robot.isPractice){
+      compressor.enableDigital();
+    } else{
+      compressor.enableAnalog(90, 115);
+    }
   }
 
   public boolean isCompressorEnabled(){
