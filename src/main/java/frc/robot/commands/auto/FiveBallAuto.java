@@ -32,16 +32,16 @@ public class FiveBallAuto extends SequentialCommandGroup {
       AutonCommands.intializePathFollowing(GetFirstBalls),
       AutonCommands.llShotwithTimeout(15).alongWith(
         AutonCommands.followPathAndIntake(GetFirstBalls, 2).andThen(
-          //AutonCommands.intake(0.05),
+          AutonCommands.intake(0.05),
           AutonCommands.followPathAndIntake(Prep2ndBall, 2),
           new WaitCommand(0.1),
           AutonCommands.followPathAndIntake(Get2ndBall, 2),
-          //AutonCommands.intake(0.05),
+          AutonCommands.intake(0.05),
           AutonCommands.feed(1), //Feed first three balls
           AutonCommands.followPathAndIntake(GoToTerminal, 5),
           new WaitCommand(0.1),
           AutonCommands.followPathAndIntake(HumanBall,2),
-          //AutonCommands.intake(0.75),
+          AutonCommands.intake(0.75),
           new SwerveFollowCommand(GoTo2ndShots).withTimeout(4),
           AutonCommands.autonLLAim().withTimeout(0.4),
           AutonCommands.feed(6)
