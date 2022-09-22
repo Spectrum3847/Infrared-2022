@@ -20,7 +20,9 @@ public final class LauncherConstants{
     public final static double LowGoalShotSpeed = 1185; //1175 was a little short on 2nd ball
     public final static double tarmacShotSpeed = 2155; //2150 was previous
     public final static double farShotSpeed = 2460;
-    public final static double visionBaseSpeed = 1555;//3847 = 1555, 8515 = 1750 (changed for Photon 8515 for TRI)
+    public final static double visionBaseSpeedC = 1555;
+    public final static double visionBaseSpeedP = 1750;
+    public static double visionBaseSpeed = visionBaseSpeedC;//3847 = 1555, 8515 = 1750 (changed for Photon 8515 for TRI)
     public final static double visionPerFootSpeed = 58;//60; //58
     public final static double defaultSpeed = LowGoalShotSpeed;
 
