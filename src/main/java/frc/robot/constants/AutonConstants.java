@@ -21,7 +21,7 @@ public final class AutonConstants {
 
 
     public static final double kMaxSpeed = 2.7;
-    public static final double kMaxAccel = 2; 
+    public static final double kMaxAccel = 2.4; //2 worked but took too long
     public static final double kMaxAngularSpeedRadiansPerSecond = SwerveConstants.maxAngularVelocity;
     public static final double kMaxAngularSpeedRadiansPerSecondSquared = SwerveConstants.maxAngularVelocity;
 
