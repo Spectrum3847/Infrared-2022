@@ -21,9 +21,11 @@ public final class LauncherConstants{
     public final static double tarmacShotSpeed = 2155; //2150 was previous
     public final static double farShotSpeed = 2460;
     public final static double visionBaseSpeedC = 1555;
-    public final static double visionBaseSpeedP = 1750;
+    public final static double visionBaseSpeedP = 1700; //was 1750 adujted after it overshot, 1650 and it undershot
     public static double visionBaseSpeed = visionBaseSpeedC;//3847 = 1555, 8515 = 1750 (changed for Photon 8515 for TRI)
-    public final static double visionPerFootSpeed = 58;//60; //58
+    public final static double visionPerFootSpeedC = 58;//60; //58
+    public final static double visionPerFootSpeedP = 60;
+    public static double visionPerFootSpeed = visionPerFootSpeedC;
     public final static double defaultSpeed = LowGoalShotSpeed;
 
     //Physical Constants

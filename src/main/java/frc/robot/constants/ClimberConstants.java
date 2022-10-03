@@ -14,10 +14,10 @@ import frc.lib.motorControllers.TalonFXSetup;
 public final class ClimberConstants{
     public static final String name = "Climber";
 
-    public static final int fullExtend = 93500;
-    public static final int nextRungExtend = 89000;
-    public static final int fullRetract = 0;//18000;
-    public static final int hangRetract = 1000;
+    public static final int fullExtend = 91000;
+    public static final int nextRungExtend = 81000;
+    public static final int fullRetract = -4000;//18000;
+    public static final int hangRetract = -4000;
 
     //Physical Constants
     public static final double pulleyDiameterInches = 2;
@@ -49,8 +49,8 @@ public final class ClimberConstants{
     public static final double kD = 0;
     public static final double kF = 0.3;
     public static final double kIz = 150;
-    public static final double motionCruiseVelocity = 10000;
-    public static final double motionAcceleration = 20000;
+    public static final double motionCruiseVelocity = 8000;
+    public static final double motionAcceleration = 10000;
 
     /* PID slot 2*/
     
