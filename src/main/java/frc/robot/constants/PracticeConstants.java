@@ -11,5 +11,7 @@ public class PracticeConstants {
         SwerveConstants.Mod1.angleOffset = SwerveConstants.Mod1.angleOffsetP;
         SwerveConstants.Mod2.angleOffset = SwerveConstants.Mod2.angleOffsetP;
         SwerveConstants.Mod3.angleOffset = SwerveConstants.Mod3.angleOffsetP;
+        LauncherConstants.visionBaseSpeed = LauncherConstants.visionBaseSpeedP;
+        LauncherConstants.visionPerFootSpeed = LauncherConstants.visionBaseSpeedP;
     }
 }

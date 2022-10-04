@@ -85,8 +85,8 @@ public final class SwerveConstants {
         public static final int driveMotorID = CanIDs.driveMotor0;
         public static final int angleMotorID = CanIDs.angleMotor0;
         public static final int canCoderID = 3;
-        public static final double angleOffsetP = 12.15+180;
-        public static final double angleOffsetC = 322.822;
+        public static final double angleOffsetP = 12.8320+180; //original 12.5683+180
+        public static final double angleOffsetC = 141.591+180; //original 322.822 and 141.7675+180
         public static double angleOffset = angleOffsetC; 
         public static final SwerveModuleConstants constants = 
             new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset, angleOffsetP);
@@ -97,8 +97,8 @@ public final class SwerveConstants {
         public static final int driveMotorID = CanIDs.driveMotor1;
         public static final int angleMotorID = CanIDs.angleMotor1;
         public static final int canCoderID = 13;
-        public static final double angleOffsetP = 531.103;
-        public static final double angleOffsetC = 126.826;
+        public static final double angleOffsetP = 170.5078; //original value 170.15625 and 171.2109
+        public static final double angleOffsetC = 127.4414; //original value 126.826 and 127.0898
         public static double angleOffset = angleOffsetC;  
         public static final SwerveModuleConstants constants = 
             new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset, angleOffsetP);
@@ -109,8 +109,8 @@ public final class SwerveConstants {
         public static final int driveMotorID = CanIDs.driveMotor2;
         public static final int angleMotorID = CanIDs.angleMotor2;
         public static final int canCoderID = 23;
-        public static final double angleOffsetP = 74.2+180;
-        public static final double angleOffsetC = 142.2;
+        public static final double angleOffsetP = 76.2891+180; //original value 74.8828+180 and 75.2343+180
+        public static final double angleOffsetC = 321.8554-180; //original value 142.2 and 320.97656-180
         public static double angleOffset = angleOffsetC;  
         public static final SwerveModuleConstants constants = 
             new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset, angleOffsetP);
@@ -121,8 +121,8 @@ public final class SwerveConstants {
         public static final int driveMotorID = CanIDs.driveMotor3;
         public static final int angleMotorID = CanIDs.angleMotor3;
         public static final int canCoderID = 33;
-        public static final double angleOffsetP = 309.11;
-        public static final double angleOffsetC = 74.8828;
+        public static final double angleOffsetP = 306.5625; //original value 306.73828 and 306.914
+        public static final double angleOffsetC = 74.531; //original value 74.8828 and 74.44335
         public static double angleOffset = angleOffsetC; 
         public static final SwerveModuleConstants constants = 
             new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset, angleOffsetP);
